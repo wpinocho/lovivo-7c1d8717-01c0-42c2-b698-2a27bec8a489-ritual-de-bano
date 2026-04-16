@@ -19,6 +19,10 @@ export default {
 		},
 		extend: {
 			fontFamily: {
+				// Lunita brand fonts
+				'display': ['"Cormorant Garamond"', '"Playfair Display"', 'Georgia', 'serif'],
+				'body': ['Inter', 'sans-serif'],
+				// Legacy / shadcn preloaded
 				'dm-sans': ['"DM Sans"', 'sans-serif'],
 				'inter': ['Inter', 'sans-serif'],
 				'lato': ['Lato', 'sans-serif'],
@@ -69,6 +73,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Lunita brand palette
+				brand: {
+					cream: 'hsl(var(--brand-cream))',
+					oat: 'hsl(var(--brand-oat))',
+					sage: 'hsl(var(--brand-sage))',
+					blue: 'hsl(var(--brand-blue))',
+					warm: 'hsl(var(--brand-warm))',
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -87,25 +99,22 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-8px)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 4s ease-in-out infinite',
 			}
 		}
 	},

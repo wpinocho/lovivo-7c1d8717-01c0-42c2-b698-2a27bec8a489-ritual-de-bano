@@ -1,14 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { useLocation } from "react-router-dom"
 import { useInView } from "react-intersection-observer"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { EcommerceTemplate } from "@/templates/EcommerceTemplate"
-import { ShoppingCart, ArrowLeft, Plus, Minus, RefreshCw } from "lucide-react"
+import { ShoppingCart, ArrowLeft, Package, Truck, Check, ChevronDown, ChevronUp } from "lucide-react"
 import { Link } from "react-router-dom"
 import { cn } from "@/lib/utils"
 import {
@@ -18,86 +13,149 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel"
-
-import type { Product, ProductVariant, SellingPlan } from "@/lib/supabase"
-import { VolumeBadge } from "@/components/ui/VolumeBadge"
-import { BOGOLabel } from "@/components/ui/BOGOLabel"
-import { intervalLabel } from "@/lib/subscription-utils"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import ProductExpressCheckout from "@/components/ProductExpressCheckout"
 
 /**
- * EDITABLE UI COMPONENT - ProductPageUI
- * 
- * Este componente solo maneja la presentación de la página de producto.
- * Recibe toda la lógica como props del HeadlessProduct.
- * 
- * PUEDES MODIFICAR LIBREMENTE:
- * - Colores, temas, estilos
- * - Textos e idioma
- * - Layout y estructura visual
- * - Header y navegación
- * - Animaciones y efectos
- * - Agregar features visuales (zoom de imagen, etc.)
+ * LUNITA — ProductPageUI
+ *
+ * Premium PDP for the Ritual de Baño Lechoso.
+ * - Custom pricing cards pre-selecting 2 Cajas by default
+ * - Inline benefits, how-to, FAQ, upsell
  */
 
 interface ProductPageUIProps {
   logic: {
-    // Product data
     product: any
     loading: boolean
     notFound: boolean
-    
-    // Selection state
     selected: Record<string, string>
     quantity: number
-    
-    // Calculated values
     matchingVariant: any
     currentPrice: number
     currentCompareAt: number | null
     currentImage: string | null
     inStock: boolean
-    
-    // Handlers
     handleOptionSelect: (optionName: string, value: string) => void
     handleQuantityChange: (quantity: number) => void
     handleAddToCart: () => void
     handleNavigateBack: () => void
+    handleBuyNow: () => void
     isOptionValueAvailable: (optionName: string, value: string) => boolean
-    
-    // Any other properties that might come from HeadlessProduct
+    formatMoney: (amount: number) => string
+    displayImages?: string[]
     [key: string]: any
   }
 }
+
+const paqueteDetails: Record<string, {
+  price: number
+  sachets: string
+  shipping: string
+  badge: string | null
+  featured: boolean
+  usp: string
+}> = {
+  '1 Caja': {
+    price: 399,
+    sachets: '6 sobres · 1 caja',
+    shipping: '+ envío',
+    badge: null,
+    featured: false,
+    usp: 'Perfecta para empezar el ritual.',
+  },
+  '2 Cajas': {
+    price: 699,
+    sachets: '12 sobres · 2 cajas',
+    shipping: '+ envío',
+    badge: 'Más elegida',
+    featured: true,
+    usp: 'Cubre todo un mes de ritual nocturno.',
+  },
+  '3 Cajas': {
+    price: 899,
+    sachets: '18 sobres · 3 cajas',
+    shipping: 'Envío gratis',
+    badge: 'Mejor valor',
+    featured: false,
+    usp: 'Para tener siempre a la mano. Con envío gratis.',
+  },
+}
+
+const pdpBenefits = [
+  { icon: '◯', text: 'Agua lechosa suave y reconfortante' },
+  { icon: '◯', text: 'Ritual nocturno especial para tu bebé' },
+  { icon: '◯', text: 'Sin colorantes artificiales' },
+  { icon: '◯', text: 'Sobre monodosis — dosis exacta cada vez' },
+  { icon: '◯', text: 'Fragancia suave y delicada' },
+  { icon: '◯', text: 'Diseñado para la piel del bebé' },
+]
+
+const pdpSteps = [
+  { num: '01', title: 'Abre el sobre', desc: 'Un solo sobre por baño. Fácil de abrir mientras preparas la tina.' },
+  { num: '02', title: 'Agrégalo al agua', desc: 'Viértelo mientras llenas la tina y observa cómo el agua se transforma.' },
+  { num: '03', title: 'Disfruta el ritual', desc: 'Baña a tu bebé con calma. Un momento suave para cerrar el día.' },
+]
+
+const pdpFaqs = [
+  { q: '¿Para qué edad está pensado?', a: 'Para bebés desde recién nacidos. Te recomendamos observar la piel de tu bebé las primeras veces, como con cualquier producto nuevo.' },
+  { q: '¿Cada cuánto se puede usar?', a: 'En cada baño del bebé. Muchas familias lo incorporan en su rutina nocturna diaria o algunos días a la semana.' },
+  { q: '¿Cuánto tiempo tarda en llegar?', a: 'Los pedidos se procesan en 1-2 días hábiles. Entrega en 3-7 días hábiles a toda la República Mexicana.' },
+  { q: '¿Tiene aroma?', a: 'Sí, una fragancia muy suave y delicada — no invasiva. Pensada para acompañar el ritual sin ser la protagonista.' },
+]
 
 export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [expressAvailable, setExpressAvailable] = useState(false)
   const { ref: ctaRef, inView: ctaInView } = useInView({ threshold: 0 })
-  
-  // Current displayed image (selected thumbnail or variant image or first image)
-  const displayImage = selectedImage || logic.displayImages?.[0] || logic.currentImage || "/placeholder.svg"
-  
-  // Reset selected image when variant changes
+  const initialized = useRef(false)
+  const location = useLocation()
+
+  // Pre-select variant based on URL param or default to '2 Cajas'
+  useEffect(() => {
+    if (!initialized.current && logic.product?.options) {
+      const hasPaquete = logic.product.options.some((o: any) => o.name === 'Paquete')
+      if (hasPaquete) {
+        initialized.current = true
+        const params = new URLSearchParams(location.search)
+        const p = params.get('p')
+        if (p === '1') {
+          logic.handleOptionSelect('Paquete', '1 Caja')
+        } else if (p === '3') {
+          logic.handleOptionSelect('Paquete', '3 Cajas')
+        } else {
+          logic.handleOptionSelect('Paquete', '2 Cajas')
+        }
+      }
+    }
+  }, [logic.product]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Reset image on variant change
   useEffect(() => {
     setSelectedImage(null)
   }, [logic.matchingVariant])
-  
-  // Scroll to top when component mounts
+
+  // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0)
+  }, [])
+
+  const displayImage = selectedImage || logic.displayImages?.[0] || logic.currentImage || '/placeholder.svg'
+  const paqueteOption = logic.product?.options?.find((o: any) => o.name === 'Paquete')
+  const selectedPaquete = logic.selected?.['Paquete']
 
   if (logic.loading) {
     return (
       <EcommerceTemplate>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <Skeleton className="aspect-square rounded-lg" />
-          <div className="space-y-4">
-            <Skeleton className="h-8 w-3/4" />
-            <Skeleton className="h-4 w-1/2" />
-            <Skeleton className="h-20 w-full" />
-            <Skeleton className="h-10 w-32" />
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <Skeleton className="aspect-square rounded-sm" />
+            <div className="space-y-5">
+              <Skeleton className="h-10 w-3/4" />
+              <Skeleton className="h-5 w-1/2" />
+              <Skeleton className="h-32 w-full" />
+              <Skeleton className="h-12 w-full" />
+            </div>
           </div>
         </div>
       </EcommerceTemplate>
@@ -107,15 +165,16 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
   if (logic.notFound) {
     return (
       <EcommerceTemplate>
-        <div className="text-center py-16">
-            <h1 className="text-4xl font-bold mb-4">Producto no encontrado</h1>
-            <p className="text-muted-foreground mb-8">El producto que buscas no existe o ha sido eliminado.</p>
-            <Button asChild>
-              <Link to="/">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Volver al inicio
-              </Link>
-            </Button>
+        <div className="text-center py-24">
+          <h1 className="font-display text-4xl font-light mb-4 text-foreground">Producto no encontrado</h1>
+          <p className="font-body text-foreground/55 mb-8">El producto que buscas no existe o ha sido eliminado.</p>
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 font-body text-sm text-foreground/60 hover:text-foreground transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+            Volver al inicio
+          </Link>
         </div>
       </EcommerceTemplate>
     )
@@ -125,266 +184,197 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
 
   return (
     <EcommerceTemplate hideFloatingCartOnMobile>
-      <button
-        type="button"
-        onClick={logic.handleNavigateBack}
-        className="mb-4 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <ArrowLeft className="h-3.5 w-3.5" />
-        Seguir comprando
-      </button>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Product Images Gallery */}
-        <div className="space-y-4">
-          {/* Main Image - Desktop */}
-          <div className="hidden md:block aspect-square rounded-lg overflow-hidden bg-muted">
-            <img
-              src={displayImage}
-              alt={logic.product.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          
-          {/* Mobile Carousel */}
-          {logic.displayImages && logic.displayImages.length > 1 ? (
-            <div className="md:hidden">
-              <Carousel className="w-full">
-                <CarouselContent>
-                  {logic.displayImages.map((img: string, index: number) => (
-                    <CarouselItem key={index}>
-                      <div className="aspect-square rounded-lg overflow-hidden bg-muted">
-                     <img
-                          src={img}
-                          alt={`${logic.product.title} ${index + 1}`}
-                          loading="lazy"
-                          decoding="async"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="left-2" />
-                <CarouselNext className="right-2" />
-              </Carousel>
-            </div>
-          ) : (
-            <div className="md:hidden aspect-square rounded-lg overflow-hidden bg-muted">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6">
+        {/* Back */}
+        <button
+          type="button"
+          onClick={logic.handleNavigateBack}
+          className="inline-flex items-center gap-1.5 font-body text-sm text-foreground/40 hover:text-foreground transition-colors mb-8"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
+          Volver
+        </button>
+
+        {/* Main grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+
+          {/* ── GALLERY ── */}
+          <div className="space-y-4">
+            {/* Main image — desktop */}
+            <div className="hidden md:block aspect-[4/3] rounded-sm overflow-hidden bg-secondary">
               <img
                 src={displayImage}
                 alt={logic.product.title}
                 className="w-full h-full object-cover"
               />
             </div>
-          )}
-          
-          {/* Thumbnails - Desktop only */}
-          {logic.displayImages && logic.displayImages.length > 1 && (
-            <div className="hidden md:flex gap-2 overflow-x-auto pb-2">
-              {logic.displayImages.map((img: string, index: number) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedImage(img)}
-                  className={cn(
-                    "flex-shrink-0 w-16 h-16 rounded-md overflow-hidden border-2 transition-all",
-                    (selectedImage === img || (!selectedImage && logic.currentImage === img) || (!selectedImage && !logic.currentImage && index === 0))
-                      ? "border-primary ring-2 ring-primary/20" 
-                      : "border-transparent hover:border-muted-foreground/30"
-                  )}
-                >
-                  <img
-                    src={img}
-                    alt={`${logic.product.title} miniatura ${index + 1}`}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                  />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
 
-        {/* Product Details */}
-        <div className="space-y-6">
-          <div>
-            <h1 className="text-3xl font-bold">{logic.product.title}</h1>
-            <div className="flex items-center gap-4 mt-2">
-              <span className="text-2xl font-bold">
-                {logic.formatMoney(logic.currentPrice)}
-              </span>
-              {logic.currentCompareAt && logic.currentCompareAt > logic.currentPrice && (
-                <span className="text-lg text-muted-foreground line-through">
-                  {logic.formatMoney(logic.currentCompareAt)}
-                </span>
-              )}
-            </div>
-            {/* Price rule badges */}
-            {logic.product?.id && (
-              <div className="flex flex-wrap gap-2 mt-3">
-                <VolumeBadge productId={logic.product.id} />
-                <BOGOLabel productId={logic.product.id} />
+            {/* Mobile carousel */}
+            {logic.displayImages && logic.displayImages.length > 1 ? (
+              <div className="md:hidden">
+                <Carousel className="w-full">
+                  <CarouselContent>
+                    {logic.displayImages.map((img: string, idx: number) => (
+                      <CarouselItem key={idx}>
+                        <div className="aspect-[4/3] rounded-sm overflow-hidden bg-secondary">
+                          <img src={img} alt={`${logic.product.title} ${idx + 1}`} loading="lazy" className="w-full h-full object-cover" />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="left-2" />
+                  <CarouselNext className="right-2" />
+                </Carousel>
+              </div>
+            ) : (
+              <div className="md:hidden aspect-[4/3] rounded-sm overflow-hidden bg-secondary">
+                <img src={displayImage} alt={logic.product.title} className="w-full h-full object-cover" />
+              </div>
+            )}
+
+            {/* Thumbnails — desktop */}
+            {logic.displayImages && logic.displayImages.length > 1 && (
+              <div className="hidden md:flex gap-2 overflow-x-auto pb-1">
+                {logic.displayImages.map((img: string, idx: number) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setSelectedImage(img)}
+                    className={cn(
+                      'flex-shrink-0 w-16 h-16 rounded-sm overflow-hidden border transition-all duration-200',
+                      (selectedImage === img || (!selectedImage && idx === 0))
+                        ? 'border-foreground'
+                        : 'border-border hover:border-foreground/30'
+                    )}
+                    aria-label={`Ver imagen ${idx + 1}`}
+                  >
+                    <img src={img} alt="" loading="lazy" className="w-full h-full object-cover" />
+                  </button>
+                ))}
               </div>
             )}
           </div>
 
-          {/* Selling Plan Selector */}
-          {logic.sellingPlans && logic.sellingPlans.length > 0 && (
-            <div className="space-y-2">
-              <Label className="text-base font-medium">Tipo de compra</Label>
-              <div className="space-y-2">
-                {/* One-time purchase option */}
-                <label
-                  className={cn(
-                    "flex items-center justify-between p-3 rounded-lg border-2 cursor-pointer transition-all",
-                    !logic.selectedPlan
-                      ? "border-primary bg-primary/5"
-                      : "border-border hover:border-muted-foreground/30"
-                  )}
-                >
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      name="selling-plan"
-                      checked={!logic.selectedPlan}
-                      onChange={() => logic.setSelectedPlan(null)}
-                      className="w-4 h-4 text-primary"
-                    />
-                    <span className="font-medium">Compra única</span>
-                  </div>
-                  <span className="font-semibold">{logic.formatMoney(logic.currentPrice)}</span>
-                </label>
-
-                {/* Subscription options */}
-                {logic.sellingPlans.map((plan: SellingPlan) => {
-                  const subPrice = logic.subscriptionPrice && logic.selectedPlan?.id === plan.id
-                    ? logic.subscriptionPrice
-                    : (plan.discount_type === 'percentage' && plan.discount_value
-                        ? logic.currentPrice * (1 - plan.discount_value / 100)
-                        : plan.discount_type === 'fixed' && plan.discount_value
-                          ? Math.max(0, logic.currentPrice - plan.discount_value)
-                          : logic.currentPrice)
-                  
-                  return (
-                    <label
-                      key={plan.id}
-                      className={cn(
-                        "flex items-center justify-between p-3 rounded-lg border-2 cursor-pointer transition-all",
-                        logic.selectedPlan?.id === plan.id
-                          ? "border-primary bg-primary/5"
-                          : "border-border hover:border-muted-foreground/30"
-                      )}
-                    >
-                      <div className="flex items-center gap-3">
-                        <input
-                          type="radio"
-                          name="selling-plan"
-                          checked={logic.selectedPlan?.id === plan.id}
-                          onChange={() => logic.setSelectedPlan(plan)}
-                          className="w-4 h-4 text-primary"
-                        />
-                        <div>
-                          <span className="font-medium">{plan.name}</span>
-                          {plan.discount_value && plan.discount_value > 0 && (
-                            <span className="ml-2 text-xs text-primary font-medium">
-                              -{plan.discount_value}{plan.discount_type === 'percentage' ? '%' : ''}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <span className="font-semibold">
-                        {logic.formatMoney(subPrice)}/{intervalLabel(plan.interval, plan.interval_count)}
-                      </span>
-                    </label>
-                  )
-                })}
-              </div>
-            </div>
-          )}
-
-          {logic.product.description && (
+          {/* ── PRODUCT INFO ── */}
+          <div className="space-y-8">
+            {/* Title */}
             <div>
-              <h3 className="font-semibold mb-2">Descripción</h3>
-              <div 
-                className="text-muted-foreground prose prose-sm max-w-none"
-                dangerouslySetInnerHTML={{ __html: logic.product.description }}
-              />
+              <p className="font-body text-xs tracking-[0.2em] uppercase text-foreground/40 mb-3">
+                Ritual de Baño · Premium · Para Bebé
+              </p>
+              <h1 className="font-display text-4xl lg:text-5xl font-light text-foreground leading-tight mb-3">
+                Ritual de Baño Lechoso para Bebé
+              </h1>
+              <p className="font-body text-sm text-foreground/55 leading-relaxed">
+                Un ritual nocturno suave y premium para la rutina del bebé.
+              </p>
             </div>
-          )}
 
-          {/* Product Options */}
-          {logic.product.options && logic.product.options.length > 0 && (
-            <div className="space-y-4">
-              {logic.product.options.map((option) => (
-                <div key={option.name}>
-                  <Label className="text-base font-medium">{option.name}</Label>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {option.values.map((value) => {
-                      const isSelected = logic.selected[option.name] === value
-                      const isAvailable = logic.isOptionValueAvailable(option.name, value)
-                      
-                      return (
-                        <Button
-                          key={value}
-                          variant={isSelected ? "default" : "outline"}
-                          size="sm"
-                          disabled={!isAvailable}
-                          onClick={() => logic.handleOptionSelect(option.name, value)}
-                          className={!isAvailable ? "opacity-50 cursor-not-allowed" : ""}
-                        >
-                          {value}
-                          {!isAvailable && (
-                            <span className="ml-1 text-xs">(Agotado)</span>
-                          )}
-                        </Button>
-                      )
-                    })}
-                  </div>
+            {/* ── PRICING CARDS ── */}
+            {paqueteOption && (
+              <div>
+                <p className="font-body text-xs font-semibold tracking-[0.15em] uppercase text-foreground/50 mb-4">
+                  Elige tu paquete
+                </p>
+                <div className="space-y-3">
+                  {paqueteOption.values.map((value: string) => {
+                    const details = paqueteDetails[value]
+                    if (!details) return null
+                    const isSelected = selectedPaquete === value
+                    const isAvailable = logic.isOptionValueAvailable('Paquete', value)
+
+                    return (
+                      <button
+                        key={value}
+                        type="button"
+                        disabled={!isAvailable}
+                        onClick={() => logic.handleOptionSelect('Paquete', value)}
+                        className={cn(
+                          'w-full text-left rounded-sm border transition-all duration-200 px-5 py-4 relative',
+                          isSelected
+                            ? 'border-foreground bg-foreground text-background'
+                            : 'border-border bg-card hover:border-foreground/40',
+                          !isAvailable && 'opacity-40 cursor-not-allowed'
+                        )}
+                        style={{ borderRadius: '4px' }}
+                        aria-pressed={isSelected}
+                      >
+                        {/* Badge */}
+                        {details.badge && (
+                          <span
+                            className={cn(
+                              'absolute -top-2.5 right-4 px-3 py-0.5 text-[10px] font-body font-bold tracking-[0.1em] uppercase rounded-full',
+                              isSelected
+                                ? 'bg-background text-foreground'
+                                : 'bg-accent/60 text-foreground'
+                            )}
+                          >
+                            {details.badge}
+                          </span>
+                        )}
+
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            {/* Radio circle */}
+                            <div className={cn(
+                              'w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0',
+                              isSelected ? 'border-background' : 'border-foreground/30'
+                            )}>
+                              {isSelected && (
+                                <div className="w-2 h-2 rounded-full bg-background" />
+                              )}
+                            </div>
+                            <div>
+                              <p className={cn(
+                                'font-body text-sm font-semibold',
+                                isSelected ? 'text-background' : 'text-foreground'
+                              )}>
+                                {value}
+                              </p>
+                              <p className={cn(
+                                'font-body text-xs mt-0.5',
+                                isSelected ? 'text-background/65' : 'text-foreground/45'
+                              )}>
+                                {details.sachets}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="text-right">
+                            <p className={cn(
+                              'font-display text-xl font-light',
+                              isSelected ? 'text-background' : 'text-foreground'
+                            )}>
+                              ${details.price.toLocaleString('es-MX')} MXN
+                            </p>
+                            <p className={cn(
+                              'font-body text-[11px] mt-0.5 flex items-center gap-1 justify-end',
+                              isSelected ? 'text-background/60' : 'text-foreground/45',
+                              details.shipping === 'Envío gratis' && !isSelected && 'text-foreground font-semibold'
+                            )}>
+                              <Truck className="h-3 w-3" aria-hidden="true" />
+                              {details.shipping}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* USP text when selected */}
+                        {isSelected && (
+                          <p className="font-body text-xs text-background/60 mt-3 pl-7">
+                            {details.usp}
+                          </p>
+                        )}
+                      </button>
+                    )
+                  })}
                 </div>
-              ))}
-            </div>
-          )}
-
-          {/* Quantity and Add to Cart */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-4">
-              <Label htmlFor="quantity" className="text-base font-medium">
-                Cantidad
-              </Label>
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => logic.handleQuantityChange(Math.max(1, logic.quantity - 1))}
-                  disabled={logic.quantity <= 1}
-                >
-                  <Minus className="h-4 w-4" />
-                </Button>
-                <Input
-                  id="quantity"
-                  type="number"
-                  min="1"
-                  value={logic.quantity}
-                  onChange={(e) => logic.handleQuantityChange(parseInt(e.target.value) || 1)}
-                  className="w-20 text-center"
-                />
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => logic.handleQuantityChange(logic.quantity + 1)}
-                >
-                  <Plus className="h-4 w-4" />
-                </Button>
               </div>
-            </div>
+            )}
 
-            <div ref={ctaRef} className="flex flex-col gap-3">
-              {/* Express Checkout (Link, Google Pay, Apple Pay)
-                  Per Stripe UX guidance: place express options ABOVE the
-                  primary CTA, with a clear "or" divider. The block hides
-                  itself entirely when no wallets are available in the
-                  browser (onReady → availablePaymentMethods empty). */}
-              {logic.inStock && logic.canAddToCart && !logic.selectedPlan && (
+            {/* ── ADD TO CART ── */}
+            <div ref={ctaRef} className="space-y-3">
+              {/* Express checkout */}
+              {logic.inStock && !logic.selectedPlan && (
                 <>
                   <ProductExpressCheckout
                     product={logic.product}
@@ -396,92 +386,189 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                   />
                   {expressAvailable && (
                     <div className="flex items-center gap-3">
-                      <Separator className="flex-1" />
-                      <span className="text-xs text-muted-foreground uppercase tracking-wider">o</span>
-                      <Separator className="flex-1" />
+                      <div className="flex-1 border-t border-border" />
+                      <span className="font-body text-xs text-foreground/35 uppercase tracking-wider">o</span>
+                      <div className="flex-1 border-t border-border" />
                     </div>
                   )}
                 </>
               )}
 
-              <Button
+              <button
+                type="button"
                 onClick={logic.handleAddToCart}
                 disabled={!logic.inStock}
-                className="w-full"
-                size="lg"
+                className="w-full flex items-center justify-center gap-2.5 bg-foreground text-background py-4 px-6 font-body text-sm font-semibold tracking-wide hover:bg-foreground/90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200"
+                style={{ borderRadius: '2px' }}
               >
-                <ShoppingCart className="mr-2 h-4 w-4" />
-                {logic.inStock 
-                  ? (logic.selectedPlan 
-                      ? `Suscribirse — ${logic.formatMoney(logic.subscriptionPrice || logic.currentPrice)}/${intervalLabel(logic.selectedPlan.interval, logic.selectedPlan.interval_count)}`
-                      : 'Agregar al carrito')
-                  : 'Agotado'}
-              </Button>
+                <ShoppingCart className="h-4 w-4" aria-hidden="true" />
+                {logic.inStock ? 'Agregar al carrito' : 'Agotado'}
+              </button>
 
-              {/* Buy Now as a discreet text link to reduce CTA noise when
-                  Express Checkout is also visible. Falls back to a regular
-                  outline button when no wallets are detected. */}
               {logic.inStock && (
-                <Button
+                <button
+                  type="button"
                   onClick={logic.handleBuyNow}
-                  variant={expressAvailable ? "link" : "outline"}
-                  className={cn("w-full", expressAvailable && "h-auto py-1 text-sm text-muted-foreground hover:text-foreground")}
-                  size={expressAvailable ? "sm" : "lg"}
+                  className={cn(
+                    'w-full flex items-center justify-center font-body text-sm transition-all duration-200 py-3 px-6',
+                    expressAvailable
+                      ? 'text-foreground/50 hover:text-foreground text-xs'
+                      : 'border border-foreground/25 text-foreground hover:border-foreground/60'
+                  )}
+                  style={{ borderRadius: '2px' }}
                 >
                   Comprar ahora
-                </Button>
+                </button>
               )}
+            </div>
 
-              {!logic.inStock && (
-                <Badge variant="secondary" className="w-fit">Agotado</Badge>
-              )}
+            {/* Micro trust signals */}
+            <div className="flex flex-wrap gap-4 font-body text-xs text-foreground/45">
+              <span className="flex items-center gap-1.5">
+                <Check className="h-3.5 w-3.5" aria-hidden="true" />
+                Pago 100% seguro
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Package className="h-3.5 w-3.5" aria-hidden="true" />
+                Empaque premium
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Truck className="h-3.5 w-3.5" aria-hidden="true" />
+                Envío a toda la República
+              </span>
+            </div>
+
+            {/* Benefits list */}
+            <div className="border-t border-border pt-8">
+              <p className="font-body text-xs font-semibold tracking-[0.15em] uppercase text-foreground/40 mb-5">
+                Por qué te va a encantar
+              </p>
+              <ul className="space-y-3">
+                {pdpBenefits.map((b, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="text-accent-foreground/40 mt-0.5 text-xs flex-shrink-0">✦</span>
+                    <span className="font-body text-sm text-foreground/65">{b.text}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
+
+        {/* ── HOW TO USE ── */}
+        <div className="mt-20 lg:mt-28 max-w-4xl">
+          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/40 mb-4">
+            Muy sencillo
+          </p>
+          <h2 className="font-display text-3xl lg:text-4xl font-light text-foreground mb-10">
+            Así se usa el ritual.
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            {pdpSteps.map((step) => (
+              <div key={step.num} className="flex gap-5 items-start">
+                <span className="font-display text-4xl font-light text-foreground/12 leading-none flex-shrink-0">
+                  {step.num}
+                </span>
+                <div>
+                  <h3 className="font-display text-lg font-medium text-foreground mb-2">{step.title}</h3>
+                  <p className="font-body text-sm text-foreground/55 leading-relaxed">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── UPSELL — 3 Cajas ── */}
+        {selectedPaquete !== '3 Cajas' && (
+          <div className="mt-16 lg:mt-20 bg-secondary/40 rounded-sm p-8 lg:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
+            style={{ borderRadius: '6px' }}
+          >
+            <div>
+              <p className="font-body text-xs tracking-[0.15em] uppercase text-foreground/40 mb-2">Más valor para tu rutina</p>
+              <h3 className="font-display text-2xl font-light text-foreground mb-1">
+                3 Cajas — $899 con envío gratis
+              </h3>
+              <p className="font-body text-sm text-foreground/55">
+                La opción ideal para tener siempre a la mano. Sin preocuparte por reordenar pronto.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => logic.handleOptionSelect('Paquete', '3 Cajas')}
+              className="flex-shrink-0 inline-flex items-center gap-2 border border-foreground/30 text-foreground px-6 py-3 font-body text-sm font-medium hover:bg-foreground hover:text-background transition-all duration-200 whitespace-nowrap"
+              style={{ borderRadius: '2px' }}
+            >
+              Ver 3 Cajas
+            </button>
+          </div>
+        )}
+
+        {/* ── FAQ ── */}
+        <div className="mt-16 lg:mt-20 max-w-2xl">
+          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/40 mb-4">
+            Preguntas frecuentes
+          </p>
+          <h2 className="font-display text-3xl font-light text-foreground mb-8">
+            Todo lo que necesitas saber.
+          </h2>
+          <Accordion type="single" collapsible className="space-y-2">
+            {pdpFaqs.map((faq, i) => (
+              <AccordionItem
+                key={i}
+                value={`pdp-faq-${i}`}
+                className="border border-border px-5 rounded-sm data-[state=open]:border-foreground/20 transition-all bg-card"
+                style={{ borderRadius: '4px' }}
+              >
+                <AccordionTrigger className="font-body text-sm font-medium text-foreground hover:no-underline py-4 text-left">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="font-body text-sm text-foreground/55 leading-relaxed pb-4">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
       </div>
-      {/* Sticky Add to Cart Bar */}
+
+      {/* ── STICKY ADD TO CART BAR ── */}
       {logic.inStock && (
         <div
           className={cn(
-            "fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-t shadow-lg transition-transform duration-300 ease-out pb-[env(safe-area-inset-bottom)]",
-            ctaInView ? "translate-y-full" : "translate-y-0"
+            'fixed bottom-0 left-0 right-0 z-50 bg-background/97 backdrop-blur-sm border-t border-border shadow-lg transition-transform duration-300 ease-out pb-[env(safe-area-inset-bottom)]',
+            ctaInView ? 'translate-y-full' : 'translate-y-0'
           )}
         >
-          <div className="max-w-7xl mx-auto px-4 py-3">
-            {/* Desktop */}
-            <div className="hidden md:flex items-center justify-between gap-4">
-              <div className="flex items-center gap-4 min-w-0">
-                <h3 className="font-semibold truncate">{logic.product.title}</h3>
-                <span className="font-bold text-lg shrink-0">
-                  {logic.formatMoney(logic.currentPrice)}
-                </span>
+          <div className="max-w-7xl mx-auto px-6 py-3">
+            <div className="flex items-center justify-between gap-4">
+              <div className="min-w-0">
+                <p className="font-display text-base font-medium text-foreground truncate">
+                  Ritual de Baño Lechoso
+                </p>
+                {selectedPaquete && (
+                  <p className="font-body text-xs text-foreground/45">
+                    {selectedPaquete} · ${paqueteDetails[selectedPaquete]?.price.toLocaleString('es-MX')} MXN
+                  </p>
+                )}
               </div>
-              <div className="flex items-center gap-3 shrink-0">
-                <Button onClick={logic.handleAddToCart} size="default">
-                  <ShoppingCart className="mr-2 h-4 w-4" />
-                  Agregar al carrito
-                </Button>
-                <Button onClick={logic.handleBuyNow} variant="outline" size="default">
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <button
+                  type="button"
+                  onClick={logic.handleAddToCart}
+                  className="flex items-center gap-2 bg-foreground text-background px-5 py-2.5 font-body text-sm font-semibold hover:bg-foreground/90 transition-colors"
+                  style={{ borderRadius: '2px' }}
+                >
+                  <ShoppingCart className="h-4 w-4" aria-hidden="true" />
+                  Agregar
+                </button>
+                <button
+                  type="button"
+                  onClick={logic.handleBuyNow}
+                  className="border border-foreground/25 text-foreground px-5 py-2.5 font-body text-sm hover:border-foreground/50 transition-colors hidden sm:flex items-center"
+                  style={{ borderRadius: '2px' }}
+                >
                   Comprar ahora
-                </Button>
-              </div>
-            </div>
-            {/* Mobile */}
-            <div className="md:hidden space-y-2">
-              <div className="flex items-center justify-between gap-2">
-                <h3 className="font-semibold text-sm truncate">{logic.product.title}</h3>
-                <span className="font-bold shrink-0">
-                  {logic.formatMoney(logic.currentPrice)}
-                </span>
-              </div>
-              <div className="flex gap-2">
-                <Button onClick={logic.handleAddToCart} size="sm" className="flex-1">
-                  <ShoppingCart className="mr-1 h-3.5 w-3.5" />
-                  Agregar al carrito
-                </Button>
-                <Button onClick={logic.handleBuyNow} variant="outline" size="sm" className="flex-1">
-                  Comprar ahora
-                </Button>
+                </button>
               </div>
             </div>
           </div>

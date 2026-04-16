@@ -1,150 +1,55 @@
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Search } from 'lucide-react';
-import { ProductCard } from '@/components/ProductCard';
-import { CollectionCard } from '@/components/CollectionCard';
-import { FloatingCart } from '@/components/FloatingCart';
-import { NewsletterSection } from '@/components/NewsletterSection';
-import { EcommerceTemplate } from '@/templates/EcommerceTemplate';
-import { BundleCard } from '@/components/ui/BundleCard';
-import { useBundles } from '@/hooks/useBundles';
-import type { UseIndexLogicReturn } from '@/components/headless/HeadlessIndex';
+import { EcommerceTemplate } from '@/templates/EcommerceTemplate'
+import { HeroSection } from '@/components/lunita/HeroSection'
+import { HowItWorksSection } from '@/components/lunita/HowItWorksSection'
+import { WhyDifferentSection } from '@/components/lunita/WhyDifferentSection'
+import { BenefitsSection } from '@/components/lunita/BenefitsSection'
+import { OfferSection } from '@/components/lunita/OfferSection'
+import { IngredientsSection } from '@/components/lunita/IngredientsSection'
+import { SocialProofSection } from '@/components/lunita/SocialProofSection'
+import { FAQSection } from '@/components/lunita/FAQSection'
+import { ClosingCTASection } from '@/components/lunita/ClosingCTASection'
+import type { UseIndexLogicReturn } from '@/components/headless/HeadlessIndex'
 
 /**
- * EDITABLE UI - IndexUI
+ * LUNITA — Homepage Landing
  * 
- * Interfaz completamente editable para la página principal.
- * El agente IA puede modificar colores, textos, layout, etc.
+ * Single-product hero landing page for the premium baby bath ritual brand.
+ * 100% conversion-focused. Each section drives toward the 2-box offer.
  */
 
 interface IndexUIProps {
-  logic: UseIndexLogicReturn;
+  logic: UseIndexLogicReturn
 }
 
 export const IndexUI = ({ logic }: IndexUIProps) => {
-  const {
-    collections,
-    loading,
-    loadingCollections,
-    selectedCollectionId,
-    filteredProducts,
-    handleViewCollectionProducts,
-    handleShowAllProducts
-  } = logic;
-
-  const { bundles, loading: loadingBundles } = useBundles();
-
   return (
-    <EcommerceTemplate
-      showCart={true}>
+    <EcommerceTemplate showCart={true} layout="full-width" className="!py-0">
+      {/* 1. Hero */}
+      <HeroSection />
 
-      {/* Hero Section */}
-      <section className="bg-background py-12 border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            Descubre Nuestros Productos
-          </h1>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            ​
-          </p>
-        </div>
-      </section>
+      {/* 2. Cómo funciona */}
+      <HowItWorksSection />
 
-      {/* Collections Section */}
-      {loadingCollections ?
-      <section id="collections" className="py-12 bg-muted/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="h-8 w-48 bg-muted rounded animate-pulse mb-8"></div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {[...Array(4)].map((_, i) =>
-            <div key={i} className="bg-muted rounded-lg animate-pulse" style={{ aspectRatio: '4/3' }}></div>
-            )}
-            </div>
-          </div>
-        </section> :
-      collections.length > 0 ?
-      <section id="collections" className="py-12 bg-muted/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-foreground mb-8">
-              Nuestras Colecciones
-            </h2>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {collections.map((collection, index) =>
-            <CollectionCard
-              key={collection.id}
-              collection={collection}
-              onViewProducts={handleViewCollectionProducts}
-              eager={index === 0} />
+      {/* 3. Por qué es distinto */}
+      <WhyDifferentSection />
 
-            )}
-            </div>
-          </div>
-        </section> :
-      null}
+      {/* 4. Beneficios principales */}
+      <BenefitsSection />
 
-      {/* Bundles Section */}
-      {!loadingBundles && bundles.length > 0 &&
-      <section id="bundles" className="py-12 bg-muted/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-foreground mb-8">
-              Paquetes Especiales
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {bundles.map((bundle) =>
-            <BundleCard key={bundle.id} bundle={bundle} />
-            )}
-            </div>
-          </div>
-        </section>
-      }
+      {/* 5. Oferta destacada — main conversion section */}
+      <OfferSection />
 
-      {/* Products Section */}
-      <section id="products" className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-foreground">
-              {selectedCollectionId ?
-              `Productos de ${collections.find((c) => c.id === selectedCollectionId)?.name || 'Colección'}` :
-              'Productos Destacados'
-              }
-            </h2>
-            {selectedCollectionId &&
-            <Button
-              variant="outline"
-              onClick={handleShowAllProducts}>
+      {/* 6. Ingredientes / confianza */}
+      <IngredientsSection />
 
-                Ver Todos los Productos
-              </Button>
-            }
-          </div>
-          
-          {loading ?
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {[...Array(8)].map((_, i) =>
-            <div key={i} className="bg-muted rounded-lg h-80 animate-pulse"></div>
-            )}
-            </div> :
-          filteredProducts.length > 0 ?
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {filteredProducts.map((product) =>
-            <ProductCard key={product.id} product={product} />
-            )}
-            </div> :
+      {/* 7. Social proof */}
+      <SocialProofSection />
 
-          <div className="text-center py-12">
-              <p className="text-muted-foreground">
-                No hay productos disponibles.
-              </p>
-            </div>
-          }
-        </div>
-      </section>
+      {/* 8. FAQ */}
+      <FAQSection />
 
-      {/* Newsletter Section */}
-      <NewsletterSection />
-
-      <FloatingCart />
-    </EcommerceTemplate>);
-
-};
+      {/* 9. Cierre final */}
+      <ClosingCTASection />
+    </EcommerceTemplate>
+  )
+}
