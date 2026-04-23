@@ -86,6 +86,62 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 
 ---
 
+## 🔧 PENDING: Mobile UX Overhaul (ProductPageUI.tsx)
+
+### Problems Identified (from user screenshots)
+1. **Too much gap above image on mobile** — container has `py-4` + back button `mb-4` (~66px before image)
+2. **Title too large on mobile** — `text-4xl` wraps awkwardly on small screens
+3. **Benefits 2-col grid is too cramped** — cards are tiny, text overflows, looks terrible
+4. **"Así se usa" section** — 3 stacked tall cards on mobile = very long, no horizontal browsing
+5. **Editorial strip** — 400px height + `text-3xl` quote feels too heavy on mobile
+
+### Implementation Plan
+
+#### 1. Hero Section — Eliminate gap above image
+- Change outer container: `py-4` → `pt-0 pb-4` on mobile (class: `pt-0 py-0 lg:py-4`)
+- Hide the `← Volver` button on mobile (`hidden lg:inline-flex`)
+- Add a floating back button OVERLAID on the image (absolute positioned, top-left of carousel):
+  ```
+  <button className="absolute top-3 left-3 z-10 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center">
+    <ArrowLeft className="h-4 w-4" />
+  </button>
+  ```
+- The mobile carousel wrapper (`-mx-6`) needs `relative` positioning for the overlay button
+- Change carousel aspect ratio on mobile from `aspect-square` to `aspect-[4/5]` — taller image fills more screen, feels more immersive
+
+#### 2. Title & Info — Tighter, cleaner on mobile
+- Title: `text-3xl lg:text-5xl` (was `text-4xl lg:text-5xl`)
+- Product info `space-y-7` → `space-y-5 lg:space-y-7`
+- Stars row: add `mt-4` only on mobile to give breathing room from image edge
+
+#### 3. Benefits Grid — Redesign for mobile
+Currently: 2-col card grid (cramped). 
+New mobile design: single column with horizontal icon rows (icon circle + title + desc in one line)
+- On mobile (`grid-cols-1`): each item is a horizontal row: `flex items-start gap-3 py-3 border-b border-border/40`
+  - Icon on left (same `w-8 h-8 bg-accent/40 rounded-full`)
+  - Title `font-semibold text-sm` + desc `text-xs text-foreground/55` on right
+  - No card border/background — cleaner list style
+- On desktop (`sm:grid-cols-2`): keep current card style with border + bg
+- Implementation: use `hidden sm:grid` for desktop cards, `sm:hidden` for mobile list
+
+#### 4. "Así se usa" Section — Horizontal carousel on mobile
+Currently: `grid-cols-1 sm:grid-cols-3` — 3 stacked cards.
+New mobile: Embla carousel (already installed) — horizontal swipe, peek next card.
+- Mobile: wrap steps in a `Carousel` with `CarouselContent` + `CarouselItem basis-[80%]` (peek effect)
+- Desktop: keep `grid grid-cols-3`
+- Use `hidden sm:grid` for desktop grid, `sm:hidden` for mobile carousel
+- Reduce image ratio on cards to `aspect-[3/2]` for better proportion
+
+#### 5. Editorial Lifestyle Strip — Responsive height + font
+- Height: `h-[260px] lg:h-[400px]` (was fixed 400px)
+- Quote text: `text-2xl lg:text-5xl` (was `text-3xl lg:text-5xl`)
+- Padding: `px-6 lg:px-20` (was `px-8 lg:px-20`)
+
+### Files to Modify
+- `src/pages/ui/ProductPageUI.tsx` — all changes above
+
+---
+
 ## Known Issues / Notes
 - Product slug was auto-generated as `ritual-de-bao-lechoso-para-beb` (special chars stripped)
 - All internal CTAs reference this slug
