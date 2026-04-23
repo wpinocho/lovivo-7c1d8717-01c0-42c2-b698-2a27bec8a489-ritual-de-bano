@@ -2,8 +2,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 
 const faqs = [
   {
-    q: '¿Qué es el Ritual de Baño Lechoso para Bebé?',
-    a: 'Es un sobre monodosis que transforma el agua del baño de tu bebé en un baño lechoso, suave y especial. Cada caja contiene 6 sobres — uno por baño — pensados para convertir el bath time en un ritual nocturno premium.',
+    q: '¿Qué es el Ritual de Baño para una Noche en Paz?',
+    a: 'Es un sobre monodosis que transforma el agua del baño de tu bebé en un baño suave, lechoso y especial. Cada caja contiene 6 sobres — uno por baño — pensados para convertir el bath time en un ritual nocturno premium.',
   },
   {
     q: '¿Cómo se usa?',
@@ -15,7 +15,11 @@ const faqs = [
   },
   {
     q: '¿Cada cuánto se puede usar?',
-    a: 'Puede usarse en cada baño del bebé. Muchas familias lo incorporan en su rutina nocturna diaria o algunos días a la semana, como cierre especial del día.',
+    a: 'Los pediatras recomiendan bañar a los recién nacidos 2-3 veces por semana — es lo ideal para su piel delicada. Con el tiempo, muchas familias aumentan la frecuencia porque el baño se convierte en la señal perfecta de que es hora de dormir. Lunita puede usarse en cada baño, sin importar la frecuencia que funcione mejor para tu familia.',
+  },
+  {
+    q: '¿Con qué frecuencia debo bañar a mi bebé recién nacido?',
+    a: 'Los pediatras recomiendan bañar a los recién nacidos 2 o 3 veces por semana — su piel es tan delicada que no necesita más. Con el tiempo, muchas familias aumentan la frecuencia porque el baño se convierte en la señal perfecta de que llegó la hora de dormir. Lo más importante no es cuántas veces, sino que sea un momento consistente, calmado y especial. Eso es exactamente lo que el Ritual de Baño de Lunita está diseñado para hacer.',
   },
   {
     q: '¿El producto tiene aroma?',
@@ -27,7 +31,7 @@ const faqs = [
   },
   {
     q: '¿Cuál opción me conviene más?',
-    a: 'La opción de 2 cajas ($699 + envío) es la más elegida: cubre aproximadamente un mes de ritual y tiene el mejor balance de precio por sobre. La de 3 cajas ($899 con envío gratis) es ideal si quieres siempre tener a la mano.',
+    a: 'La opción de 2 cajas ($699 + envío) es la más elegida: tienes para varias semanas de ritual y tiene el mejor balance de precio por sobre. La de 3 cajas ($899 con envío gratis) es ideal si quieres siempre tener a la mano.',
   },
 ]
 

@@ -57,7 +57,7 @@ const paqueteDetails: Record<string, {
     shipping: '+ envío',
     badge: null,
     featured: false,
-    usp: 'Para descubrir si el ritual es para ti. Una semana de baños perfectos.',
+    usp: 'Para descubrir si el ritual es para ti.',
   },
   '2 Cajas': {
     price: 699,
@@ -65,7 +65,7 @@ const paqueteDetails: Record<string, {
     shipping: '+ envío',
     badge: 'Más elegida',
     featured: true,
-    usp: 'Un mes completo de ritual nocturno. El favorito de las mamás primerizas.',
+    usp: 'El favorito de las mamás primerizas.',
   },
   '3 Cajas': {
     price: 899,
@@ -134,7 +134,7 @@ const pdpReviews = [
 const pdpFaqs = [
   { q: '¿Para qué edad está pensado?', a: 'Para bebés desde recién nacidos. Te recomendamos observar la piel de tu bebé las primeras veces, como con cualquier producto nuevo.' },
   { q: '¿Ayuda al bebé a dormir?', a: 'No es un medicamento, pero sí un aliado poderoso para crear una rutina. Muchas mamás nos cuentan que desde que lo usan, el baño se convierte en la señal perfecta para que el bebé entienda que viene la hora de dormir. La constancia del ritual es lo que transforma las noches.' },
-  { q: '¿Cada cuánto se puede usar?', a: 'En cada baño del bebé. Muchas familias lo incorporan en su rutina nocturna diaria o algunos días a la semana.' },
+  { q: '¿Cada cuánto se puede usar?', a: 'Los pediatras recomiendan bañar a los recién nacidos 2-3 veces por semana — es lo ideal para su piel delicada. Con el tiempo, muchas familias lo hacen más seguido porque el baño se convierte en la señal perfecta de que es hora de dormir. Lunita puede usarse en cada baño, sin importar la frecuencia que funcione mejor para tu familia.' },
   { q: '¿Cuánto tiempo tarda en llegar?', a: 'Los pedidos se procesan en 1-2 días hábiles. Entrega en 3-7 días hábiles a toda la República Mexicana.' },
   { q: '¿Tiene aroma?', a: 'Sí, una fragancia muy suave y delicada — no invasiva. Pensada para acompañar el ritual sin ser la protagonista.' },
   { q: '¿Es seguro para piel sensible?', a: 'Absolutamente. Fue formulado específicamente para la piel sensible del bebé — sin sulfatos, sin parabenos, sin colorantes artificiales y con pH neutro.' },

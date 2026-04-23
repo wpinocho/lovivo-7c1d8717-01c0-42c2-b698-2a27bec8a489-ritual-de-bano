@@ -58,40 +58,51 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - `OfferSection.tsx` — 3 pricing cards
 - `IngredientsSection.tsx` — split image + trust attributes
 - `SocialProofSection.tsx` — Garantía + Confianza section
-- `FAQSection.tsx` — accordion FAQ (7 questions)
+- `FAQSection.tsx` — accordion FAQ (8 questions) ✅ updated
 - `ClosingCTASection.tsx` — dark closing CTA section (uses lunita-milky-water.webp at opacity-5 as background texture)
 
-## ProductPageUI.tsx — Current State (CRO Audit v2 ✅)
+## ProductPageUI.tsx — Current State (Copy Audit v3 ✅)
 
 ### Architecture
 - Uses `<EcommerceTemplate layout="full-width">` — removes PageTemplate py-8 wrapper
 - Mobile: image starts IMMEDIATELY below header (zero gap)
 - **Milky texture wrapper**: entire PDP content wrapped in a div with CSS multiple-background trick
 
-### Section Order (updated)
+### Section Order
 1. Hero (Gallery + Product Info)
-2. **Trust Ticker** (NEW ✅) — infinite scroll dark strip with 10 trust badges
+2. **Trust Ticker** — infinite scroll dark strip with 10 trust badges
 3. How To Use (3 steps carousel)
 4. Editorial Lifestyle Strip (full-width image + quote)
 5. Reviews (4 cards)
-6. **Gift Section** (NEW ✅) — baby shower gifting / lunita-box.webp split layout
+6. **Gift Section** — baby shower gifting / lunita-box.webp split layout
 7. Upsell (3 Cajas dark block)
 8. FAQ (6 questions accordion)
-9. **Closing CTA** (NEW ✅) — dark finale section "¿Lista para tu primera noche en paz?"
+9. **Closing CTA** — dark finale section "¿Lista para tu primera noche en paz?"
 10. Sticky Add-to-Cart bar
 
-### CRO Audit Implementations ✅
-- ✅ Trust ticker marquee (`animate-marquee` CSS in index.css)
-- ✅ Gift section (between Reviews + Upsell, uses lunita-box.webp)
-- ✅ Closing CTA dark section (after FAQ, before sticky bar)
-- ✅ Footer tagline fixed: "El Ritual de Baño para una Noche en Paz. Para bebé y para ti."
-- ✅ **Default variant = 2 Cajas** (Goldilocks middle selection — HeadlessProduct.tsx defaults to index 1)
+### Copy — Current State ✅
+**Variant USP copy** (paqueteDetails):
+- `1 Caja`: "Para descubrir si el ritual es para ti." ← cleaned, no time reference
+- `2 Cajas`: "El favorito de las mamás primerizas." ← cleaned, no time reference
+- `3 Cajas`: "Siempre lista para la noche. Sin quedarte sin — incluye envío sin costo."
+
+**pdpFaqs (in ProductPageUI.tsx)** — "¿Cada cuánto se puede usar?" updated with pediatrician 2-3x/week recommendation
+
+## FAQSection.tsx — Current State ✅ (8 questions)
+1. ¿Qué es el Ritual de Baño **para una Noche en Paz**? ← fixed from "Lechoso para Bebé"
+2. ¿Cómo se usa?
+3. ¿Para qué edad está pensado?
+4. ¿Cada cuánto se puede usar? ← updated with 2-3x/week pediatric recommendation + señal de dormir
+5. **¿Con qué frecuencia debo bañar a mi bebé recién nacido?** ← NEW ✅
+6. ¿El producto tiene aroma?
+7. ¿Cuánto tarda en llegar mi pedido?
+8. ¿Cuál opción me conviene más? ← "varias semanas" instead of "un mes"
 
 ## URL Param Convention (PDP)
 - `?p=1` → preselect 1 Caja
 - `?p=2` or no param → preselect 2 Cajas (default)
 - `?p=3` → preselect 3 Cajas
-- Logic in: `src/components/headless/HeadlessProduct.tsx` (useSearchParams + defaultIndex=1 fallback)
+- Logic in: `src/pages/ui/ProductPageUI.tsx` (useSearchParams + default '2 Cajas' fallback)
 
 ## Variant Order Decision (CRO rationale)
 **Keep order 1 → 2 → 3.** The Goldilocks effect is strongest when the target option is in the middle:
