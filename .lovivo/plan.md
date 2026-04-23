@@ -59,9 +59,9 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - `IngredientsSection.tsx` — split image + trust attributes
 - `SocialProofSection.tsx` — Garantía + Confianza section
 - `FAQSection.tsx` — accordion FAQ (7 questions)
-- `ClosingCTASection.tsx` — dark closing CTA section
+- `ClosingCTASection.tsx` — dark closing CTA section (uses lunita-milky-water.webp at opacity-5 as background texture)
 
-## ProductPageUI.tsx — Current State (latest — Mobile Overhaul DONE ✅)
+## ProductPageUI.tsx — Current State
 
 ### Architecture
 - Uses `<EcommerceTemplate layout="full-width">` — removes PageTemplate py-8 wrapper
@@ -75,7 +75,7 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 
 ### Mobile (all fixed ✅)
 1. **Zero gap above image** — `layout="full-width"` removes py-8 + container `pt-0` on mobile + back button hidden on mobile
-2. **Floating back button** — overlaid on image (absolute, top-3 left-3, rounded-full, bg-background/80 backdrop-blur)
+2. **Floating back button** — overlaid on image (absolute, top-3 left-3, rounded-full, bg-background/80 backdrop-blur) — TO BE REMOVED (see pending)
 3. **Taller image ratio** — `aspect-[4/5]` (was `aspect-square`) — more immersive
 4. **Title** — `text-[28px] lg:text-5xl` (was `text-4xl`) — fits cleanly
 5. **Spacing** — `space-y-5 lg:space-y-7` + stars `mt-5 lg:mt-0`
@@ -98,6 +98,47 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - `?p=1` → preselect 1 Caja
 - `?p=2` or no param → preselect 2 Cajas (default)
 - `?p=3` → preselect 3 Cajas
+
+---
+
+## NEXT SESSION — Two improvements for ProductPageUI.tsx
+
+### Fix 1: Remove floating back button on mobile
+The floating `<button>` with `ArrowLeft` that appears at `absolute top-3 left-3 z-10` on the mobile carousel/image is redundant and looks weird next to the carousel arrows.
+- Remove it from BOTH occurrences:
+  1. Inside the `{logic.displayImages && logic.displayImages.length > 1}` block (carousel, lines ~264-271)
+  2. Inside the single-image fallback block (lines ~288-295)
+- The desktop "Volver" text button (hidden lg:inline-flex) should remain.
+
+### Fix 2: Milky/creamy background texture on PDP
+Goal: Give the page a "lechoso" premium feel — matching the brand essence.
+Strategy: Use CSS-only approach (NO extra image HTTP request) for performance.
+
+Implementation:
+- Wrap the entire PDP content (everything after the hero image carousel) in a `relative` div
+- Add a `absolute inset-0 pointer-events-none` child div with:
+  - A radial gradient overlay: `background: radial-gradient(ellipse 120% 60% at 50% 0%, rgba(232,221,207,0.35) 0%, transparent 70%)` — gives a warm milky glow at the top of the content area
+  - OR: use the existing `lunita-milky-water.webp` image at `opacity-[0.04]` as a fixed background texture (same technique as ClosingCTASection but much more subtle)
+
+Recommended approach (best of both worlds):
+1. On the outermost PDP content wrapper (below the hero image), add a `relative` wrapper
+2. Insert `<div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">` containing the milky-water.webp at `opacity-[0.04]` + `object-cover w-full h-full` — this is barely perceptible but adds warmth and brand personality
+3. ALSO add a CSS gradient overlay on top for depth: `bg-gradient-to-b from-secondary/20 via-transparent to-transparent` on the wrapper itself
+
+Alternative (pure CSS, zero images):
+- Add `style={{ background: 'linear-gradient(180deg, #EEE4D6 0%, #F7F2EB 8%, #F7F2EB 100%)' }}` to the product info section — this creates a soft oat-colored top that fades into the normal cream background, giving depth without image requests.
+
+The ClosingCTASection precedent: `bg-foreground` dark section with `opacity-5` milky-water image bg → same technique can be applied inversely on light background.
+
+**Final recommended implementation:**
+1. The main `<EcommerceTemplate>` already renders on `bg-background` (#F7F2EB)
+2. Add a full-page fixed background subtle texture INSIDE the `<EcommerceTemplate>` as a `fixed inset-0 pointer-events-none z-0` div with the milky image at opacity-[0.03] — this is extremely subtle (3% visible) but warms the entire page
+3. Make all other content `relative z-10` as needed
+
+Actually simpler: Just add `bg-[image:url(...)] bg-cover bg-fixed opacity-[0.03]` as an absolute positioned div wrapping the entire `<main>` content area of the PDP. The `bg-fixed` (parallax attachment) gives depth. Since lunita-milky-water.webp is already loaded for the carousel step 02, no extra network request.
+
+### Files to modify
+- `src/pages/ui/ProductPageUI.tsx` — apply both fixes above
 
 ---
 
