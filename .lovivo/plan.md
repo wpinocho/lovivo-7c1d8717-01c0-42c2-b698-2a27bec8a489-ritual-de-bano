@@ -62,12 +62,12 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - `ClosingCTASection.tsx` — dark closing CTA section
 
 ## ProductPageUI.tsx — Current State (latest)
-1. **Sticky gallery** — `lg:sticky lg:top-[80px]` ✅ FIXED (was top-8)
+1. **Sticky gallery** — `lg:sticky lg:top-[80px]` ✅ FIXED
 2. **Grid layout** — `lg:grid-cols-[55%_1fr]` ✅ FIXED (gallery takes 55% width)
-3. **Desktop image** — `aspect-square rounded-lg` ✅ FIXED (was aspect-[4/3] landscape)
-4. **Mobile carousel** — `aspect-square rounded-lg` ✅ FIXED (was aspect-[4/3])
-5. **Thumbnails** — `w-[72px] h-[72px]` ✅ FIXED (was w-16 h-16)
-6. **Container padding** — `py-4` ✅ FIXED (was py-6, reduces dead space above fold)
+3. **Desktop image** — `aspect-square rounded-lg` ✅ FIXED
+4. **Mobile carousel** — `aspect-square rounded-lg` — ⚠️ PENDING: needs edge-to-edge (see below)
+5. **Thumbnails** — `w-[72px] h-[72px]` ✅ FIXED
+6. **Container padding** — `py-4` ✅ FIXED
 7. **Stars + rating** — 4.9 stars above product title, above the fold
 8. **Ingredient pills** — shown ABOVE the pricing cards
 9. **Guarantee block** — dedicated card with Shield icon
@@ -77,7 +77,23 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 13. **Reviews section** — "Lo que dicen las mamás" — 4 cards in 2×2 grid
 14. **Upsell 3 Cajas** — dark block (bg-foreground/text-background)
 15. **FAQ** — accordion, 5 questions, centered max-w-3xl
-16. **Sticky CTA bar** — shows when main CTA scrolls out of view
+16. **Sticky CTA bar** — shows when main CTA scrolls out of view — ⚠️ PENDING: text contrast fix
+
+## PENDING FIXES (next Craft Mode session)
+
+### Fix 1 — Mobile image: edge-to-edge
+**File**: `src/pages/ui/ProductPageUI.tsx`
+**Problem**: Mobile carousel is inside `px-6` container → image has 24px padding each side, looks small
+**Solution**: Apply `-mx-6` (or `-mx-[24px]`) to the mobile carousel wrapper AND remove `rounded-lg` (use `rounded-none`) to make the image go truly edge-to-edge on mobile. This is standard DTC premium pattern (Glossier, Function of Beauty, etc.)
+- Single image mobile fallback (line ~279): same treatment → `-mx-6 rounded-none`
+- Carousel wrapper (line ~263): add `-mx-6` to the `div className="md:hidden"`
+
+### Fix 2 — Sticky bar: text contrast
+**File**: `src/pages/ui/ProductPageUI.tsx` around line 697
+**Problem**: Price subtitle `text-foreground/45` = 45% opacity → nearly invisible against cream bg
+**Solution**:
+- Change `text-foreground/45` → `text-foreground/65` for the price line
+- Change `bg-background/97` → `bg-background` for fully opaque sticky bar (no bleed-through)
 
 ## URL Param Convention (PDP)
 - `?p=1` → preselect 1 Caja
