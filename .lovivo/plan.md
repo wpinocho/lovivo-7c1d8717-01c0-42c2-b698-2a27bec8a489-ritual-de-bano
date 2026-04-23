@@ -3,7 +3,7 @@
 
 ## Current State
 Brand: **Lunita** (temporary name — to be finalized by client)
-Product: **Ritual de Baño Lechoso para Bebé**
+Product: **El Ritual de Baño para una Noche en Paz** (formerly "Ritual de Baño Lechoso para Bebé")
 Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 
 ## Design System
@@ -61,7 +61,7 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - `FAQSection.tsx` — accordion FAQ (7 questions)
 - `ClosingCTASection.tsx` — dark closing CTA section (uses lunita-milky-water.webp at opacity-5 as background texture)
 
-## ProductPageUI.tsx — Current State
+## ProductPageUI.tsx — Current State (post copy overhaul ✅)
 
 ### Architecture
 - Uses `<EcommerceTemplate layout="full-width">` — removes PageTemplate py-8 wrapper
@@ -69,312 +69,31 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - **Milky texture wrapper**: entire PDP content wrapped in a div with CSS multiple-background trick:
   `background: linear-gradient(rgba(247,242,235,0.85), ...), url(lunita-milky-water.webp) center/cover`
   + `backgroundAttachment: 'local'` — ensures mobile browsers render background correctly
-  → 15% image visibility on naked areas (no extra HTTP request — image already cached from step 02 card)
 
-### Desktop
-1. **Sticky gallery** — `lg:sticky lg:top-[80px]` ✅
-2. **Grid layout** — `lg:grid-cols-[55%_1fr]` ✅ (gallery takes 55% width)
-3. **Desktop image** — `aspect-square rounded-lg` ✅
-4. **Thumbnails** — `w-[72px] h-[72px]` ✅
+### Copy Overhaul — COMPLETED ✅
+All 12 changes implemented in one session:
 
-### Mobile (all fixed ✅)
-1. **Zero gap above image** — `layout="full-width"` removes py-8 + container `pt-0` on mobile
-2. **Floating back button REMOVED** ✅ — was redundant next to carousel arrows
-3. **Taller image ratio** — `aspect-[4/5]` (was `aspect-square`) — more immersive
-4. **Title** — `text-[28px] lg:text-5xl` (was `text-4xl`) — fits cleanly
-5. **Spacing** — `space-y-5 lg:space-y-7` + stars `mt-5 lg:mt-0`
-6. **Benefits** — mobile: vertical list rows (icon + title + desc) via `sm:hidden` / desktop: 2-col cards via `hidden sm:grid`
-7. **"Así se usa"** — mobile: Embla carousel `basis-[82%]` via `sm:hidden` / desktop: 3-col grid via `hidden sm:grid`
-8. **Editorial strip** — `h-[240px] lg:h-[400px]`, quote `text-xl lg:text-5xl`, padding `px-6 lg:px-20`
+1. ✅ H1: "El Ritual de Baño para una Noche en Paz" (removed "Lechoso")
+2. ✅ Hero structure: Eyebrow first → Stars "Mamás primerizas" → H1 → subtitle → 3 benefit bullets
+3. ✅ Subtitle: "Transforma el baño de cada noche en un momento de pura conexión — para bebé y para ti."
+4. ✅ 3 benefit bullets added: Piel más suave / Invita a la calma / Conexión real (with Moon, Droplets, Heart icons)
+5. ✅ Ingredient pills moved BELOW guarantee block with "Fórmula limpia" heading
+6. ✅ pdpBenefits: updated 6 benefits with Moon icon replacing Star
+7. ✅ Step 03: added sleep angle — "preparar la noche"
+8. ✅ Editorial strip quote: "El baño que se convierte en el ritual de buenas noches." | cite: "Lunita, Ritual Nocturno para Bebé"
+9. ✅ Reviews: updated text + detail format "mamá primeriza · bebé de X meses"
+10. ✅ Reviews section H2: "Mamás que ya hacen el ritual."
+11. ✅ Upsell eyebrow: "Para las que ya no pueden sin él" + "18 noches más de calma"
+12. ✅ FAQ: added "¿Ayuda al bebé a dormir?" at position 1
+13. ✅ Sticky bar: "Ritual de Baño Nocturno"
+14. ✅ paqueteDetails USPs: updated all 3
 
-### Stars + rating
-- 4.9 stars above product title, above the fold
-
-### Other PDP sections (unchanged)
-- Ingredient pills shown ABOVE pricing cards
-- Guarantee block with Shield icon
-- "Lo que dicen las mamás" — 4 review cards 2×2 grid
-- Upsell 3 Cajas — dark block
-- FAQ accordion — 5 questions
-- Sticky CTA bar — fully opaque bg + text-foreground/65
+### Moon icon imported from lucide-react ✅
 
 ## URL Param Convention (PDP)
 - `?p=1` → preselect 1 Caja
 - `?p=2` or no param → preselect 2 Cajas (default)
 - `?p=3` → preselect 3 Cajas
-
----
-
----
-
-# ✏️ COPY OVERHAUL — ProductPageUI.tsx
-## Status: PENDING — implement in Craft Mode
-
-### Context / User intent
-The user wants a full copy rewrite of the PDP focused on the real pain points of new moms (mamás primerizas con recién nacidos). Key asks:
-- Remove "Lechoso" from title and everywhere (feels cheap, not premium)
-- Add sleep/calm angle — can't claim product "makes baby sleep", but CAN say it "invita a la calma", "ritual nocturno para una noche en paz", "ayuda a crear la rutina del sueño"
-- Restructure hero info block (see below)
-- Better benefit bullets
-- Move ingredient pills to a less prominent position (they're not a top selling point)
-
-### Pain points of the target audience (mamás primerizas, bebés 0-6 meses)
-1. **Sueño** — la mamá está agotada. Quiere cualquier cosa que ayude al bebé a dormir más y mejor. "Ritual" = señal de que es hora de dormir.
-2. **Piel sensible** — miedo a usar productos con químicos dañinos en piel de recién nacido
-3. **Conexión** — los primeros meses son caóticos; quieren ese momento especial con su bebé
-4. **Simplicidad** — no tienen tiempo para complicar el baño. Un sobre = un baño es una ventaja enorme
-5. **Premium/regalo** — quieren algo bonito, no solo funcional. Empaque importa.
-6. **Confianza** — "¿es seguro desde el día 1?"
-
----
-
-## SECTION-BY-SECTION COPY CHANGES
-
-### 1. Hero Info Block — NEW STRUCTURE & ORDER
-
-**Current order:**
-1. Stars + "Primeras mamás que lo probaron"
-2. Eyebrow "Ritual de Baño · Premium · Para Bebé"
-3. H1 "Ritual de Baño Lechoso para Bebé"
-4. Subtitle paragraph (2 sentences)
-5. Ingredient pills
-6. Pricing cards
-
-**New order (per user request):**
-1. Eyebrow "Ritual de Baño · Premium · Para Bebé"
-2. Stars + "Mamás primerizas" (changed from "Primeras mamás que lo probaron")
-3. H1 — new title (see below)
-4. Short subtitle — just 1 sentence
-5. 3 bullet points (icons + text)
-6. Pricing cards ("Elige tu paquete")
-7. Ingredient pills moved BELOW the guarantee block (they become secondary trust)
-
-**New H1 title options (remove "Lechoso"):**
-→ USE: `"El Ritual de Baño para una Noche en Paz"` — captures sleep angle, premium, emotional
-→ Alternative: `"Ritual de Baño Nocturno para Bebé"` — simpler, descriptive
-→ Alternative: `"El Ritual Nocturno que los Dos Necesitaban"` — very emotional
-
-Recommendation: **"El Ritual de Baño para una Noche en Paz"** — best balance of emotion + clarity + sleep angle without making medical claims.
-
-**New subtitle (shorter):**
-→ USE: `"Transforma el baño de cada noche en un momento de pura conexión — para bebé y para ti."`
-
-**New 3 benefit bullets (replace ingredient pills here):**
-Render as small rows: icon (small, rounded bg-accent/40) + bold label + short description
-```
-{ icon: Droplets,  label: "Piel más suave", desc: "Desde el primer baño, visible." }
-{ icon: Moon,      label: "Invita a la calma", desc: "El ritual que le dice al bebé que es hora de descansar." }
-{ icon: Heart,     label: "Conexión real",  desc: "El momento favorito del día — para los dos." }
-```
-Note: Need to import `Moon` from lucide-react (not currently imported — add it to the import list at the top).
-
----
-
-### 2. Ingredient Pills — MOVED
-
-**Remove** from hero info block (currently between subtitle and pricing cards).
-**Add** AFTER the guarantee block, in a small new row with a micro-heading:
-
-```
-<p className="font-body text-[10px] tracking-[0.18em] uppercase text-foreground/45 mb-2.5">Fórmula limpia</p>
-<div className="flex flex-wrap gap-2">
-  {['Sin parabenos', 'Sin sulfatos', 'Sin colorantes', 'pH neutro', 'Suave desde el día 1'].map(...)}
-</div>
-```
-
-This keeps the safety info visible but doesn't clutter the conversion path above the CTA.
-
----
-
-### 3. pdpBenefits array — UPDATED (6 benefits, better copy)
-
-```js
-const pdpBenefits = [
-  { icon: Droplets,  title: 'Piel más suave desde el día 1',   desc: 'Hidratación visible desde el primer baño — sin esfuerzo.' },
-  { icon: Moon,      title: 'Ritual que invita al sueño',       desc: 'Crea la señal perfecta para que tu bebé descanse tranquilo.' },
-  { icon: Shield,    title: 'Seguro para recién nacidos',        desc: 'Sin irritantes, sin sulfatos, pH neutro. Para piel recién llegada.' },
-  { icon: Sparkles,  title: 'Sin medir, sin adivinar',          desc: 'Un sobre = un baño perfecto. Cero desperdicio, cero estrés.' },
-  { icon: Heart,     title: 'Momento de conexión real',         desc: 'El baño se convierte en el momento favorito del día — para los dos.' },
-  { icon: Leaf,      title: 'Fórmula limpia certificada',       desc: 'Sin parabenos ni colorantes artificiales. Lo que tu bebé merece.' },
-]
-```
-
-Need to add `Moon` to lucide-react imports.
-
----
-
-### 4. pdpSteps (How It Works) — UPDATED
-
-Step 03 description (make sleep angle explicit):
-```js
-{ num: '03', title: 'Disfruta el ritual', desc: 'Baña a tu bebé con calma. Un momento suave para cerrar el día y preparar la noche.' }
-```
-
-Section heading: change `"Así se usa el ritual."` → keep as is (it's good)
-Eyebrow: change `"Muy sencillo"` → keep as is
-
----
-
-### 5. Editorial Strip — UPDATED QUOTE & CITE
-
-**Current:**
-`"El momento favorito del día — el de los dos."`
-cite: `— Lunita, Ritual de Baño Lechoso`
-
-**New:**
-`"El baño que se convierte en el ritual de buenas noches."`
-cite: `— Lunita, Ritual Nocturno para Bebé`
-
-This cite also removes "Lechoso".
-
----
-
-### 6. Reviews — UPDATED
-
-Change `detail` fields to feel more authentic and relatable to sleep pain point:
-
-```js
-const pdpReviews = [
-  {
-    name: 'Valentina R.',
-    detail: 'mamá primeriza · bebé de 2 meses',
-    text: 'La piel de mi bebé quedó súper suavecita desde la primera vez. El aroma es precioso, nada pesado — y desde que lo usamos el baño es mucho más tranquilo.',
-  },
-  {
-    name: 'Andrea M.',
-    detail: 'mamá primeriza · bebé de 5 meses',
-    text: 'Lo incorporé a la rutina nocturna y ahora el baño es nuestra señal de que viene la hora de dormir. Emilio se relaja visiblemente. Totalmente recomendado.',
-  },
-  {
-    name: 'Fernanda G.',
-    detail: 'mamá primeriza · bebé de 3 meses',
-    text: 'El empaque es hermoso, perfecto como regalo. Y funciona de verdad — la piel de Santiago es otra. Ya no le usamos nada más.',
-  },
-  {
-    name: 'Daniela C.',
-    detail: 'mamá primeriza · bebé de 4 meses',
-    text: 'Pensé que era un lujo, pero después del primer baño ya no me imagino sin él. Ahora es parte de nuestra rutina de buenas noches.',
-  },
-]
-```
-
-Also update the Stars eyebrow in hero: `"Mamás primerizas"` (was `"Primeras mamás que lo probaron"`)
-
----
-
-### 7. Reviews Section Header — UPDATED
-
-**Current eyebrow:** `"Opiniones reales"`
-**New eyebrow:** `"Lo que dicen las mamás"`
-
-**Current H2:** `"Lo que dicen las mamás."`
-**New H2:** `"Mamás que ya hacen el ritual."`
-
----
-
-### 8. Upsell Block — UPDATED
-
-**Current:**
-```
-eyebrow: "La mejor oferta"
-h3: "3 Cajas — $899 con envío gratis"
-p: "Siempre a la mano. Sin quedarte sin. Sin preocuparte por reordenar."
-```
-
-**New (add sleep/routine angle):**
-```
-eyebrow: "Para las que ya no pueden sin él"
-h3: "3 Cajas — $899 con envío gratis"
-p: "Nunca te quedes sin tu ritual nocturno. 18 noches más de calma — con envío sin costo."
-```
-
----
-
-### 9. FAQs — ADD 1 QUESTION about sleep
-
-Add a new FAQ at position 2 (after "¿Para qué edad está pensado?"):
-```js
-{
-  q: '¿Ayuda al bebé a dormir?',
-  a: 'No es un medicamento, pero sí un aliado poderoso para crear una rutina. Muchas mamás nos cuentan que desde que lo usan, el baño se convierte en la señal perfecta para que el bebé entienda que viene la hora de dormir. La constancia del ritual es lo que transforma las noches.'
-}
-```
-
----
-
-### 10. Sticky Bar — UPDATED
-
-**Current:** `"Ritual de Baño Lechoso"` → **New:** `"Ritual de Baño Nocturno"`
-
----
-
-### 11. paqueteDetails USPs — UPDATED
-
-```js
-'1 Caja': { usp: 'Para descubrir si el ritual es para ti. Una semana de baños perfectos.' }
-'2 Cajas': { usp: 'Un mes completo de ritual nocturno. El favorito de las mamás primerizas.' }
-'3 Cajas': { usp: 'Siempre lista para la noche. Sin quedarte sin — incluye envío sin costo.' }
-```
-
----
-
-## IMPLEMENTATION NOTES FOR CRAFT MODE
-
-### Files to edit:
-- `src/pages/ui/ProductPageUI.tsx` — all changes above
-
-### Specific code changes:
-
-1. **Import `Moon`** from lucide-react — add to existing import line
-
-2. **Hero info block** — restructure JSX order:
-   - Move eyebrow `<p>` BEFORE the stars row
-   - Change stars label from `"Primeras mamás que lo probaron"` → `"Mamás primerizas"`
-   - Change H1 text: `"El Ritual de Baño para una Noche en Paz"`
-   - Change subtitle: `"Transforma el baño de cada noche en un momento de pura conexión — para bebé y para ti."`
-   - ADD 3 benefit bullet rows BELOW subtitle (before pricing cards):
-     ```jsx
-     <div className="space-y-2.5 pt-1">
-       {[
-         { icon: Droplets, label: 'Piel más suave', desc: 'Desde el primer baño, visible.' },
-         { icon: Moon,     label: 'Invita a la calma', desc: 'El ritual que le dice al bebé que es hora de descansar.' },
-         { icon: Heart,    label: 'Conexión real', desc: 'El momento favorito del día — para los dos.' },
-       ].map(({ icon: Icon, label, desc }) => (
-         <div key={label} className="flex items-center gap-3">
-           <div className="w-7 h-7 rounded-full bg-accent/40 flex items-center justify-center flex-shrink-0">
-             <Icon className="h-3.5 w-3.5 text-foreground/60" aria-hidden="true" />
-           </div>
-           <p className="font-body text-sm text-foreground/75">
-             <span className="font-semibold text-foreground/85">{label}</span>
-             {' · '}{desc}
-           </p>
-         </div>
-       ))}
-     </div>
-     ```
-   - REMOVE ingredient pills from here
-
-3. **Ingredient pills** — move to after guarantee block, with micro-heading "Fórmula limpia"
-
-4. **pdpBenefits array** — update as shown above (6 items with Moon icon)
-
-5. **Step 03** — update `desc` to include sleep angle
-
-6. **Editorial strip** — update quote and cite
-
-7. **pdpReviews** — update all 4 reviews with new text and `detail` format: `'mamá primeriza · bebé de X meses'`
-
-8. **Reviews section header** — change H2 to `"Mamás que ya hacen el ritual."`
-
-9. **Upsell block** — update eyebrow, p text
-
-10. **FAQs** — add sleep FAQ at index 1
-
-11. **Sticky bar** — change product name display from `"Ritual de Baño Lechoso"` → `"Ritual de Baño Nocturno"`
-
-12. **paqueteDetails USPs** — update all 3
-
----
 
 ## Known Issues / Notes
 - Product slug was auto-generated as `ritual-de-bao-lechoso-para-beb` (special chars stripped)

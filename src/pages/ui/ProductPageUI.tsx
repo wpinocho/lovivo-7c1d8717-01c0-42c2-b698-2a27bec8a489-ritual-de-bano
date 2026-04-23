@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { EcommerceTemplate } from "@/templates/EcommerceTemplate"
 import {
   ShoppingCart, ArrowLeft, Package, Truck, Check,
-  Droplets, Heart, Shield, Leaf, Sparkles, Star,
+  Droplets, Heart, Shield, Leaf, Sparkles, Moon,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 import { cn } from "@/lib/utils"
@@ -57,7 +57,7 @@ const paqueteDetails: Record<string, {
     shipping: '+ envío',
     badge: null,
     featured: false,
-    usp: 'Para descubrir si el ritual es lo tuyo. Pruébalo sin compromiso.',
+    usp: 'Para descubrir si el ritual es para ti. Una semana de baños perfectos.',
   },
   '2 Cajas': {
     price: 699,
@@ -65,7 +65,7 @@ const paqueteDetails: Record<string, {
     shipping: '+ envío',
     badge: 'Más elegida',
     featured: true,
-    usp: 'Un mes completo de ritual nocturno. La opción preferida de las familias.',
+    usp: 'Un mes completo de ritual nocturno. El favorito de las mamás primerizas.',
   },
   '3 Cajas': {
     price: 899,
@@ -73,17 +73,17 @@ const paqueteDetails: Record<string, {
     shipping: 'Envío gratis',
     badge: 'Mejor valor',
     featured: false,
-    usp: 'Siempre a la mano, sin quedarte sin. Incluye envío sin costo.',
+    usp: 'Siempre lista para la noche. Sin quedarte sin — incluye envío sin costo.',
   },
 }
 
 const pdpBenefits = [
-  { icon: Droplets,    title: 'Piel suave desde el día 1',    desc: 'Hidratación visible desde el primer baño' },
-  { icon: Heart,       title: 'Momento de conexión real',     desc: 'Un ritual que une a bebé y mamá cada noche' },
-  { icon: Shield,      title: 'Seguro para recién nacidos',   desc: 'Sin irritantes, sin sulfatos, pH neutro' },
-  { icon: Sparkles,    title: 'Dosis perfecta, sin medir',    desc: 'Un sobre = un baño. Cero desperdicio' },
-  { icon: Leaf,        title: 'Fórmula limpia certificada',   desc: 'Sin parabenos, sin colorantes artificiales' },
-  { icon: Star,        title: 'Fragancia suave y envolvente', desc: 'Invita a la calma sin ser invasiva' },
+  { icon: Droplets,  title: 'Piel más suave desde el día 1',  desc: 'Hidratación visible desde el primer baño — sin esfuerzo.' },
+  { icon: Moon,      title: 'Ritual que invita al sueño',     desc: 'Crea la señal perfecta para que tu bebé descanse tranquilo.' },
+  { icon: Shield,    title: 'Seguro para recién nacidos',     desc: 'Sin irritantes, sin sulfatos, pH neutro. Para piel recién llegada.' },
+  { icon: Sparkles,  title: 'Sin medir, sin adivinar',        desc: 'Un sobre = un baño perfecto. Cero desperdicio, cero estrés.' },
+  { icon: Heart,     title: 'Momento de conexión real',       desc: 'El baño se convierte en el momento favorito del día — para los dos.' },
+  { icon: Leaf,      title: 'Fórmula limpia certificada',     desc: 'Sin parabenos ni colorantes artificiales. Lo que tu bebé merece.' },
 ]
 
 const pdpSteps = [
@@ -102,7 +102,8 @@ const pdpSteps = [
   {
     num: '03',
     title: 'Disfruta el ritual',
-    desc: 'Baña a tu bebé con calma. Un momento suave para cerrar el día.',
+    desc: 'Baña a tu bebé con calma. Un momento suave para cerrar el día y preparar la noche.',
+    
     img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath.webp',
   },
 ]
@@ -110,28 +111,29 @@ const pdpSteps = [
 const pdpReviews = [
   {
     name: 'Valentina R.',
-    detail: 'mamá de Emilio, 2 meses',
-    text: 'La piel de mi bebé quedó súper suavecita desde la primera vez. Y el aroma es precioso, nada pesado.',
+    detail: 'mamá primeriza · bebé de 2 meses',
+    text: 'La piel de mi bebé quedó súper suavecita desde la primera vez. El aroma es precioso, nada pesado — y desde que lo usamos el baño es mucho más tranquilo.',
   },
   {
     name: 'Andrea M.',
-    detail: 'mamá de Isabella, 5 meses',
-    text: 'Lo incorporé a la rutina nocturna y ahora el baño es nuestro momento favorito del día. Totalmente recomendado.',
+    detail: 'mamá primeriza · bebé de 5 meses',
+    text: 'Lo incorporé a la rutina nocturna y ahora el baño es nuestra señal de que viene la hora de dormir. Emilio se relaja visiblemente. Totalmente recomendado.',
   },
   {
     name: 'Fernanda G.',
-    detail: 'mamá de Santiago, 3 meses',
-    text: 'El empaque es hermoso, perfecto como regalo. Y funciona de verdad — la piel de mi bebé es otra.',
+    detail: 'mamá primeriza · bebé de 3 meses',
+    text: 'El empaque es hermoso, perfecto como regalo. Y funciona de verdad — la piel de Santiago es otra. Ya no le usamos nada más.',
   },
   {
     name: 'Daniela C.',
-    detail: 'mamá de Camila, 4 meses',
-    text: 'Pensé que era un lujo, pero después del primer baño ya no me imagino sin él. Se lo recomiendo a todas las mamás.',
+    detail: 'mamá primeriza · bebé de 4 meses',
+    text: 'Pensé que era un lujo, pero después del primer baño ya no me imagino sin él. Ahora es parte de nuestra rutina de buenas noches.',
   },
 ]
 
 const pdpFaqs = [
   { q: '¿Para qué edad está pensado?', a: 'Para bebés desde recién nacidos. Te recomendamos observar la piel de tu bebé las primeras veces, como con cualquier producto nuevo.' },
+  { q: '¿Ayuda al bebé a dormir?', a: 'No es un medicamento, pero sí un aliado poderoso para crear una rutina. Muchas mamás nos cuentan que desde que lo usan, el baño se convierte en la señal perfecta para que el bebé entienda que viene la hora de dormir. La constancia del ritual es lo que transforma las noches.' },
   { q: '¿Cada cuánto se puede usar?', a: 'En cada baño del bebé. Muchas familias lo incorporan en su rutina nocturna diaria o algunos días a la semana.' },
   { q: '¿Cuánto tiempo tarda en llegar?', a: 'Los pedidos se procesan en 1-2 días hábiles. Entrega en 3-7 días hábiles a toda la República Mexicana.' },
   { q: '¿Tiene aroma?', a: 'Sí, una fragancia muy suave y delicada — no invasiva. Pensada para acompañar el ritual sin ser la protagonista.' },
@@ -317,30 +319,40 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
           {/* ── PRODUCT INFO ── */}
           <div className="space-y-5 lg:space-y-7">
 
-            {/* Stars + eyebrow */}
+            {/* Eyebrow + Stars + Title + Subtitle + Benefit bullets */}
             <div>
-              <div className="flex items-center gap-2.5 mb-3 mt-5 lg:mt-0">
-                <StarRow count={5} />
-                <span className="font-body text-xs text-foreground/55">4.9 · Primeras mamás que lo probaron</span>
-              </div>
-              <p className="font-body text-[10px] tracking-[0.22em] uppercase text-foreground/45 mb-3">
+              <p className="font-body text-[10px] tracking-[0.22em] uppercase text-foreground/45 mb-3 mt-5 lg:mt-0">
                 Ritual de Baño · Premium · Para Bebé
               </p>
+              <div className="flex items-center gap-2.5 mb-3">
+                <StarRow count={5} />
+                <span className="font-body text-xs text-foreground/55">4.9 · Mamás primerizas</span>
+              </div>
               <h1 className="font-display text-[28px] lg:text-5xl font-light text-foreground leading-tight mb-3">
-                Ritual de Baño Lechoso para Bebé
+                El Ritual de Baño para una Noche en Paz
               </h1>
-              <p className="font-body text-sm text-foreground/65 leading-relaxed">
-                Transforma el baño de cada noche en un momento de pura conexión. Piel más suave, rutina más bella — para bebé y para ti.
+              <p className="font-body text-sm text-foreground/65 leading-relaxed mb-4">
+                Transforma el baño de cada noche en un momento de pura conexión — para bebé y para ti.
               </p>
-            </div>
 
-            {/* Ingredient pills */}
-            <div className="flex flex-wrap gap-2">
-              {['Sin parabenos', 'Sin sulfatos', 'Sin colorantes', 'pH neutro', 'Suave desde el día 1'].map((pill) => (
-                <span key={pill} className="bg-accent/40 text-foreground/70 text-[11px] font-body px-3 py-1 rounded-full border border-accent/60">
-                  {pill}
-                </span>
-              ))}
+              {/* 3 benefit bullets */}
+              <div className="space-y-2.5 pt-1">
+                {[
+                  { icon: Droplets, label: 'Piel más suave', desc: 'Desde el primer baño, visible.' },
+                  { icon: Moon,     label: 'Invita a la calma', desc: 'El ritual que le dice al bebé que es hora de descansar.' },
+                  { icon: Heart,    label: 'Conexión real', desc: 'El momento favorito del día — para los dos.' },
+                ].map(({ icon: Icon, label, desc }) => (
+                  <div key={label} className="flex items-center gap-3">
+                    <div className="w-7 h-7 rounded-full bg-accent/40 flex items-center justify-center flex-shrink-0">
+                      <Icon className="h-3.5 w-3.5 text-foreground/60" aria-hidden="true" />
+                    </div>
+                    <p className="font-body text-sm text-foreground/75">
+                      <span className="font-semibold text-foreground/85">{label}</span>
+                      {' · '}{desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* ── PRICING CARDS ── */}
@@ -490,6 +502,18 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
               </p>
             </div>
 
+            {/* Ingredient pills — secondary trust, below guarantee */}
+            <div>
+              <p className="font-body text-[10px] tracking-[0.18em] uppercase text-foreground/45 mb-2.5">Fórmula limpia</p>
+              <div className="flex flex-wrap gap-2">
+                {['Sin parabenos', 'Sin sulfatos', 'Sin colorantes', 'pH neutro', 'Suave desde el día 1'].map((pill) => (
+                  <span key={pill} className="bg-accent/40 text-foreground/70 text-[11px] font-body px-3 py-1 rounded-full border border-accent/60">
+                    {pill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             {/* ── BENEFITS ICON GRID ── */}
             <div className="pt-2">
               <p className="font-body text-[10px] font-semibold tracking-[0.18em] uppercase text-foreground/45 mb-4">
@@ -621,10 +645,10 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
         <div className="absolute inset-0 flex items-center px-6 lg:px-20">
           <blockquote className="max-w-xs lg:max-w-lg">
             <p className="font-display text-xl lg:text-5xl font-light text-white leading-tight mb-3">
-              "El momento favorito del día — el de los dos."
+              "El baño que se convierte en el ritual de buenas noches."
             </p>
             <cite className="font-body text-sm text-white/55 not-italic">
-              — Lunita, Ritual de Baño Lechoso
+              — Lunita, Ritual Nocturno para Bebé
             </cite>
           </blockquote>
         </div>
@@ -639,10 +663,10 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
             <div>
               <p className="font-body text-[10px] font-medium tracking-[0.22em] uppercase text-foreground/45 mb-3">
-                Opiniones reales
+                Lo que dicen las mamás
               </p>
               <h2 className="font-display text-3xl lg:text-4xl font-light text-foreground">
-                Lo que dicen las mamás.
+                Mamás que ya hacen el ritual.
               </h2>
             </div>
             <div className="flex items-center gap-3 sm:pb-2">
@@ -682,12 +706,12 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 lg:py-16">
           <div className="bg-foreground text-background rounded-md p-8 lg:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
-              <p className="font-body text-[10px] tracking-[0.2em] uppercase text-background/50 mb-2">La mejor oferta</p>
+              <p className="font-body text-[10px] tracking-[0.2em] uppercase text-background/50 mb-2">Para las que ya no pueden sin él</p>
               <h3 className="font-display text-2xl lg:text-3xl font-light text-background mb-1">
                 3 Cajas — $899 con envío gratis
               </h3>
               <p className="font-body text-sm text-background/60">
-                Siempre a la mano. Sin quedarte sin. Sin preocuparte por reordenar.
+                Nunca te quedes sin tu ritual nocturno. 18 noches más de calma — con envío sin costo.
               </p>
             </div>
             <button
@@ -748,7 +772,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
             <div className="flex items-center justify-between gap-4">
               <div className="min-w-0">
                 <p className="font-display text-base font-medium text-foreground truncate">
-                  Ritual de Baño Lechoso
+                  Ritual de Baño Nocturno
                 </p>
                 {selectedPaquete && (
                   <p className="font-body text-xs text-foreground/65">
