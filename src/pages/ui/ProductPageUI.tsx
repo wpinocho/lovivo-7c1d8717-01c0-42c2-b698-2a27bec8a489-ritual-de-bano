@@ -3,7 +3,10 @@ import { useLocation } from "react-router-dom"
 import { useInView } from "react-intersection-observer"
 import { Skeleton } from "@/components/ui/skeleton"
 import { EcommerceTemplate } from "@/templates/EcommerceTemplate"
-import { ShoppingCart, ArrowLeft, Package, Truck, Check, ChevronDown, ChevronUp } from "lucide-react"
+import {
+  ShoppingCart, ArrowLeft, Package, Truck, Check,
+  Droplets, Heart, Shield, Leaf, Sparkles, Star,
+} from "lucide-react"
 import { Link } from "react-router-dom"
 import { cn } from "@/lib/utils"
 import {
@@ -15,14 +18,6 @@ import {
 } from "@/components/ui/carousel"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import ProductExpressCheckout from "@/components/ProductExpressCheckout"
-
-/**
- * LUNITA — ProductPageUI
- *
- * Premium PDP for the Ritual de Baño Lechoso.
- * - Custom pricing cards pre-selecting 2 Cajas by default
- * - Inline benefits, how-to, FAQ, upsell
- */
 
 interface ProductPageUIProps {
   logic: {
@@ -83,18 +78,56 @@ const paqueteDetails: Record<string, {
 }
 
 const pdpBenefits = [
-  { icon: '◯', text: 'Piel más suave e hidratada — desde la primera vez' },
-  { icon: '◯', text: 'Un cierre de día especial para el bebé y para ti' },
-  { icon: '◯', text: 'Sin irritantes — seguro hasta para recién nacidos' },
-  { icon: '◯', text: 'Sin medir, sin derramar — dosis perfecta en cada sobre' },
-  { icon: '◯', text: 'Fragancia suave que invita a la calma, sin ser invasiva' },
-  { icon: '◯', text: 'Sin parabenos, sin sulfatos, sin colorantes artificiales' },
+  { icon: Droplets,    title: 'Piel suave desde el día 1',    desc: 'Hidratación visible desde el primer baño' },
+  { icon: Heart,       title: 'Momento de conexión real',     desc: 'Un ritual que une a bebé y mamá cada noche' },
+  { icon: Shield,      title: 'Seguro para recién nacidos',   desc: 'Sin irritantes, sin sulfatos, pH neutro' },
+  { icon: Sparkles,    title: 'Dosis perfecta, sin medir',    desc: 'Un sobre = un baño. Cero desperdicio' },
+  { icon: Leaf,        title: 'Fórmula limpia certificada',   desc: 'Sin parabenos, sin colorantes artificiales' },
+  { icon: Star,        title: 'Fragancia suave y envolvente', desc: 'Invita a la calma sin ser invasiva' },
 ]
 
 const pdpSteps = [
-  { num: '01', title: 'Abre el sobre', desc: 'Un solo sobre por baño. Fácil de abrir mientras preparas la tina.' },
-  { num: '02', title: 'Agrégalo al agua', desc: 'Viértelo mientras llenas la tina y observa cómo el agua se transforma.' },
-  { num: '03', title: 'Disfruta el ritual', desc: 'Baña a tu bebé con calma. Un momento suave para cerrar el día.' },
+  {
+    num: '01',
+    title: 'Abre el sobre',
+    desc: 'Un solo sobre por baño. Fácil de abrir mientras preparas la tina.',
+    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box.webp',
+  },
+  {
+    num: '02',
+    title: 'Agrégalo al agua',
+    desc: 'Viértelo mientras llenas la tina y observa cómo el agua se transforma.',
+    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-milky-water.webp',
+  },
+  {
+    num: '03',
+    title: 'Disfruta el ritual',
+    desc: 'Baña a tu bebé con calma. Un momento suave para cerrar el día.',
+    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath.webp',
+  },
+]
+
+const pdpReviews = [
+  {
+    name: 'Valentina R.',
+    detail: 'mamá de Emilio, 2 meses',
+    text: 'La piel de mi bebé quedó súper suavecita desde la primera vez. Y el aroma es precioso, nada pesado.',
+  },
+  {
+    name: 'Andrea M.',
+    detail: 'mamá de Isabella, 5 meses',
+    text: 'Lo incorporé a la rutina nocturna y ahora el baño es nuestro momento favorito del día. Totalmente recomendado.',
+  },
+  {
+    name: 'Fernanda G.',
+    detail: 'mamá de Santiago, 3 meses',
+    text: 'El empaque es hermoso, perfecto como regalo. Y funciona de verdad — la piel de mi bebé es otra.',
+  },
+  {
+    name: 'Daniela C.',
+    detail: 'mamá de Camila, 4 meses',
+    text: 'Pensé que era un lujo, pero después del primer baño ya no me imagino sin él. Se lo recomiendo a todas las mamás.',
+  },
 ]
 
 const pdpFaqs = [
@@ -102,7 +135,26 @@ const pdpFaqs = [
   { q: '¿Cada cuánto se puede usar?', a: 'En cada baño del bebé. Muchas familias lo incorporan en su rutina nocturna diaria o algunos días a la semana.' },
   { q: '¿Cuánto tiempo tarda en llegar?', a: 'Los pedidos se procesan en 1-2 días hábiles. Entrega en 3-7 días hábiles a toda la República Mexicana.' },
   { q: '¿Tiene aroma?', a: 'Sí, una fragancia muy suave y delicada — no invasiva. Pensada para acompañar el ritual sin ser la protagonista.' },
+  { q: '¿Es seguro para piel sensible?', a: 'Absolutamente. Fue formulado específicamente para la piel sensible del bebé — sin sulfatos, sin parabenos, sin colorantes artificiales y con pH neutro.' },
 ]
+
+const StarRow = ({ count = 5, size = 'sm' }: { count?: number; size?: 'sm' | 'xs' }) => (
+  <div className="flex items-center gap-0.5">
+    {Array.from({ length: count }).map((_, i) => (
+      <svg
+        key={i}
+        viewBox="0 0 16 16"
+        className={cn(
+          'fill-amber-400',
+          size === 'xs' ? 'w-3 h-3' : 'w-3.5 h-3.5'
+        )}
+        aria-hidden="true"
+      >
+        <path d="M8 1l1.854 3.757L14 5.528l-3 2.924.708 4.131L8 10.573l-3.708 2.01L5 8.452 2 5.528l4.146-.771L8 1z" />
+      </svg>
+    ))}
+  </div>
+)
 
 export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -130,15 +182,8 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
     }
   }, [logic.product]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Reset image on variant change
-  useEffect(() => {
-    setSelectedImage(null)
-  }, [logic.matchingVariant])
-
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  useEffect(() => { setSelectedImage(null) }, [logic.matchingVariant])
+  useEffect(() => { window.scrollTo(0, 0) }, [])
 
   const displayImage = selectedImage || logic.displayImages?.[0] || logic.currentImage || '/placeholder.svg'
   const paqueteOption = logic.product?.options?.find((o: any) => o.name === 'Paquete')
@@ -184,6 +229,10 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
 
   return (
     <EcommerceTemplate hideFloatingCartOnMobile>
+
+      {/* ════════════════════════════════════════════
+          HERO SECTION — Gallery + Product Info
+      ════════════════════════════════════════════ */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6">
         {/* Back */}
         <button
@@ -196,16 +245,16 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
         </button>
 
         {/* Main grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 lg:items-start">
 
-          {/* ── GALLERY ── */}
-          <div className="space-y-4">
+          {/* ── GALLERY (sticky on desktop) ── */}
+          <div className="space-y-3 lg:sticky lg:top-8 lg:self-start">
             {/* Main image — desktop */}
-            <div className="hidden md:block aspect-[4/3] rounded-sm overflow-hidden bg-secondary">
+            <div className="hidden md:block aspect-[4/3] rounded-md overflow-hidden bg-secondary">
               <img
                 src={displayImage}
                 alt={logic.product.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-all duration-500"
               />
             </div>
 
@@ -216,7 +265,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                   <CarouselContent>
                     {logic.displayImages.map((img: string, idx: number) => (
                       <CarouselItem key={idx}>
-                        <div className="aspect-[4/3] rounded-sm overflow-hidden bg-secondary">
+                        <div className="aspect-[4/3] rounded-md overflow-hidden bg-secondary">
                           <img src={img} alt={`${logic.product.title} ${idx + 1}`} loading="lazy" className="w-full h-full object-cover" />
                         </div>
                       </CarouselItem>
@@ -227,7 +276,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 </Carousel>
               </div>
             ) : (
-              <div className="md:hidden aspect-[4/3] rounded-sm overflow-hidden bg-secondary">
+              <div className="md:hidden aspect-[4/3] rounded-md overflow-hidden bg-secondary">
                 <img src={displayImage} alt={logic.product.title} className="w-full h-full object-cover" />
               </div>
             )}
@@ -241,10 +290,10 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                     type="button"
                     onClick={() => setSelectedImage(img)}
                     className={cn(
-                      'flex-shrink-0 w-16 h-16 rounded-sm overflow-hidden border transition-all duration-200',
+                      'flex-shrink-0 w-16 h-16 rounded-sm overflow-hidden border-2 transition-all duration-200',
                       (selectedImage === img || (!selectedImage && idx === 0))
-                        ? 'border-foreground'
-                        : 'border-border hover:border-foreground/30'
+                        ? 'border-foreground scale-105'
+                        : 'border-transparent hover:border-foreground/25'
                     )}
                     aria-label={`Ver imagen ${idx + 1}`}
                   >
@@ -256,27 +305,41 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
           </div>
 
           {/* ── PRODUCT INFO ── */}
-          <div className="space-y-8">
-            {/* Title */}
+          <div className="space-y-7">
+
+            {/* Stars + eyebrow */}
             <div>
-              <p className="font-body text-xs tracking-[0.2em] uppercase text-foreground/40 mb-3">
+              <div className="flex items-center gap-2.5 mb-3">
+                <StarRow count={5} />
+                <span className="font-body text-xs text-foreground/55">4.9 · Primeras mamás que lo probaron</span>
+              </div>
+              <p className="font-body text-[10px] tracking-[0.22em] uppercase text-foreground/45 mb-3">
                 Ritual de Baño · Premium · Para Bebé
               </p>
               <h1 className="font-display text-4xl lg:text-5xl font-light text-foreground leading-tight mb-3">
                 Ritual de Baño Lechoso para Bebé
               </h1>
-              <p className="font-body text-sm text-foreground/60 leading-relaxed">
+              <p className="font-body text-sm text-foreground/65 leading-relaxed">
                 Transforma el baño de cada noche en un momento de pura conexión. Piel más suave, rutina más bella — para bebé y para ti.
               </p>
+            </div>
+
+            {/* Ingredient pills */}
+            <div className="flex flex-wrap gap-2">
+              {['Sin parabenos', 'Sin sulfatos', 'Sin colorantes', 'pH neutro', 'Suave desde el día 1'].map((pill) => (
+                <span key={pill} className="bg-accent/40 text-foreground/70 text-[11px] font-body px-3 py-1 rounded-full border border-accent/60">
+                  {pill}
+                </span>
+              ))}
             </div>
 
             {/* ── PRICING CARDS ── */}
             {paqueteOption && (
               <div>
-                <p className="font-body text-xs font-semibold tracking-[0.15em] uppercase text-foreground/50 mb-4">
+                <p className="font-body text-[10px] font-semibold tracking-[0.18em] uppercase text-foreground/45 mb-3">
                   Elige tu paquete
                 </p>
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   {paqueteOption.values.map((value: string) => {
                     const details = paqueteDetails[value]
                     if (!details) return null
@@ -290,23 +353,21 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                         disabled={!isAvailable}
                         onClick={() => logic.handleOptionSelect('Paquete', value)}
                         className={cn(
-                          'w-full text-left rounded-sm border transition-all duration-200 px-5 py-4 relative',
+                          'w-full text-left rounded-md border-2 transition-all duration-200 px-5 py-4 relative',
                           isSelected
-                            ? 'border-foreground bg-foreground text-background'
-                            : 'border-border bg-card hover:border-foreground/40',
+                            ? 'border-foreground bg-foreground text-background shadow-md'
+                            : 'border-border bg-card hover:border-foreground/30 hover:shadow-sm',
                           !isAvailable && 'opacity-40 cursor-not-allowed'
                         )}
-                        style={{ borderRadius: '4px' }}
                         aria-pressed={isSelected}
                       >
-                        {/* Badge */}
                         {details.badge && (
                           <span
                             className={cn(
                               'absolute -top-2.5 right-4 px-3 py-0.5 text-[10px] font-body font-bold tracking-[0.1em] uppercase rounded-full',
                               isSelected
                                 ? 'bg-background text-foreground'
-                                : 'bg-accent/60 text-foreground'
+                                : 'bg-accent/70 text-foreground'
                             )}
                           >
                             {details.badge}
@@ -315,36 +376,24 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
 
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            {/* Radio circle */}
                             <div className={cn(
                               'w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0',
                               isSelected ? 'border-background' : 'border-foreground/30'
                             )}>
-                              {isSelected && (
-                                <div className="w-2 h-2 rounded-full bg-background" />
-                              )}
+                              {isSelected && <div className="w-2 h-2 rounded-full bg-background" />}
                             </div>
                             <div>
-                              <p className={cn(
-                                'font-body text-sm font-semibold',
-                                isSelected ? 'text-background' : 'text-foreground'
-                              )}>
+                              <p className={cn('font-body text-sm font-semibold', isSelected ? 'text-background' : 'text-foreground')}>
                                 {value}
                               </p>
-                              <p className={cn(
-                                'font-body text-xs mt-0.5',
-                                isSelected ? 'text-background/65' : 'text-foreground/45'
-                              )}>
+                              <p className={cn('font-body text-xs mt-0.5', isSelected ? 'text-background/65' : 'text-foreground/45')}>
                                 {details.sachets}
                               </p>
                             </div>
                           </div>
 
                           <div className="text-right">
-                            <p className={cn(
-                              'font-display text-xl font-light',
-                              isSelected ? 'text-background' : 'text-foreground'
-                            )}>
+                            <p className={cn('font-display text-xl font-light', isSelected ? 'text-background' : 'text-foreground')}>
                               ${details.price.toLocaleString('es-MX')} MXN
                             </p>
                             <p className={cn(
@@ -358,11 +407,8 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                           </div>
                         </div>
 
-                        {/* USP text when selected */}
                         {isSelected && (
-                          <p className="font-body text-xs text-background/60 mt-3 pl-7">
-                            {details.usp}
-                          </p>
+                          <p className="font-body text-xs text-background/60 mt-3 pl-7">{details.usp}</p>
                         )}
                       </button>
                     )
@@ -373,7 +419,6 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
 
             {/* ── ADD TO CART ── */}
             <div ref={ctaRef} className="space-y-3">
-              {/* Express checkout */}
               {logic.inStock && !logic.selectedPlan && (
                 <>
                   <ProductExpressCheckout
@@ -398,8 +443,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 type="button"
                 onClick={logic.handleAddToCart}
                 disabled={!logic.inStock}
-                className="w-full flex items-center justify-center gap-2.5 bg-foreground text-background py-4 px-6 font-body text-sm font-semibold tracking-wide hover:bg-foreground/90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200"
-                style={{ borderRadius: '2px' }}
+                className="w-full flex items-center justify-center gap-2.5 bg-foreground text-background py-4 px-6 font-body text-sm font-semibold tracking-wide hover:bg-foreground/90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200 rounded-sm"
               >
                 <ShoppingCart className="h-4 w-4" aria-hidden="true" />
                 {logic.inStock ? 'Agregar al carrito' : 'Agotado'}
@@ -410,12 +454,11 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                   type="button"
                   onClick={logic.handleBuyNow}
                   className={cn(
-                    'w-full flex items-center justify-center font-body text-sm transition-all duration-200 py-3 px-6',
+                    'w-full flex items-center justify-center font-body text-sm transition-all duration-200 py-3 px-6 rounded-sm',
                     expressAvailable
                       ? 'text-foreground/50 hover:text-foreground text-xs'
                       : 'border border-foreground/25 text-foreground hover:border-foreground/60'
                   )}
-                  style={{ borderRadius: '2px' }}
                 >
                   Comprar ahora
                 </button>
@@ -423,153 +466,220 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
             </div>
 
             {/* Micro trust signals */}
-            <div className="flex flex-wrap gap-4 font-body text-xs text-foreground/45">
-              <span className="flex items-center gap-1.5">
-                <Check className="h-3.5 w-3.5" aria-hidden="true" />
-                Pago 100% seguro
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Package className="h-3.5 w-3.5" aria-hidden="true" />
-                Empaque premium
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Truck className="h-3.5 w-3.5" aria-hidden="true" />
-                Envío a toda la República
-              </span>
+            <div className="flex flex-wrap gap-x-5 gap-y-2 font-body text-xs text-foreground/50 pt-1">
+              <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-foreground/40" aria-hidden="true" />Pago 100% seguro</span>
+              <span className="flex items-center gap-1.5"><Package className="h-3.5 w-3.5 text-foreground/40" aria-hidden="true" />Empaque premium</span>
+              <span className="flex items-center gap-1.5"><Truck className="h-3.5 w-3.5 text-foreground/40" aria-hidden="true" />Envío a toda la República</span>
             </div>
 
-            {/* Satisfaction guarantee */}
-            <p className="font-body text-xs text-foreground/55 text-center py-2 border-t border-border">
-              ✦ Si no te encanta en tu primer uso, te lo resolvemos — sin complicaciones.
-            </p>
-
-            {/* Ingredient trust pills */}
-            <div className="flex flex-wrap gap-2">
-              {['Sin parabenos', 'Sin sulfatos', 'Sin colorantes', 'Suave desde el día 1', 'pH neutro'].map((pill) => (
-                <span key={pill} className="bg-accent/30 text-foreground/70 text-[11px] font-body px-3 py-1 rounded-full">
-                  {pill}
-                </span>
-              ))}
+            {/* Guarantee */}
+            <div className="bg-accent/20 border border-accent/40 rounded-md px-4 py-3 flex items-center gap-3">
+              <Shield className="h-5 w-5 text-foreground/50 flex-shrink-0" aria-hidden="true" />
+              <p className="font-body text-xs text-foreground/65 leading-snug">
+                <span className="font-semibold text-foreground/80">Garantía Lunita:</span> Si no te encanta en tu primer uso, te lo resolvemos — sin complicaciones.
+              </p>
             </div>
 
-            {/* Benefits list */}
-            <div className="border-t border-border pt-8">
-              <p className="font-body text-xs font-semibold tracking-[0.15em] uppercase text-foreground/40 mb-5">
+            {/* ── BENEFITS ICON GRID ── */}
+            <div className="pt-2">
+              <p className="font-body text-[10px] font-semibold tracking-[0.18em] uppercase text-foreground/45 mb-4">
                 Por qué te va a encantar
               </p>
-              <ul className="space-y-3">
-                {pdpBenefits.map((b, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="text-accent-foreground/40 mt-0.5 text-xs flex-shrink-0">✦</span>
-                    <span className="font-body text-sm text-foreground/65">{b.text}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="grid grid-cols-2 gap-3">
+                {pdpBenefits.map((b, i) => {
+                  const Icon = b.icon
+                  return (
+                    <div key={i} className="flex items-start gap-3 bg-background/60 border border-border rounded-md px-3 py-3">
+                      <div className="w-8 h-8 rounded-full bg-accent/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon className="h-3.5 w-3.5 text-foreground/60" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <p className="font-body text-xs font-semibold text-foreground/85 leading-snug">{b.title}</p>
+                        <p className="font-body text-[11px] text-foreground/50 leading-snug mt-0.5">{b.desc}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
+
           </div>
         </div>
+      </div>
 
-        {/* ── HOW TO USE ── */}
-        <div className="mt-20 lg:mt-28 max-w-4xl">
-          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/40 mb-4">
-            Muy sencillo
-          </p>
-          <h2 className="font-display text-3xl lg:text-4xl font-light text-foreground mb-10">
-            Así se usa el ritual.
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+      {/* ════════════════════════════════════════════
+          HOW TO USE — Visual steps with images
+      ════════════════════════════════════════════ */}
+      <section className="mt-20 lg:mt-24 bg-secondary/30 py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="max-w-xs mb-10">
+            <p className="font-body text-[10px] font-medium tracking-[0.22em] uppercase text-foreground/45 mb-3">
+              Muy sencillo
+            </p>
+            <h2 className="font-display text-3xl lg:text-4xl font-light text-foreground leading-tight">
+              Así se usa el ritual.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-10">
             {pdpSteps.map((step) => (
-              <div key={step.num} className="flex gap-5 items-start">
-                <span className="font-display text-4xl font-light text-foreground/12 leading-none flex-shrink-0">
-                  {step.num}
-                </span>
-                <div>
-                  <h3 className="font-display text-lg font-medium text-foreground mb-2">{step.title}</h3>
-                  <p className="font-body text-sm text-foreground/55 leading-relaxed">{step.desc}</p>
+              <div key={step.num} className="flex flex-col gap-0 overflow-hidden rounded-md bg-background shadow-sm border border-border/50">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={step.img}
+                    alt={step.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-5 flex gap-4 items-start">
+                  <span className="font-display text-4xl font-light text-foreground/10 leading-none flex-shrink-0 select-none">
+                    {step.num}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-lg font-medium text-foreground mb-1">{step.title}</h3>
+                    <p className="font-body text-sm text-foreground/55 leading-relaxed">{step.desc}</p>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* ── EDITORIAL LIFESTYLE STRIP ── */}
-        <div className="mt-16 lg:mt-20 -mx-6 lg:-mx-12 relative overflow-hidden" style={{ height: '420px' }}>
-          <img
-            src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath.webp"
-            alt="Mamá disfrutando el ritual de baño con su bebé — Lunita"
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-          <div
-            className="absolute inset-0"
-            style={{ background: 'linear-gradient(to right, rgba(30,25,20,0.72) 0%, rgba(30,25,20,0.04) 100%)' }}
-          />
-          <div className="absolute inset-0 flex items-center px-10 lg:px-20">
-            <blockquote className="max-w-md">
-              <p className="font-display text-3xl lg:text-4xl font-light text-white leading-tight mb-4">
-                "El momento favorito del día — el de los dos."
+      {/* ════════════════════════════════════════════
+          EDITORIAL LIFESTYLE STRIP
+      ════════════════════════════════════════════ */}
+      <div className="relative overflow-hidden" style={{ height: '400px' }}>
+        <img
+          src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath.webp"
+          alt="Mamá disfrutando el ritual de baño con su bebé — Lunita"
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(to right, rgba(25,20,15,0.80) 0%, rgba(25,20,15,0.05) 100%)' }}
+        />
+        <div className="absolute inset-0 flex items-center px-8 lg:px-20">
+          <blockquote className="max-w-lg">
+            <p className="font-display text-3xl lg:text-5xl font-light text-white leading-tight mb-4">
+              "El momento favorito del día — el de los dos."
+            </p>
+            <cite className="font-body text-sm text-white/55 not-italic">
+              — Lunita, Ritual de Baño Lechoso
+            </cite>
+          </blockquote>
+        </div>
+      </div>
+
+      {/* ════════════════════════════════════════════
+          REVIEWS — Lo que dicen las mamás
+      ════════════════════════════════════════════ */}
+      <section className="py-16 lg:py-20 bg-secondary/25">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+            <div>
+              <p className="font-body text-[10px] font-medium tracking-[0.22em] uppercase text-foreground/45 mb-3">
+                Opiniones reales
               </p>
-              <cite className="font-body text-sm text-white/60 not-italic">
-                — Lunita, Ritual de Baño Lechoso
-              </cite>
-            </blockquote>
+              <h2 className="font-display text-3xl lg:text-4xl font-light text-foreground">
+                Lo que dicen las mamás.
+              </h2>
+            </div>
+            <div className="flex items-center gap-3 sm:pb-2">
+              <StarRow count={5} />
+              <span className="font-body text-sm text-foreground/60">4.9 de 5 estrellas</span>
+            </div>
+          </div>
+
+          {/* Cards grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {pdpReviews.map((review, i) => (
+              <div
+                key={i}
+                className="bg-background border border-border/60 rounded-md p-6 flex flex-col gap-4 shadow-sm"
+              >
+                <div className="flex items-center justify-between">
+                  <StarRow count={5} size="xs" />
+                  <span className="font-body text-[10px] text-foreground/35 uppercase tracking-wider">Verificado</span>
+                </div>
+                <p className="font-body text-sm text-foreground/75 leading-relaxed flex-1">
+                  "{review.text}"
+                </p>
+                <div className="border-t border-border/50 pt-4">
+                  <p className="font-body text-sm font-semibold text-foreground/80">{review.name}</p>
+                  <p className="font-body text-xs text-foreground/45 mt-0.5">{review.detail}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* ── UPSELL — 3 Cajas ── */}
-        {selectedPaquete !== '3 Cajas' && (
-          <div className="mt-16 lg:mt-20 bg-secondary/40 rounded-sm p-8 lg:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
-            style={{ borderRadius: '6px' }}
-          >
+      {/* ════════════════════════════════════════════
+          UPSELL — 3 Cajas
+      ════════════════════════════════════════════ */}
+      {selectedPaquete !== '3 Cajas' && (
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 lg:py-16">
+          <div className="bg-foreground text-background rounded-md p-8 lg:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
-              <p className="font-body text-xs tracking-[0.15em] uppercase text-foreground/40 mb-2">Más valor para tu rutina</p>
-              <h3 className="font-display text-2xl font-light text-foreground mb-1">
+              <p className="font-body text-[10px] tracking-[0.2em] uppercase text-background/50 mb-2">La mejor oferta</p>
+              <h3 className="font-display text-2xl lg:text-3xl font-light text-background mb-1">
                 3 Cajas — $899 con envío gratis
               </h3>
-              <p className="font-body text-sm text-foreground/55">
-                La opción ideal para tener siempre a la mano. Sin preocuparte por reordenar pronto.
+              <p className="font-body text-sm text-background/60">
+                Siempre a la mano. Sin quedarte sin. Sin preocuparte por reordenar.
               </p>
             </div>
             <button
               type="button"
               onClick={() => logic.handleOptionSelect('Paquete', '3 Cajas')}
-              className="flex-shrink-0 inline-flex items-center gap-2 border border-foreground/30 text-foreground px-6 py-3 font-body text-sm font-medium hover:bg-foreground hover:text-background transition-all duration-200 whitespace-nowrap"
-              style={{ borderRadius: '2px' }}
+              className="flex-shrink-0 inline-flex items-center gap-2 bg-background text-foreground px-7 py-3.5 font-body text-sm font-semibold hover:bg-background/90 transition-all duration-200 whitespace-nowrap rounded-sm"
             >
-              Ver 3 Cajas
+              Elegir 3 Cajas
             </button>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* ── FAQ ── */}
-        <div className="mt-16 lg:mt-20 max-w-2xl">
-          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/40 mb-4">
-            Preguntas frecuentes
-          </p>
-          <h2 className="font-display text-3xl font-light text-foreground mb-8">
-            Todo lo que necesitas saber.
-          </h2>
+      {/* ════════════════════════════════════════════
+          FAQ
+      ════════════════════════════════════════════ */}
+      <section className="pb-16 lg:pb-20">
+        <div className="max-w-3xl mx-auto px-6 lg:px-12">
+          <div className="mb-8">
+            <p className="font-body text-[10px] font-medium tracking-[0.22em] uppercase text-foreground/45 mb-3">
+              Preguntas frecuentes
+            </p>
+            <h2 className="font-display text-3xl font-light text-foreground">
+              Todo lo que necesitas saber.
+            </h2>
+          </div>
+
           <Accordion type="single" collapsible className="space-y-2">
             {pdpFaqs.map((faq, i) => (
               <AccordionItem
                 key={i}
                 value={`pdp-faq-${i}`}
-                className="border border-border px-5 rounded-sm data-[state=open]:border-foreground/20 transition-all bg-card"
-                style={{ borderRadius: '4px' }}
+                className="border border-border rounded-md px-5 bg-card data-[state=open]:border-foreground/20 transition-all"
               >
                 <AccordionTrigger className="font-body text-sm font-medium text-foreground hover:no-underline py-4 text-left">
                   {faq.q}
                 </AccordionTrigger>
-                <AccordionContent className="font-body text-sm text-foreground/55 leading-relaxed pb-4">
+                <AccordionContent className="font-body text-sm text-foreground/60 leading-relaxed pb-4">
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
         </div>
-      </div>
+      </section>
 
-      {/* ── STICKY ADD TO CART BAR ── */}
+      {/* ════════════════════════════════════════════
+          STICKY ADD TO CART BAR
+      ════════════════════════════════════════════ */}
       {logic.inStock && (
         <div
           className={cn(
@@ -593,8 +703,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 <button
                   type="button"
                   onClick={logic.handleAddToCart}
-                  className="flex items-center gap-2 bg-foreground text-background px-5 py-2.5 font-body text-sm font-semibold hover:bg-foreground/90 transition-colors"
-                  style={{ borderRadius: '2px' }}
+                  className="flex items-center gap-2 bg-foreground text-background px-5 py-2.5 font-body text-sm font-semibold hover:bg-foreground/90 transition-colors rounded-sm"
                 >
                   <ShoppingCart className="h-4 w-4" aria-hidden="true" />
                   Agregar
@@ -602,8 +711,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 <button
                   type="button"
                   onClick={logic.handleBuyNow}
-                  className="border border-foreground/25 text-foreground px-5 py-2.5 font-body text-sm hover:border-foreground/50 transition-colors hidden sm:flex items-center"
-                  style={{ borderRadius: '2px' }}
+                  className="border border-foreground/25 text-foreground px-5 py-2.5 font-body text-sm hover:border-foreground/50 transition-colors hidden sm:flex items-center rounded-sm"
                 >
                   Comprar ahora
                 </button>

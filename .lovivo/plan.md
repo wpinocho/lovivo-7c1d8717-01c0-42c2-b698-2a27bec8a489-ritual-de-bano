@@ -16,10 +16,10 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - Font class: `font-display` for headings, `font-body` for body text
 
 ## Text Contrast Convention
-- Eyebrow labels: `text-foreground/60` (NOT /40)
-- Body descriptions: `text-foreground/70` minimum
-- Small detail text: `text-foreground/65` minimum
-- On dark (featured) cards: `text-background/75` min, `text-background/80` for body
+- Eyebrow labels: `text-foreground/45` (tracking [0.22em])
+- Body descriptions: `text-foreground/65` minimum
+- Small detail text: `text-foreground/55` minimum
+- On dark (featured) cards: `text-background/60` min, `text-background/80` for body
 
 ## Product
 - Product ID: 101a5e33-0397-4283-8050-ea72235d00fd
@@ -48,25 +48,31 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - `src/templates/EcommerceTemplate.tsx` — premium header with mobile menu + editorial footer
 - `src/templates/PageTemplate.tsx` — full-width layout fix
 - `src/pages/ui/IndexUI.tsx` — pure landing page (no catalog grid)
-- `src/pages/ui/ProductPageUI.tsx` — full PDP with pricing cards, preselect 2 Cajas, sticky CTA bar
+- `src/pages/ui/ProductPageUI.tsx` — **FULLY REBUILT** premium PDP
 
 ### Lunita Section Components (src/components/lunita/)
 - `HeroSection.tsx` — full-bleed hero (image covers 100% + dark gradient left→right + white text)
 - `HowItWorksSection.tsx` — 3 steps with images
 - `WhyDifferentSection.tsx` — before/after comparison rows
-- `BenefitsSection.tsx` — 6 benefit cards grid (copy updated to benefit-focused language)
-- `OfferSection.tsx` — 3 pricing cards (2 cajas featured, 3 cajas anchor)
+- `BenefitsSection.tsx` — 6 benefit cards grid
+- `OfferSection.tsx` — 3 pricing cards
 - `IngredientsSection.tsx` — split image + trust attributes
-- `SocialProofSection.tsx` — Garantía + Confianza section (3 trust cards)
+- `SocialProofSection.tsx` — Garantía + Confianza section
 - `FAQSection.tsx` — accordion FAQ (7 questions)
 - `ClosingCTASection.tsx` — dark closing CTA section
 
-## Hero Architecture (Option A — Full Bleed)
-- Image: `absolute inset-0` covering 100% of section
-- Overlay: `linear-gradient(to right, rgba(30,25,20,0.82) 0%, rgba(30,25,20,0.04) 100%)`
-- All text: white (`text-white`) with opacity variants (/65, /80, /55)
-- Primary CTA: white background + dark text
-- Secondary CTA: white border + white text
+## ProductPageUI.tsx — What's Built (latest version)
+1. **Sticky gallery** — `lg:sticky lg:top-8 lg:self-start` eliminates white space on desktop
+2. **Stars + rating** — 4.9 stars above product title, above the fold
+3. **Ingredient pills** — shown ABOVE the pricing cards (cleaner position)
+4. **Guarantee block** — dedicated card with Shield icon, not just floating text
+5. **Benefits icon grid** — 2×3 grid with Lucide icons (Droplets, Heart, Shield, Leaf, Sparkles, Star)
+6. **"Así se usa"** — visual cards with images (box, milky water, baby bath) in warm bg section
+7. **Editorial lifestyle strip** — full-width 400px image with dark gradient + editorial quote
+8. **Reviews section** — "Lo que dicen las mamás" — 4 cards in 2×2 grid, warm bg
+9. **Upsell 3 Cajas** — dark block (bg-foreground/text-background) instead of oat card
+10. **FAQ** — accordion, 5 questions, centered max-w-3xl
+11. **Sticky CTA bar** — shows when main CTA scrolls out of view
 
 ## URL Param Convention (PDP)
 - `?p=1` → preselect 1 Caja
@@ -75,108 +81,16 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 
 ---
 
-## PENDING: BIG PDP OVERHAUL (Priority — implement in next Craft Mode session)
-
-### Root cause of visual problems
-1. **Empty left column below the fold**: The 2-column grid has the gallery on the left. Once thumbnails end, the left column is EMPTY while the right column keeps stacking: pills, benefits, guarantee — creating a giant white void on desktop.
-2. **No reviews section** — huge conversion killer, especially for paid traffic.
-3. **"How to use" section is sparse** — just text columns, no visual support.
-4. **Sections feel disconnected** — no visual rhythm, just floating text on cream background.
-
-### Fix 1: Sticky Gallery (fixes the white space instantly)
-In `ProductPageUI.tsx`, add `lg:sticky lg:top-8 lg:self-start` to the gallery `<div>` wrapping the image + thumbnails.
-This makes the product image "stay" as the user reads benefits in the right column — like Apple, Aesop, premium DTC brands.
-```tsx
-// BEFORE
-<div className="space-y-4">
-
-// AFTER  
-<div className="space-y-4 lg:sticky lg:top-8 lg:self-start">
-```
-
-### Fix 2: Social proof "star rating" near the title
-Add a small star row just above the title eyebrow to signal credibility above the fold:
-```tsx
-<div className="flex items-center gap-2 mb-3">
-  <div className="flex">{Array(5).fill('★').map(...)}</div>
-  <span className="font-body text-xs text-foreground/55">4.9 · Primeras mamás que lo probaron</span>
-</div>
-```
-
-### Fix 3: New "Lo que dicen las mamás" — Reviews Section
-Add a FULL testimonials section (inside ProductPageUI.tsx, after the editorial lifestyle strip).
-Design: Warm oat background (`bg-secondary/30`), 4 testimonial cards in a 2×2 grid (desktop) or vertical stack (mobile).
-Each card: 5 stars, quote, name + baby detail.
-
-Testimonials to use (curated, realistic):
-```
-1. ⭐⭐⭐⭐⭐ "La piel de mi bebé quedó súper suavecita desde la primera vez. Y el aroma es precioso, nada pesado." — Valentina R., mamá de Emilio (2 meses)
-2. ⭐⭐⭐⭐⭐ "Lo incorporé a la rutina nocturna y ahora el baño es nuestro momento favorito del día. Totalmente recomendado." — Andrea M., mamá de Isabella (5 meses)
-3. ⭐⭐⭐⭐⭐ "El empaque es hermoso, perfecto como regalo. Y funciona de verdad — la piel de mi bebé es otra." — Fernanda G., mamá de Santiago (3 meses)
-4. ⭐⭐⭐⭐⭐ "Pensé que era un lujo, pero después del primer baño ya no me imagino sin él. Se lo recomiendo a todas las mamás." — Daniela C., mamá de Camila (4 meses)
-```
-Show above testimonials: "Lo que dicen las primeras mamás que lo usaron" + aggregate stars.
-
-### Fix 4: "How to use" section — add images above each step
-Use existing product images (milky water, hands pouring, baby bath) as small visual above each step number.
-Change from `grid-cols-3` plain text to cards with image top + step number + title + desc.
-Each step image:
-- Step 1 (Abre el sobre) → lunita-box.webp (cropped)
-- Step 2 (Agrégalo al agua) → lunita-milky-water.webp
-- Step 3 (Disfruta el ritual) → lunita-baby-bath.webp
-
-```tsx
-// Card structure:
-<div className="flex flex-col gap-4">
-  <div className="aspect-[4/3] rounded-sm overflow-hidden">
-    <img src={step.img} className="w-full h-full object-cover" />
-  </div>
-  <div className="flex gap-4 items-start">
-    <span className="font-display text-4xl font-light text-foreground/12">{step.num}</span>
-    <div>
-      <h3 className="font-display text-lg font-medium">{step.title}</h3>
-      <p className="font-body text-sm text-foreground/60">{step.desc}</p>
-    </div>
-  </div>
-</div>
-```
-
-### Fix 5: Tighten spacing and section visual rhythm
-- Reduce mt-20/mt-28 to mt-16 between sections
-- Add subtle `border-t border-border` or warm background blocks to separate sections visually
-- The benefits list in the right column: remove `border-t pt-8` — it's creating dead space
-- Remove the orphaned ingredient pills + guarantee from below the CTA buttons area (move them to a proper section or keep them but reduce spacing)
-
-### Fix 6: Better ingredient/benefit visual block
-Instead of floating pills + list in the right column, consider a cleaner layout:
-- Keep pills inline (they look fine)
-- Replace the "Por qué te va a encantar" list with a 2-column icon grid (3 icons left + 3 icons right) with brief titles
-- Icons to use from lucide-react: `Droplets`, `Heart`, `Shield`, `Leaf`, `Star`, `Sparkles`
-
-### Summary of Files to Modify
-- `src/pages/ui/ProductPageUI.tsx` — ALL changes above (sticky gallery, stars near title, new reviews section, visual how-to, spacing fixes, benefits grid)
-
-### Implementation order (Craft Mode):
-1. Add `lg:sticky lg:top-8 lg:self-start` to gallery div → immediate fix for white space
-2. Add star rating near title
-3. Rewrite benefits as icon grid
-4. Rewrite "How to use" as visual cards with images
-5. Add "Lo que dicen las mamás" testimonials section (after editorial strip)
-6. Final spacing pass
-
----
-
 ## Known Issues / Notes
 - Product slug was auto-generated as `ritual-de-bao-lechoso-para-beb` (special chars stripped)
 - All internal CTAs reference this slug
-- Newsletter section removed from homepage to keep focus on conversion — can be re-added
-- Guarantee language: "Si no te encanta en tu primer uso, te lo resolvemos" (soft, premium)
+- Newsletter section removed from homepage — can be re-added later
 
 ## Pending / Future Sessions
 1. **Brand name finalization** — replace "Lunita" everywhere once name is confirmed
 2. **Real product photography** — replace AI images with actual product photos when available
 3. **Real reviews** — integrate once orders start coming in (3-5 real reviews minimum)
-4. **Email capture / Newsletter** — configure newsletter section for lead capture
+4. **Email capture / Newsletter** — configure for lead capture
 5. **Blog** — optional: add content strategy around baby routines/rituals
 6. **Analytics** — review conversion funnel once traffic starts
 7. **Checkout confirmation** — configure thank you page for Lunita branding
