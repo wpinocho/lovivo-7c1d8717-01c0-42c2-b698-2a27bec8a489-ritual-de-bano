@@ -30,14 +30,14 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
   - 3 Cajas → $899 MXN + envío gratis (variant id: 20b81493-8043-4cda-9d57-26cf5ca0b0d2)
 - 5 product images uploaded to Supabase storage
 
-## Key Images (Supabase URLs)
+## Key Images (Supabase URLs) — CURRENT (to be replaced)
 - Box/packaging: https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box.webp
 - Baby bath ritual: https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath.webp
 - Hands pouring: https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-ritual.webp
 - Milky water: https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-milky-water.webp
 - Hero bath: https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/hero-bath.webp
 
-## Files Built
+## FILES BUILT
 ### Design System
 - `src/index.css` — brand design tokens, Cormorant Garamond + Inter fonts, marquee animation
 - `tailwind.config.ts` — brand color palette + font-display/font-body tokens
@@ -110,6 +110,90 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - 2 Cajas pre-selected + "Más Elegida" badge = conversion sweet spot
 - 3 Cajas anchors HIGH (shows there's more value if they want it)
 Reordering would break this psychological framing.
+
+---
+
+## 🖼️ IMAGE REGENERATION PLAN (Next Session - Craft Mode)
+
+### Complete Image Inventory (All places images appear on PDP + homepage)
+
+#### PDP (ProductPageUI.tsx)
+| Slot | Current Image | Section | Priority |
+|------|--------------|---------|----------|
+| Product gallery [0] main hero | lunita-baby-bath.webp or similar (from ecommerce product record) | Hero carousel/gallery | 🔴 CRITICAL |
+| Product gallery [1-4] thumbnails | Various lunita images | Hero carousel/gallery | 🔴 CRITICAL |
+| Step 01 "Abre el sobre" | lunita-box.webp | How to use | 🟡 HIGH |
+| Step 02 "Agrégalo al agua" | lunita-milky-water.webp | How to use | 🟡 HIGH |
+| Step 03 "Disfruta el ritual" | lunita-baby-bath.webp | How to use | 🟡 HIGH |
+| Editorial lifestyle strip | lunita-baby-bath.webp | Full-width strip | 🔴 CRITICAL |
+| Gift section | lunita-box.webp | Split layout | 🟡 HIGH |
+| Closing CTA texture | lunita-milky-water.webp (opacity 5%) | Background | 🟢 LOW |
+| BG texture whole page | lunita-milky-water.webp (opacity 15%) | Background | 🟢 LOW |
+
+#### Homepage (IndexUI.tsx + lunita components)
+| Slot | Current Image | Component | Priority |
+|------|--------------|-----------|----------|
+| Full-bleed hero | hero-bath.webp | HeroSection.tsx | 🔴 CRITICAL |
+| How it works step 1 | lunita-box.webp | HowItWorksSection.tsx | 🟡 HIGH |
+| How it works step 2 | lunita-milky-water.webp | HowItWorksSection.tsx | 🟡 HIGH |
+| How it works step 3 | lunita-baby-bath.webp | HowItWorksSection.tsx | 🟡 HIGH |
+| Ingredients section | lunita-ritual.webp | IngredientsSection.tsx | 🟡 HIGH |
+| Closing CTA bg | lunita-milky-water.webp | ClosingCTASection.tsx | 🟢 LOW |
+
+### Recommended Image Set (5 new hero images)
+
+All images should be: **ultra-realistic editorial style, warm candlelight/golden hour lighting, cream/beige tones, intimate and emotional, NOT sterile or clinical**
+
+#### Image 1 — HERO / LIFESTYLE (most important)
+- **Scene**: A beautiful mother (Latina, 25-35yo) holding her newborn baby skin-to-skin, both wrapped in soft cream/white towels, warm golden light, close-up of baby's face and mom's hands. The mood is pure peace and connection.
+- **Format**: Landscape 16:9 or portrait 4:5 for gallery
+- **Used in**: Hero gallery [0], Editorial lifestyle strip, HeroSection homepage
+- **Prompt direction**: "Editorial lifestyle photo of a young latina mother holding her newborn baby wrapped in a soft cream towel after a bath, golden hour warm light, intimate peaceful moment, skin-to-skin connection, soft bokeh background, muted cream and warm beige tones, editorial magazine style, 35mm film look"
+
+#### Image 2 — PRODUCT PACKAGING HERO
+- **Scene**: The Lunita box/packaging beautifully staged on marble or natural wood surface with dried botanicals (chamomile, lavender), one open sachet with powder coming out, soft natural light with gentle shadows
+- **Format**: Square 1:1 or portrait 4:5
+- **Used in**: Hero gallery [1], Step 01, Gift section
+- **Prompt direction**: "Editorial product photography of a premium cream/beige ritual bath sachet box with loose dried botanicals scattered around, one sachet open showing fine powder, clean white marble surface, soft natural side light, luxury baby brand aesthetic, cream and beige tones"
+
+#### Image 3 — MILKY WATER MACRO
+- **Scene**: Close-up of creamy/milky bath water in a ceramic tub, hands gently stirring or just the water itself, beautiful swirls of white in clear water, magical and serene
+- **Format**: Square or landscape
+- **Used in**: Hero gallery [2], Step 02, background texture
+- **Prompt direction**: "Macro photo of milky white bath water in a ceramic bathtub, soft swirls of creamy white liquid in clear warm water, hands gently touching the water surface, soft natural light, peaceful and luxurious, warm tones"
+
+#### Image 4 — THE RITUAL MOMENT
+- **Scene**: Baby in bathtub (or being bathed in a sink/tub), hands of parent gently pouring water over baby's head or washing baby. Baby looks relaxed and calm. Very intimate.
+- **Format**: Portrait or square
+- **Used in**: Hero gallery [3], Step 03
+- **Prompt direction**: "Intimate baby bath scene, parents hands gently bathing a newborn baby in a small ceramic tub, milky white water, baby eyes closed peacefully, warm candlelight and golden light, cozy and nurturing atmosphere, editorial quality"
+
+#### Image 5 — NIGHTTIME RITUAL COMPLETE
+- **Scene**: Post-bath moment — baby wrapped in a cream muslin cloth or towel being held close, perhaps the mother's face visible looking down at baby with love. Low light, warm, intimate. This is the "after" — the peace.
+- **Format**: Portrait 4:5
+- **Used in**: Hero gallery [4], potential new sections
+- **Prompt direction**: "Nighttime nursery scene, latina mother holding her freshly bathed newborn wrapped in cream muslin cloth, warm dim light, peaceful and tender moment, editorial baby brand photography, muted warm tones, intimate close-up"
+
+### Implementation Steps (Craft Mode)
+
+1. **Generate Image 1 (Hero/Lifestyle)** — Use imagegen--generate_image with prompt for hero lifestyle shot
+2. **Generate Image 2 (Packaging)** — Product photography style with botanicals
+3. **Generate Image 3 (Milky water)** — Macro bath water
+4. **Generate Image 4 (Bath ritual)** — Baby being bathed
+5. **Generate Image 5 (Post-bath)** — Peaceful after-bath moment
+6. **Upload all images** to Supabase storage (overwrite existing files with same names OR use new names)
+7. **Update ecommerce product images** via update-product tool — replace the 5 product gallery images with new ones
+8. **Update hardcoded image URLs** in:
+   - `src/pages/ui/ProductPageUI.tsx` (lines 94, 100, 107, 665, 739, 851)
+   - `src/components/lunita/HeroSection.tsx` (line 18)
+   - `src/components/lunita/HowItWorksSection.tsx` (lines 10, 17, 24)
+   - `src/components/lunita/IngredientsSection.tsx` (line 32)
+   - `src/components/lunita/ClosingCTASection.tsx` (line 15)
+
+### Batch Strategy (recommended)
+- **Batch 1 (hero images)**: Image 1 + Image 3 → update PDP hero gallery + editorial strip + homepage hero. Evaluate quality.
+- **Batch 2 (steps)**: Image 2 + Image 4 → update step cards + gift section
+- **Batch 3 (closing)**: Image 5 → update remaining gallery slots
 
 ---
 
