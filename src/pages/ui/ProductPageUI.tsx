@@ -767,12 +767,16 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 </div>
               ))}
             </div>
-            <Link
-              to="/productos/ritual-de-bao-lechoso-para-beb?p=2"
+            <button
+              type="button"
+              onClick={() => {
+                logic.handleOptionSelect('Paquete', '2 Cajas')
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
               className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3.5 font-body text-sm font-semibold rounded-sm hover:bg-foreground/90 transition-colors self-start"
             >
               Comprar como regalo →
-            </Link>
+            </button>
           </div>
         </div>
       </div>
@@ -862,17 +866,18 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
           <div className="flex flex-col sm:flex-row items-center gap-3 mt-2">
             <button
               type="button"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={logic.handleBuyNow}
               className="inline-flex items-center gap-2 bg-background text-foreground px-8 py-4 font-body text-sm font-semibold rounded-sm hover:bg-background/90 transition-colors"
             >
               Comprar ahora
             </button>
-            <Link
-              to="/productos/ritual-de-bao-lechoso-para-beb?p=3"
+            <button
+              type="button"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="inline-flex items-center gap-2 border border-background/25 text-background/70 px-8 py-4 font-body text-sm rounded-sm hover:border-background/50 hover:text-background transition-colors"
             >
               Ver todos los paquetes
-            </Link>
+            </button>
           </div>
         </div>
       </section>
@@ -900,10 +905,19 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 )}
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
+                {/* Mobile: Comprar ahora → goes directly to checkout */}
+                <button
+                  type="button"
+                  onClick={logic.handleBuyNow}
+                  className="sm:hidden flex items-center gap-2 bg-foreground text-background px-5 py-2.5 font-body text-sm font-semibold hover:bg-foreground/90 transition-colors rounded-sm"
+                >
+                  Comprar ahora
+                </button>
+                {/* Desktop: Agregar + Comprar ahora */}
                 <button
                   type="button"
                   onClick={logic.handleAddToCart}
-                  className="flex items-center gap-2 bg-foreground text-background px-5 py-2.5 font-body text-sm font-semibold hover:bg-foreground/90 transition-colors rounded-sm"
+                  className="hidden sm:flex items-center gap-2 border border-border text-foreground px-5 py-2.5 font-body text-sm font-semibold hover:bg-secondary/60 transition-colors rounded-sm"
                 >
                   <ShoppingCart className="h-4 w-4" aria-hidden="true" />
                   Agregar
@@ -911,7 +925,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 <button
                   type="button"
                   onClick={logic.handleBuyNow}
-                  className="border border-foreground/25 text-foreground px-5 py-2.5 font-body text-sm hover:border-foreground/50 transition-colors hidden sm:flex items-center rounded-sm"
+                  className="hidden sm:flex items-center gap-2 bg-foreground text-background px-5 py-2.5 font-body text-sm font-semibold hover:bg-foreground/90 transition-colors rounded-sm"
                 >
                   Comprar ahora
                 </button>
