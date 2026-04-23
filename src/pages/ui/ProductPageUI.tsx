@@ -258,25 +258,25 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
               />
             </div>
 
-            {/* Mobile carousel */}
+            {/* Mobile carousel — edge-to-edge (no side padding) */}
             {logic.displayImages && logic.displayImages.length > 1 ? (
-              <div className="md:hidden">
+              <div className="md:hidden -mx-6">
                 <Carousel className="w-full">
                   <CarouselContent>
                     {logic.displayImages.map((img: string, idx: number) => (
                       <CarouselItem key={idx}>
-                        <div className="aspect-square rounded-lg overflow-hidden bg-secondary">
+                        <div className="aspect-square overflow-hidden bg-secondary">
                           <img src={img} alt={`${logic.product.title} ${idx + 1}`} loading="lazy" className="w-full h-full object-cover" />
                         </div>
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  <CarouselPrevious className="left-2" />
-                  <CarouselNext className="right-2" />
+                  <CarouselPrevious className="left-3" />
+                  <CarouselNext className="right-3" />
                 </Carousel>
               </div>
             ) : (
-              <div className="md:hidden aspect-square rounded-lg overflow-hidden bg-secondary">
+              <div className="md:hidden -mx-6 aspect-square overflow-hidden bg-secondary">
                 <img src={displayImage} alt={logic.product.title} className="w-full h-full object-cover" />
               </div>
             )}
@@ -683,7 +683,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
       {logic.inStock && (
         <div
           className={cn(
-            'fixed bottom-0 left-0 right-0 z-50 bg-background/97 backdrop-blur-sm border-t border-border shadow-lg transition-transform duration-300 ease-out pb-[env(safe-area-inset-bottom)]',
+            'fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border shadow-lg transition-transform duration-300 ease-out pb-[env(safe-area-inset-bottom)]',
             ctaInView ? 'translate-y-full' : 'translate-y-0'
           )}
         >
@@ -694,7 +694,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                   Ritual de Baño Lechoso
                 </p>
                 {selectedPaquete && (
-                  <p className="font-body text-xs text-foreground/45">
+                  <p className="font-body text-xs text-foreground/65">
                     {selectedPaquete} · ${paqueteDetails[selectedPaquete]?.price.toLocaleString('es-MX')} MXN
                   </p>
                 )}
