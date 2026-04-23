@@ -67,8 +67,9 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - Uses `<EcommerceTemplate layout="full-width">` — removes PageTemplate py-8 wrapper
 - Mobile: image starts IMMEDIATELY below header (zero gap)
 - **Milky texture wrapper**: entire PDP content wrapped in a div with CSS multiple-background trick:
-  `background: linear-gradient(rgba(247,242,235,0.94), ...), url(lunita-milky-water.webp) center/cover`
-  → 6% image visibility on naked areas (no extra HTTP request — image already cached from step 02 card)
+  `background: linear-gradient(rgba(247,242,235,0.85), ...), url(lunita-milky-water.webp) center/cover`
+  + `backgroundAttachment: 'local'` — ensures mobile browsers render background correctly
+  → 15% image visibility on naked areas (no extra HTTP request — image already cached from step 02 card)
 
 ### Desktop
 1. **Sticky gallery** — `lg:sticky lg:top-[80px]` ✅

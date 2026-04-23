@@ -233,7 +233,8 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
       {/* ── Milky background texture — same image already loaded in step 02, zero extra request ── */}
       <div
         style={{
-          background: 'linear-gradient(rgba(247,242,235,0.89), rgba(247,242,235,0.89)), url(https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-milky-water.webp) center / cover',
+          background: 'linear-gradient(rgba(247,242,235,0.85), rgba(247,242,235,0.85)), url(https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-milky-water.webp) center / cover',
+          backgroundAttachment: 'local',
         }}
       >
 
