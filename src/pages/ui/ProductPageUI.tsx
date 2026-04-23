@@ -230,6 +230,13 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
   return (
     <EcommerceTemplate hideFloatingCartOnMobile layout="full-width">
 
+      {/* ── Milky background texture — same image already loaded in step 02, zero extra request ── */}
+      <div
+        style={{
+          background: 'linear-gradient(rgba(247,242,235,0.94), rgba(247,242,235,0.94)), url(https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-milky-water.webp) center / cover',
+        }}
+      >
+
       {/* ════════════════════════════════════════════
           HERO SECTION — Gallery + Product Info
       ════════════════════════════════════════════ */}
@@ -260,15 +267,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
 
             {/* Mobile carousel — edge-to-edge (no side padding) */}
             {logic.displayImages && logic.displayImages.length > 1 ? (
-              <div className="md:hidden -mx-6 relative">
-                <button
-                  type="button"
-                  onClick={logic.handleNavigateBack}
-                  className="absolute top-3 left-3 z-10 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-sm"
-                  aria-label="Volver"
-                >
-                  <ArrowLeft className="h-4 w-4 text-foreground" aria-hidden="true" />
-                </button>
+              <div className="md:hidden -mx-6">
                 <Carousel className="w-full">
                   <CarouselContent>
                     {logic.displayImages.map((img: string, idx: number) => (
@@ -284,15 +283,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 </Carousel>
               </div>
             ) : (
-              <div className="md:hidden -mx-6 relative">
-                <button
-                  type="button"
-                  onClick={logic.handleNavigateBack}
-                  className="absolute top-3 left-3 z-10 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-sm"
-                  aria-label="Volver"
-                >
-                  <ArrowLeft className="h-4 w-4 text-foreground" aria-hidden="true" />
-                </button>
+              <div className="md:hidden -mx-6">
                 <div className="aspect-[4/5] overflow-hidden bg-secondary">
                   <img src={displayImage} alt={logic.product.title} className="w-full h-full object-cover" />
                 </div>
@@ -785,6 +776,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
           </div>
         </div>
       )}
+      </div>{/* end milky texture wrapper */}
     </EcommerceTemplate>
   )
 }
