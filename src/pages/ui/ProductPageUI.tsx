@@ -233,24 +233,24 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
       {/* ════════════════════════════════════════════
           HERO SECTION — Gallery + Product Info
       ════════════════════════════════════════════ */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-4">
         {/* Back */}
         <button
           type="button"
           onClick={logic.handleNavigateBack}
-          className="inline-flex items-center gap-1.5 font-body text-sm text-foreground/40 hover:text-foreground transition-colors mb-8"
+          className="inline-flex items-center gap-1.5 font-body text-sm text-foreground/40 hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
           Volver
         </button>
 
         {/* Main grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 lg:items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[55%_1fr] gap-8 lg:gap-14 lg:items-start">
 
           {/* ── GALLERY (sticky on desktop) ── */}
-          <div className="space-y-3 lg:sticky lg:top-8 lg:self-start">
+          <div className="space-y-3 lg:sticky lg:top-[80px] lg:self-start">
             {/* Main image — desktop */}
-            <div className="hidden md:block aspect-[4/3] rounded-md overflow-hidden bg-secondary">
+            <div className="hidden md:block aspect-square rounded-lg overflow-hidden bg-secondary">
               <img
                 src={displayImage}
                 alt={logic.product.title}
@@ -265,7 +265,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                   <CarouselContent>
                     {logic.displayImages.map((img: string, idx: number) => (
                       <CarouselItem key={idx}>
-                        <div className="aspect-[4/3] rounded-md overflow-hidden bg-secondary">
+                        <div className="aspect-square rounded-lg overflow-hidden bg-secondary">
                           <img src={img} alt={`${logic.product.title} ${idx + 1}`} loading="lazy" className="w-full h-full object-cover" />
                         </div>
                       </CarouselItem>
@@ -276,7 +276,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 </Carousel>
               </div>
             ) : (
-              <div className="md:hidden aspect-[4/3] rounded-md overflow-hidden bg-secondary">
+              <div className="md:hidden aspect-square rounded-lg overflow-hidden bg-secondary">
                 <img src={displayImage} alt={logic.product.title} className="w-full h-full object-cover" />
               </div>
             )}
@@ -290,7 +290,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                     type="button"
                     onClick={() => setSelectedImage(img)}
                     className={cn(
-                      'flex-shrink-0 w-16 h-16 rounded-sm overflow-hidden border-2 transition-all duration-200',
+                      'flex-shrink-0 w-[72px] h-[72px] rounded-sm overflow-hidden border-2 transition-all duration-200',
                       (selectedImage === img || (!selectedImage && idx === 0))
                         ? 'border-foreground scale-105'
                         : 'border-transparent hover:border-foreground/25'

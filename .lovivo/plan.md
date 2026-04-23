@@ -61,18 +61,23 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - `FAQSection.tsx` — accordion FAQ (7 questions)
 - `ClosingCTASection.tsx` — dark closing CTA section
 
-## ProductPageUI.tsx — What's Built (latest version)
-1. **Sticky gallery** — `lg:sticky lg:top-8 lg:self-start` eliminates white space on desktop
-2. **Stars + rating** — 4.9 stars above product title, above the fold
-3. **Ingredient pills** — shown ABOVE the pricing cards (cleaner position)
-4. **Guarantee block** — dedicated card with Shield icon, not just floating text
-5. **Benefits icon grid** — 2×3 grid with Lucide icons (Droplets, Heart, Shield, Leaf, Sparkles, Star)
-6. **"Así se usa"** — visual cards with images (box, milky water, baby bath) in warm bg section
-7. **Editorial lifestyle strip** — full-width 400px image with dark gradient + editorial quote
-8. **Reviews section** — "Lo que dicen las mamás" — 4 cards in 2×2 grid, warm bg
-9. **Upsell 3 Cajas** — dark block (bg-foreground/text-background) instead of oat card
-10. **FAQ** — accordion, 5 questions, centered max-w-3xl
-11. **Sticky CTA bar** — shows when main CTA scrolls out of view
+## ProductPageUI.tsx — Current State (latest)
+1. **Sticky gallery** — `lg:sticky lg:top-[80px]` ✅ FIXED (was top-8)
+2. **Grid layout** — `lg:grid-cols-[55%_1fr]` ✅ FIXED (gallery takes 55% width)
+3. **Desktop image** — `aspect-square rounded-lg` ✅ FIXED (was aspect-[4/3] landscape)
+4. **Mobile carousel** — `aspect-square rounded-lg` ✅ FIXED (was aspect-[4/3])
+5. **Thumbnails** — `w-[72px] h-[72px]` ✅ FIXED (was w-16 h-16)
+6. **Container padding** — `py-4` ✅ FIXED (was py-6, reduces dead space above fold)
+7. **Stars + rating** — 4.9 stars above product title, above the fold
+8. **Ingredient pills** — shown ABOVE the pricing cards
+9. **Guarantee block** — dedicated card with Shield icon
+10. **Benefits icon grid** — 2×3 grid with Lucide icons
+11. **"Así se usa"** — visual cards with images in warm bg section
+12. **Editorial lifestyle strip** — full-width 400px image with dark gradient + editorial quote
+13. **Reviews section** — "Lo que dicen las mamás" — 4 cards in 2×2 grid
+14. **Upsell 3 Cajas** — dark block (bg-foreground/text-background)
+15. **FAQ** — accordion, 5 questions, centered max-w-3xl
+16. **Sticky CTA bar** — shows when main CTA scrolls out of view
 
 ## URL Param Convention (PDP)
 - `?p=1` → preselect 1 Caja
