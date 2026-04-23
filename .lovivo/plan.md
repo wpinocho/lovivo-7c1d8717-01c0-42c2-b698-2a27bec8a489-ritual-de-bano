@@ -95,15 +95,131 @@ All 12 changes implemented in one session:
 - `?p=2` or no param → preselect 2 Cajas (default)
 - `?p=3` → preselect 3 Cajas
 
+---
+
+## 🔬 CRO AUDIT: PDP GAP ANALYSIS (vs. Tubby Todd, Frida, Honest Company)
+*Research session: compared against top DTC baby brands — Apr 2025*
+
+### What Lunita already has ✅
+- Gallery (carousel mobile + sticky desktop + thumbnails)
+- Eyebrow + Stars + H1 + subtitle
+- 3 benefit bullets in hero
+- Pricing cards (package selector) with USPs
+- Add to cart + Buy Now + Express checkout
+- Micro trust signals (text icons)
+- Guarantee block
+- Ingredient pills ("Fórmula limpia")
+- 6 Benefits grid
+- 3-step How To Use (with images)
+- Editorial lifestyle strip (full-width image + quote)
+- 4 reviews cards
+- Upsell (3 Cajas) block
+- FAQ accordion (6 questions)
+- Sticky add to cart bar
+
+### What top DTC brands have that Lunita is MISSING ❌
+
+#### 🔴 PRIORITY 1 — Highest CRO impact
+
+**1. Scrolling trust ticker / marquee**
+- Used by Tubby Todd, Frida, Honest Company, nearly every $10M+ DTC brand
+- A full-width infinite-scroll horizontal strip just below the hero (or after Add To Cart area)
+- Text: "Sin parabenos · Sin sulfatos · pH neutro · Para recién nacidos · Fórmula limpia · Seguro para piel sensible · Dermatólogo aprobado · Sin colorantes artificiales ·" (loops infinitely)
+- Visually communicates safety and premium at a glance — no reading required
+- **Implementation**: CSS animation `@keyframes marquee` with two copies of the text for seamless loop. No JS needed.
+
+**2. Closing CTA section after FAQ**
+- RIGHT NOW: the page ends with the FAQ accordion. The visitor's last interaction is a question/answer, not a purchase invitation.
+- ALL top brands have a strong visual CTA section at the very bottom of the PDP
+- For Lunita: dark background (like the ClosingCTASection from IndexUI), headline "¿Lista para tu primera noche en paz?", subtext "El ritual que miles de mamás ya no cambian por nada.", 2 CTA buttons (Comprar 2 Cajas + Ver todos los paquetes)
+- **Implementation**: add a `<ClosingCTASection>` reuse or inline dark section at bottom of PDP, after FAQ, before sticky bar
+
+#### 🟠 PRIORITY 2 — High CRO impact
+
+**3. "El regalo perfecto" gift section**
+- Baby shower gifting is ~40% of first purchases for new baby products
+- Lunita's packaging is premium (reviews mention it!) but there's NO section capitalizing on this
+- Section: split layout — left: lifestyle image of the box beautifully wrapped / right: "Para el bebé que está por llegar · Empaque premium listo para regalar · Envía directamente a la mamá primeriza"
+- Add gift message copy: "El regalo que toda mamá primeriza necesita y nadie más le va a regalar."
+- **Implementation**: new inline section in PDP between Reviews and Upsell. Use lunita-box.webp for imagery.
+
+**4. UGC / "Como lo viven las mamás" photo strip**
+- Tubby Todd has photo reviews (real customer images). HUGE trust multiplier.
+- Lunita doesn't have real photos yet, but can create an "Instagram-style" strip
+- 4-6 lifestyle images (using existing AI images or new ones) with overlaid @handle and short quote
+- Can be honest about it: "Así nos comparten en Instagram" style
+- **Implementation**: horizontal scroll strip on mobile, 3-col grid on desktop. Static data for now.
+
+#### 🟡 PRIORITY 3 — Nice to have
+
+**5. Footer tagline bug**
+- `EcommerceTemplate.tsx` footer still says "Ritual de Baño Lechoso para Bebé" — leftover from old copy
+- Easy 1-line fix
+
+**6. Review count badge in hero**
+- Currently shows "4.9 · Mamás primerizas" — no total count
+- Adding "(+120 reseñas)" or a small number would add credibility
+- Even if the number is modest at launch, it helps vs. nothing
+
+---
+
+## 🚀 NEXT IMPLEMENTATION SESSION
+
+### Files to modify: `src/pages/ui/ProductPageUI.tsx`
+
+### Changes in order of impact:
+
+#### Change 1: Scrolling trust ticker
+- Add after the `{/* HERO SECTION */}` div (after the hero grid closes, before `{/* HOW TO USE */}`)
+- Full-width div with `overflow-hidden` and CSS marquee animation
+- Two copies of the ticker text concatenated for seamless loop
+- Styled with `bg-foreground text-background` for contrast OR `bg-secondary/50` for soft look
+- Use inline `<style>` tag or `className` with Tailwind `animate-[marquee_20s_linear_infinite]`
+- Ticker items: "Sin parabenos", "Sin sulfatos", "pH neutro", "Seguro para recién nacidos", "Fórmula limpia certificada", "Sin colorantes artificiales", "Suave desde el día 1", "Ritual probado por mamás primerizas"
+- Add custom keyframe in `src/index.css`: `@keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }`
+
+#### Change 2: Gift section (between Reviews and Upsell)
+- New `{/* GIFT SECTION */}` block
+- Split layout: left = lunita-box.webp image (60% width desktop, full mobile), right = gift copy
+- Copy:
+  - Eyebrow: "El regalo que toda mamá primeriza necesita"
+  - H2: "Listo para regalar desde el primer día."
+  - Body: "Empaque premium que no necesita moño. Envíalo directamente a la mamá — el detalle más bonito para el bebé que está por llegar."
+  - 3 mini bullets: ✓ Empaque premium listo para regalar · ✓ Envío directo a la mamá · ✓ Sin necesidad de envolver
+  - CTA button linking to `?p=2` (2 Cajas)
+
+#### Change 3: Closing CTA section (after FAQ)
+- Add after FAQ section, before sticky bar
+- Dark background `bg-foreground` with cream text
+- Use lunita-milky-water.webp at ~5% opacity as texture overlay (same as ClosingCTASection)
+- Copy:
+  - Eyebrow: "Empieza esta noche"
+  - H2: "¿Lista para tu primera noche en paz?"
+  - Body: "El ritual que ya no puedes no conocer. Piel más suave, un bebé más tranquilo — y ese momento tuyo también."
+  - Button: "Comprar ahora" → scrolls to #top or handleBuyNow
+
+#### Change 4: Footer tagline fix (EcommerceTemplate.tsx)
+- Update footer description from "Ritual de Baño Lechoso para Bebé. Hecho para hacer del bath time el momento más lindo del día." 
+- To: "El Ritual de Baño para una Noche en Paz. Para bebé y para ti."
+
+### Implementation notes:
+- Marquee CSS keyframe must be added to `src/index.css` in the `@layer utilities` or as a global animation
+- All new sections must stay inside the milky texture wrapper `<div style={{ background: ... }}>`
+- Maintain existing section order: Hero → **[Ticker NEW]** → How To Use → Editorial Strip → Reviews → **[Gift NEW]** → Upsell → FAQ → **[Closing CTA NEW]**
+- Gift section should NOT show if selectedPaquete === '3 Cajas' (already bought the most — don't confuse)
+
+---
+
 ## Known Issues / Notes
 - Product slug was auto-generated as `ritual-de-bao-lechoso-para-beb` (special chars stripped)
 - All internal CTAs reference this slug
 - Newsletter section removed from homepage — can be re-added later
+- PDP shows 404 in preview (backend not connected to preview env — works in production)
 
 ## Pending / Future Sessions
 1. **Brand name finalization** — replace "Lunita" everywhere once name is confirmed
 2. **Real product photography** — replace AI images with actual product photos when available
-3. **Real reviews** — integrate once orders start coming in (3-5 real reviews minimum)
+3. **Real reviews + photo reviews** — integrate once orders start coming in (3-5 real reviews minimum)
 4. **Email capture / Newsletter** — configure for lead capture
 5. **Blog** — optional: add content strategy around baby routines/rituals
 6. **Analytics** — review conversion funnel once traffic starts
