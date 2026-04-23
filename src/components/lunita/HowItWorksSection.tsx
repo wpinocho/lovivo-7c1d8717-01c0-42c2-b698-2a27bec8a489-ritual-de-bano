@@ -28,7 +28,7 @@ export const HowItWorksSection = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="text-center mb-16 lg:mb-20">
-          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/40 mb-4">
+          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/60 mb-4">
             Tres pasos
           </p>
           <h2 id="how-title" className="font-display text-4xl lg:text-5xl font-light text-foreground">
@@ -56,14 +56,14 @@ export const HowItWorksSection = () => {
 
               {/* Content */}
               <div className="flex gap-5 items-start">
-                <span className="font-display text-4xl font-light text-foreground/15 leading-none mt-0.5 flex-shrink-0">
+                <span className="font-display text-4xl font-light text-foreground/20 leading-none mt-0.5 flex-shrink-0">
                   {step.number}
                 </span>
                 <div>
                   <h3 className="font-display text-xl font-medium text-foreground mb-2">
                     {step.title}
                   </h3>
-                  <p className="font-body text-sm text-foreground/60 leading-relaxed">
+                  <p className="font-body text-sm text-foreground/70 leading-relaxed">
                     {step.description}
                   </p>
                 </div>

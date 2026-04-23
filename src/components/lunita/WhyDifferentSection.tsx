@@ -20,7 +20,7 @@ export const WhyDifferentSection = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/40 mb-4">
+          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/60 mb-4">
             La diferencia
           </p>
           <h2 id="diff-title" className="font-display text-4xl lg:text-5xl font-light text-foreground max-w-xl mx-auto text-balance">
@@ -33,7 +33,7 @@ export const WhyDifferentSection = () => {
           {/* Column headers */}
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="text-center">
-              <span className="font-body text-xs tracking-[0.15em] uppercase text-foreground/40 font-medium">
+              <span className="font-body text-xs tracking-[0.15em] uppercase text-foreground/55 font-medium">
                 Baño normal
               </span>
             </div>
@@ -51,7 +51,7 @@ export const WhyDifferentSection = () => {
                 {/* Before */}
                 <div className="bg-card/60 border border-border px-5 py-4 rounded-sm flex items-center gap-3">
                   <span className="text-foreground/25 text-lg leading-none flex-shrink-0">—</span>
-                  <p className="font-body text-sm text-foreground/45 leading-snug">{item}</p>
+                  <p className="font-body text-sm text-foreground/60 leading-snug">{item}</p>
                 </div>
                 {/* After */}
                 <div className="bg-foreground px-5 py-4 rounded-sm flex items-center gap-3">

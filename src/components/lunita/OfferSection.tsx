@@ -96,7 +96,7 @@ export const OfferSection = () => {
                   </h3>
                   <p
                     className={`font-body text-xs tracking-wide ${
-                      offer.featured ? 'text-background/60' : 'text-foreground/45'
+                      offer.featured ? 'text-background/75' : 'text-foreground/65'
                     }`}
                   >
                     {offer.sachets}
@@ -114,7 +114,7 @@ export const OfferSection = () => {
                   </span>
                   <span
                     className={`font-body text-xs ml-2 ${
-                      offer.featured ? 'text-background/60' : 'text-foreground/45'
+                      offer.featured ? 'text-background/75' : 'text-foreground/65'
                     }`}
                   >
                     MXN
@@ -125,8 +125,8 @@ export const OfferSection = () => {
                 <div
                   className={`flex items-center gap-1.5 mb-6 font-body text-xs ${
                     offer.featured
-                      ? offer.id === 3 ? 'text-background font-semibold' : 'text-background/60'
-                      : offer.id === 3 ? 'text-accent-foreground font-semibold' : 'text-foreground/45'
+                      ? offer.id === 3 ? 'text-background font-semibold' : 'text-background/75'
+                      : offer.id === 3 ? 'text-foreground font-semibold' : 'text-foreground/65'
                   }`}
                 >
                   <Truck className="h-3.5 w-3.5" aria-hidden="true" />
@@ -136,7 +136,7 @@ export const OfferSection = () => {
                 {/* Description */}
                 <p
                   className={`font-body text-xs leading-relaxed mb-8 flex-1 ${
-                    offer.featured ? 'text-background/65' : 'text-foreground/50'
+                    offer.featured ? 'text-background/80' : 'text-foreground/68'
                   }`}
                 >
                   {offer.description}
@@ -161,7 +161,7 @@ export const OfferSection = () => {
         </div>
 
         {/* Reassurance */}
-        <div className="flex flex-wrap justify-center gap-8 mt-14 font-body text-xs text-foreground/40 tracking-wide">
+        <div className="flex flex-wrap justify-center gap-8 mt-14 font-body text-xs text-foreground/60 tracking-wide">
           <span className="flex items-center gap-2">
             <Package className="h-3.5 w-3.5" aria-hidden="true" />
             Empaque seguro y premium

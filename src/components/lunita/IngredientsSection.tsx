@@ -37,13 +37,13 @@ export const IngredientsSection = () => {
 
           {/* Content */}
           <div className="order-1 lg:order-2">
-            <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/40 mb-4">
+            <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/60 mb-4">
               Lo que hay adentro
             </p>
             <h2 id="ing-title" className="font-display text-4xl lg:text-5xl font-light text-foreground mb-6 text-balance">
               Suave por diseño,<br />especial por intención.
             </h2>
-            <p className="font-body text-sm text-foreground/60 leading-relaxed mb-10 max-w-md">
+            <p className="font-body text-sm text-foreground/72 leading-relaxed mb-10 max-w-md">
               El Ritual de Baño Lechoso Lunita está diseñado para sentirse bien en la piel del bebé y transformar el baño en una experiencia premium y especial — sin exageraciones.
             </p>
 
@@ -55,7 +55,7 @@ export const IngredientsSection = () => {
                     <h3 className="font-body text-sm font-semibold text-foreground mb-1">
                       {attr.label}
                     </h3>
-                    <p className="font-body text-xs text-foreground/55 leading-relaxed">
+                    <p className="font-body text-xs text-foreground/68 leading-relaxed">
                       {attr.desc}
                     </p>
                   </div>

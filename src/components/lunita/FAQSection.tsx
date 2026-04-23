@@ -37,7 +37,7 @@ export const FAQSection = () => {
       <div className="max-w-3xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/40 mb-4">
+          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/60 mb-4">
             Preguntas frecuentes
           </p>
           <h2 id="faq-title" className="font-display text-4xl lg:text-5xl font-light text-foreground">
@@ -56,7 +56,7 @@ export const FAQSection = () => {
               <AccordionTrigger className="font-body text-sm font-medium text-foreground hover:no-underline py-5 text-left">
                 {faq.q}
               </AccordionTrigger>
-              <AccordionContent className="font-body text-sm text-foreground/60 leading-relaxed pb-5">
+              <AccordionContent className="font-body text-sm text-foreground/72 leading-relaxed pb-5">
                 {faq.a}
               </AccordionContent>
             </AccordionItem>

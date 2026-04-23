@@ -37,7 +37,7 @@ export const BenefitsSection = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/40 mb-4">
+          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/60 mb-4">
             Por qué vas a amarlo
           </p>
           <h2 id="benefits-title" className="font-display text-4xl lg:text-5xl font-light text-foreground">
@@ -58,7 +58,7 @@ export const BenefitsSection = () => {
               <h3 className="font-display text-xl font-medium text-foreground mb-3">
                 {benefit.title}
               </h3>
-              <p className="font-body text-sm text-foreground/60 leading-relaxed">
+              <p className="font-body text-sm text-foreground/70 leading-relaxed">
                 {benefit.description}
               </p>
             </div>
