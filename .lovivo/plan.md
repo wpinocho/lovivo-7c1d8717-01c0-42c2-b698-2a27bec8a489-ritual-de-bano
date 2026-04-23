@@ -31,11 +31,11 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - 5 product images uploaded to Supabase storage
 
 ## Key Images (Supabase URLs)
-- Box/packaging: .../lunita-box.webp
-- Baby bath ritual: .../lunita-baby-bath.webp
-- Hands pouring: .../lunita-ritual.webp
-- Milky water: .../lunita-milky-water.webp
-- Hero bath: .../hero-bath.webp
+- Box/packaging: https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box.webp
+- Baby bath ritual: https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath.webp
+- Hands pouring: https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-ritual.webp
+- Milky water: https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-milky-water.webp
+- Hero bath: https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/hero-bath.webp
 
 ## Files Built
 ### Design System
@@ -51,13 +51,13 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - `src/pages/ui/ProductPageUI.tsx` — full PDP with pricing cards, preselect 2 Cajas, sticky CTA bar
 
 ### Lunita Section Components (src/components/lunita/)
-- `HeroSection.tsx` — **UPDATED** full-bleed hero (image covers 100% + dark gradient left→right + white text)
+- `HeroSection.tsx` — full-bleed hero (image covers 100% + dark gradient left→right + white text)
 - `HowItWorksSection.tsx` — 3 steps with images
 - `WhyDifferentSection.tsx` — before/after comparison rows
 - `BenefitsSection.tsx` — 6 benefit cards grid
 - `OfferSection.tsx` — 3 pricing cards (2 cajas featured, 3 cajas anchor)
 - `IngredientsSection.tsx` — split image + trust attributes
-- `SocialProofSection.tsx` — placeholder for future reviews/UGC
+- `SocialProofSection.tsx` — CURRENTLY PLACEHOLDER (empty state with dotted border)
 - `FAQSection.tsx` — accordion FAQ (7 questions)
 - `ClosingCTASection.tsx` — dark closing CTA section
 
@@ -67,27 +67,176 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - All text: white (`text-white`) with opacity variants (/65, /80, /55)
 - Primary CTA: white background + dark text
 - Secondary CTA: white border + white text
-- `hero-gradient` CSS class removed (was never defined — that was the bug)
 
 ## URL Param Convention (PDP)
 - `?p=1` → preselect 1 Caja
 - `?p=2` or no param → preselect 2 Cajas (default)
 - `?p=3` → preselect 3 Cajas
 
+---
+
+## 🚀 NEXT SESSION PLAN: PDP Conversion Upgrade (Pre-Launch)
+
+### DIAGNOSIS
+The PDP has structural issues that hurt conversion:
+1. **Benefits list = features** → "Agua lechosa suave" is WHAT it is, not WHAT it does for you
+2. **Product subtitle is generic** → "Un ritual nocturno suave y premium" says nothing about transformation
+3. **Social proof section is hurting** → Empty state with dashed border + "Las reseñas llegan pronto" looks unprofessional and signals zero customers
+4. **No lifestyle imagery on PDP** → It's text-heavy below the fold, no visual breaks
+5. **No guarantee visible** → First-time buyers need a safety net
+6. **Ingredient trust feels hidden** → "Sin parabenos, sin sulfatos" not prominent enough near the CTA
+
+---
+
+### CHANGES REQUIRED
+
+#### 1. `src/pages/ui/ProductPageUI.tsx` — MANY CHANGES
+
+**A. Rewrite `pdpBenefits` (benefits list) — feature → benefit:**
+Replace all 6 items:
+```
+OLD: "Agua lechosa suave y reconfortante"
+NEW: "Piel más suave e hidratada — desde la primera vez"
+
+OLD: "Ritual nocturno especial para tu bebé"
+NEW: "Un cierre de día especial para el bebé y para ti"
+
+OLD: "Sin colorantes artificiales"
+NEW: "Sin irritantes — seguro hasta para recién nacidos"
+
+OLD: "Sobre monodosis — dosis exacta cada vez"
+NEW: "Sin medir, sin derramar — dosis perfecta en cada sobre"
+
+OLD: "Fragancia suave y delicada"
+NEW: "Fragancia suave que invita a la calma, sin ser invasiva"
+
+OLD: "Diseñado para la piel del bebé"
+NEW: "Sin parabenos, sin sulfatos, sin colorantes artificiales"
+```
+
+**B. Rewrite product subtitle (line ~268-269):**
+```
+OLD: "Un ritual nocturno suave y premium para la rutina del bebé."
+
+NEW: "Transforma el baño de cada noche en un momento de pura conexión. Piel más suave, rutina más bella — para bebé y para ti."
+```
+
+**C. Rewrite pricing card USPs in `paqueteDetails`:**
+```
+'1 Caja': usp: "Para descubrir si el ritual es lo tuyo. Pruébalo sin compromiso."
+'2 Cajas': usp: "Un mes completo de ritual nocturno. La opción preferida de las familias."
+'3 Cajas': usp: "Siempre a la mano, sin quedarte sin. Incluye envío sin costo."
+```
+
+**D. Add ingredient trust pills ABOVE the benefits list (before the `border-t` div):**
+A horizontal scrollable row of small pill-shaped tags:
+```
+"Sin parabenos" · "Sin sulfatos" · "Sin colorantes" · "Suave desde el día 1" · "pH neutro"
+```
+Style: small rounded pills with `bg-accent/30 text-foreground/70 text-[11px] font-body px-3 py-1`
+
+**E. Add satisfaction guarantee below micro trust signals:**
+After the 3-icon trust row (Pago seguro / Empaque / Envío), add:
+```
+"✦ Si no te encanta en tu primer uso, te devolvemos tu dinero."
+```
+Style: `font-body text-xs text-foreground/55 text-center py-2 border-t border-border mt-2`
+(Only add this if the brand is willing to offer it — confirm with user)
+
+**F. Add lifestyle editorial strip INSIDE the PDP, between "How to use" and "Upsell":**
+Add a new full-width section with image `lunita-baby-bath.webp`:
+```jsx
+// Full-bleed editorial image with quote overlay
+<div className="mt-20 -mx-6 lg:-mx-12 relative overflow-hidden" style={{height: '420px'}}>
+  <img src="...lunita-baby-bath.webp" className="w-full h-full object-cover" />
+  <div className="absolute inset-0 bg-gradient-to-r from-foreground/60 to-transparent" />
+  <div className="absolute inset-0 flex items-center px-12 lg:px-24">
+    <blockquote className="max-w-md">
+      <p className="font-display text-3xl lg:text-4xl font-light text-white leading-tight mb-4">
+        "El momento favorito del día — el de los dos."
+      </p>
+      <cite className="font-body text-sm text-white/60 not-italic">
+        — Lunita, Ritual de Baño Lechoso
+      </cite>
+    </blockquote>
+  </div>
+</div>
+```
+
+#### 2. `src/components/lunita/SocialProofSection.tsx` — FULL REWRITE
+
+**Remove the empty placeholder**. Replace with a "Garantía + Confianza" section.
+
+The empty dashed box with "Las primeras reseñas llegan pronto" is a conversion killer.
+Replace the entire content with a trust-building section:
+
+**New structure:**
+```
+Eyebrow: "Nuestro compromiso"
+H2: "Hecho con intención. Respaldado con garantía."
+Body: "Lunita está diseñado para que lo ames desde la primera vez. Si no es para ti, te lo resolvemos — sin complicaciones."
+
+Then 3 trust cards in a grid:
+1. Shield icon — "Satisfacción garantizada" — Si en tu primer uso no te convence, te devolvemos tu dinero.
+2. Leaf icon — "Formulado con cuidado" — Sin parabenos, sin sulfatos, sin colorantes. Suave desde el día 1.
+3. Package icon — "Empaque premium" — Diseñado para regalar o atesorar. Llega protegido y listo para abrir.
+```
+
+Style: `bg-secondary/30 py-24 lg:py-32` — warm oat section
+
+#### 3. `src/components/lunita/BenefitsSection.tsx` — MINOR COPY UPDATES
+
+Benefits in BenefitsSection are actually decent — mostly benefit-focused already. 
+Minor improvements:
+
+```
+"Agua lechosa y suave" title → "Piel más suave, desde el primer baño"
+desc: "El agua se transforma en una textura sedosa que envuelve la piel del bebé. Hidratación suave, visible desde la primera vez."
+
+"Un momento especial" → title stays good
+desc stays good
+
+"Rutina nocturna más bonita" → stays
+desc: add "Convierte el bath time en el momento favorito — de los dos."
+
+"Formulado para la piel del bebé" → "Suave para la piel más delicada"
+desc: "Sin parabenos, sin sulfatos, sin colorantes. Pensado para la piel sensible del bebé, desde recién nacido."
+
+"Sobres monodosis prácticos" → title stays
+desc stays
+
+"Diseño premium para regalar" → "El regalo perfecto para baby shower"
+desc stays good
+```
+
+---
+
+### FILES TO MODIFY
+1. `src/pages/ui/ProductPageUI.tsx` — benefits rewrite, subtitle, USPs, ingredient pills, lifestyle strip, guarantee
+2. `src/components/lunita/SocialProofSection.tsx` — full rewrite to trust/guarantee section
+3. `src/components/lunita/BenefitsSection.tsx` — minor copy improvements
+
+### IMPORTANT NOTE FOR CRAFT MODE
+- All Supabase image URLs are confirmed working
+- Lifestyle editorial strip goes between the "how to use" grid and the upsell banner in ProductPageUI.tsx
+- Do NOT add fake reviews — use trust/guarantee content instead
+- Guarantee language: "Si no te encanta en tu primer uso, te lo resolvemos" (soft, premium-sounding, not aggressive)
+
+---
+
+## Known Issues / Notes
+- Product slug was auto-generated as `ritual-de-bao-lechoso-para-beb` (special chars stripped)
+- All internal CTAs reference this slug
+- Newsletter section removed from homepage to keep focus on conversion — can be re-added
+- SocialProofSection shows placeholder only — PENDING REWRITE (see plan above)
+
 ## Pending / Future Sessions
 1. **Brand name finalization** — replace "Lunita" everywhere once name is confirmed
 2. **Real product photography** — replace AI images with actual product photos when available
-3. **Reviews/Social proof** — integrate real reviews when available (Supabase or third-party)
+3. **Real reviews** — integrate once orders start coming in
 4. **Email capture / Newsletter** — configure newsletter section for lead capture
 5. **Blog** — optional: add content strategy around baby routines/rituals
 6. **Analytics** — review conversion funnel once traffic starts
 7. **Checkout confirmation** — configure thank you page for Lunita branding
 8. **Pixel/Meta Ads** — connect Meta Pixel once paid traffic begins
 9. **Inventory management** — enable inventory tracking in dashboard
-
-## Known Issues / Notes
-- Product slug was auto-generated as `ritual-de-bao-lechoso-para-beb` (special chars stripped)
-- All internal CTAs reference this slug
-- Newsletter section removed from homepage to keep focus on conversion — can be re-added
-- SocialProofSection shows placeholder only — ready for real reviews
-- Copy claims: AVOID medical claims (sleep, anti-colic, sedante). Approved claims in this file.
