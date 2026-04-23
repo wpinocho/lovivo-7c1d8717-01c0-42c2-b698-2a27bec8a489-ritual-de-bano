@@ -201,4 +201,14 @@ html {
   .delay-200 { animation-delay: 200ms; }
   .delay-300 { animation-delay: 300ms; }
   .delay-400 { animation-delay: 400ms; }
+
+  /* ── Trust ticker / marquee ── */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .animate-marquee {
+    animation: marquee 35s linear infinite;
+  }
 }

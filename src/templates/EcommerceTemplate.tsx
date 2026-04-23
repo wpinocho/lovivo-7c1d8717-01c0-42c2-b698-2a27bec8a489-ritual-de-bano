@@ -143,7 +143,7 @@ export const EcommerceTemplate = ({
               <span className="font-display text-2xl font-light text-background tracking-wide">Lunita</span>
             </a>
             <p className="font-body text-sm text-background/50 leading-relaxed max-w-xs">
-              Ritual de Baño Lechoso para Bebé. Hecho para hacer del bath time el momento más lindo del día.
+              El Ritual de Baño para una Noche en Paz. Para bebé y para ti.
             </p>
           </div>
 

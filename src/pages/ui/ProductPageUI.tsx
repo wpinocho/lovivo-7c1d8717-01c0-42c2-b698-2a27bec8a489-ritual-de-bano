@@ -562,9 +562,38 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
       </div>
 
       {/* ════════════════════════════════════════════
+          TRUST TICKER — Infinite scrolling strip
+      ════════════════════════════════════════════ */}
+      <div className="bg-foreground overflow-hidden py-3.5 mt-12 lg:mt-16">
+        <div className="flex whitespace-nowrap animate-marquee">
+          {[0, 1].map((setIdx) => (
+            <div key={setIdx} className="flex items-center flex-shrink-0">
+              {[
+                'Sin parabenos',
+                'Sin sulfatos',
+                'pH neutro',
+                'Seguro para recién nacidos',
+                'Fórmula limpia certificada',
+                'Sin colorantes artificiales',
+                'Suave desde el día 1',
+                'Ritual probado por mamás primerizas',
+                'Dermatólogo aprobado',
+                'Para piel sensible',
+              ].map((item, i) => (
+                <span key={i} className="inline-flex items-center gap-4 font-body text-[11px] tracking-[0.15em] uppercase text-background/65 px-5">
+                  {item}
+                  <span className="text-background/25" aria-hidden="true">·</span>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ════════════════════════════════════════════
           HOW TO USE — Visual steps with images
       ════════════════════════════════════════════ */}
-      <section className="mt-20 lg:mt-24 bg-secondary/30 py-16 lg:py-20">
+      <section className="mt-12 lg:mt-16 bg-secondary/30 py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="max-w-xs mb-10">
             <p className="font-body text-[10px] font-medium tracking-[0.22em] uppercase text-foreground/45 mb-3">
@@ -700,6 +729,55 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
       </section>
 
       {/* ════════════════════════════════════════════
+          GIFT SECTION — Baby shower gifting
+      ════════════════════════════════════════════ */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 rounded-md overflow-hidden shadow-sm border border-border/40">
+          {/* Image */}
+          <div className="aspect-[4/3] lg:aspect-auto overflow-hidden">
+            <img
+              src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box.webp"
+              alt="Empaque premium Lunita — listo para regalar en baby shower"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          {/* Copy */}
+          <div className="bg-secondary/40 p-8 lg:p-12 flex flex-col justify-center gap-6">
+            <div>
+              <p className="font-body text-[10px] tracking-[0.22em] uppercase text-foreground/45 mb-3">
+                El regalo que toda mamá primeriza necesita
+              </p>
+              <h2 className="font-display text-3xl lg:text-4xl font-light text-foreground leading-tight mb-3">
+                Listo para regalar desde el primer día.
+              </h2>
+              <p className="font-body text-sm text-foreground/65 leading-relaxed">
+                Empaque premium que no necesita moño. Envíalo directamente a la mamá — el detalle más bonito para el bebé que está por llegar.
+              </p>
+            </div>
+            <div className="space-y-3">
+              {[
+                'Empaque premium listo para regalar',
+                'Envío directo a la mamá primeriza',
+                'Sin necesidad de envolver',
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-2.5">
+                  <Check className="h-4 w-4 text-foreground/50 flex-shrink-0" aria-hidden="true" />
+                  <span className="font-body text-sm text-foreground/70">{item}</span>
+                </div>
+              ))}
+            </div>
+            <Link
+              to="/productos/ritual-de-bao-lechoso-para-beb?p=2"
+              className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3.5 font-body text-sm font-semibold rounded-sm hover:bg-foreground/90 transition-colors self-start"
+            >
+              Comprar como regalo →
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* ════════════════════════════════════════════
           UPSELL — 3 Cajas
       ════════════════════════════════════════════ */}
       {selectedPaquete !== '3 Cajas' && (
@@ -755,6 +833,47 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
               </AccordionItem>
             ))}
           </Accordion>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════
+          CLOSING CTA — Dark finale
+      ════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden bg-foreground py-20 lg:py-28">
+        {/* Milky water texture at ~5% opacity */}
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage: 'url(https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-milky-water.webp)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <div className="relative max-w-2xl mx-auto px-6 lg:px-12 text-center flex flex-col items-center gap-5">
+          <p className="font-body text-[10px] tracking-[0.22em] uppercase text-background/45">
+            Empieza esta noche
+          </p>
+          <h2 className="font-display text-4xl lg:text-6xl font-light text-background leading-tight">
+            ¿Lista para tu primera noche en paz?
+          </h2>
+          <p className="font-body text-sm text-background/60 leading-relaxed max-w-sm">
+            El ritual que ya no puedes no conocer. Piel más suave, un bebé más tranquilo — y ese momento tuyo también.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-3 mt-2">
+            <button
+              type="button"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="inline-flex items-center gap-2 bg-background text-foreground px-8 py-4 font-body text-sm font-semibold rounded-sm hover:bg-background/90 transition-colors"
+            >
+              Comprar ahora
+            </button>
+            <Link
+              to="/productos/ritual-de-bao-lechoso-para-beb?p=3"
+              className="inline-flex items-center gap-2 border border-background/25 text-background/70 px-8 py-4 font-body text-sm rounded-sm hover:border-background/50 hover:text-background transition-colors"
+            >
+              Ver todos los paquetes
+            </Link>
+          </div>
         </div>
       </section>
 
