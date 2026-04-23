@@ -61,84 +61,43 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - `FAQSection.tsx` — accordion FAQ (7 questions)
 - `ClosingCTASection.tsx` — dark closing CTA section
 
-## ProductPageUI.tsx — Current State (latest)
-1. **Sticky gallery** — `lg:sticky lg:top-[80px]` ✅ FIXED
-2. **Grid layout** — `lg:grid-cols-[55%_1fr]` ✅ FIXED (gallery takes 55% width)
-3. **Desktop image** — `aspect-square rounded-lg` ✅ FIXED
-4. **Mobile carousel** — `-mx-6` edge-to-edge, `rounded-none` ✅ FIXED
-5. **Thumbnails** — `w-[72px] h-[72px]` ✅ FIXED
-6. **Container padding** — `py-4` ✅ FIXED
-7. **Stars + rating** — 4.9 stars above product title, above the fold
-8. **Ingredient pills** — shown ABOVE the pricing cards
-9. **Guarantee block** — dedicated card with Shield icon
-10. **Benefits icon grid** — 2×3 grid with Lucide icons
-11. **"Así se usa"** — visual cards with images in warm bg section
-12. **Editorial lifestyle strip** — full-width 400px image with dark gradient + editorial quote
-13. **Reviews section** — "Lo que dicen las mamás" — 4 cards in 2×2 grid
-14. **Upsell 3 Cajas** — dark block (bg-foreground/text-background)
-15. **FAQ** — accordion, 5 questions, centered max-w-3xl
-16. **Sticky CTA bar** — `bg-background` (fully opaque) ✅ FIXED / text `text-foreground/65` ✅ FIXED
+## ProductPageUI.tsx — Current State (latest — Mobile Overhaul DONE ✅)
+
+### Architecture
+- Uses `<EcommerceTemplate layout="full-width">` — removes PageTemplate py-8 wrapper
+- Mobile: image starts IMMEDIATELY below header (zero gap)
+
+### Desktop
+1. **Sticky gallery** — `lg:sticky lg:top-[80px]` ✅
+2. **Grid layout** — `lg:grid-cols-[55%_1fr]` ✅ (gallery takes 55% width)
+3. **Desktop image** — `aspect-square rounded-lg` ✅
+4. **Thumbnails** — `w-[72px] h-[72px]` ✅
+
+### Mobile (all fixed ✅)
+1. **Zero gap above image** — `layout="full-width"` removes py-8 + container `pt-0` on mobile + back button hidden on mobile
+2. **Floating back button** — overlaid on image (absolute, top-3 left-3, rounded-full, bg-background/80 backdrop-blur)
+3. **Taller image ratio** — `aspect-[4/5]` (was `aspect-square`) — more immersive
+4. **Title** — `text-[28px] lg:text-5xl` (was `text-4xl`) — fits cleanly
+5. **Spacing** — `space-y-5 lg:space-y-7` + stars `mt-5 lg:mt-0`
+6. **Benefits** — mobile: vertical list rows (icon + title + desc) via `sm:hidden` / desktop: 2-col cards via `hidden sm:grid`
+7. **"Así se usa"** — mobile: Embla carousel `basis-[82%]` via `sm:hidden` / desktop: 3-col grid via `hidden sm:grid`
+8. **Editorial strip** — `h-[240px] lg:h-[400px]`, quote `text-xl lg:text-5xl`, padding `px-6 lg:px-20`
+
+### Stars + rating
+- 4.9 stars above product title, above the fold
+
+### Other PDP sections (unchanged)
+- Ingredient pills shown ABOVE pricing cards
+- Guarantee block with Shield icon
+- "Lo que dicen las mamás" — 4 review cards 2×2 grid
+- Upsell 3 Cajas — dark block
+- FAQ accordion — 5 questions
+- Sticky CTA bar — fully opaque bg + text-foreground/65
 
 ## URL Param Convention (PDP)
 - `?p=1` → preselect 1 Caja
 - `?p=2` or no param → preselect 2 Cajas (default)
 - `?p=3` → preselect 3 Cajas
-
----
-
-## 🔧 PENDING: Mobile UX Overhaul (ProductPageUI.tsx)
-
-### Problems Identified (from user screenshots)
-1. **Too much gap above image on mobile** — container has `py-4` + back button `mb-4` (~66px before image)
-2. **Title too large on mobile** — `text-4xl` wraps awkwardly on small screens
-3. **Benefits 2-col grid is too cramped** — cards are tiny, text overflows, looks terrible
-4. **"Así se usa" section** — 3 stacked tall cards on mobile = very long, no horizontal browsing
-5. **Editorial strip** — 400px height + `text-3xl` quote feels too heavy on mobile
-
-### Implementation Plan
-
-#### 1. Hero Section — Eliminate gap above image
-- Change outer container: `py-4` → `pt-0 pb-4` on mobile (class: `pt-0 py-0 lg:py-4`)
-- Hide the `← Volver` button on mobile (`hidden lg:inline-flex`)
-- Add a floating back button OVERLAID on the image (absolute positioned, top-left of carousel):
-  ```
-  <button className="absolute top-3 left-3 z-10 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center">
-    <ArrowLeft className="h-4 w-4" />
-  </button>
-  ```
-- The mobile carousel wrapper (`-mx-6`) needs `relative` positioning for the overlay button
-- Change carousel aspect ratio on mobile from `aspect-square` to `aspect-[4/5]` — taller image fills more screen, feels more immersive
-
-#### 2. Title & Info — Tighter, cleaner on mobile
-- Title: `text-3xl lg:text-5xl` (was `text-4xl lg:text-5xl`)
-- Product info `space-y-7` → `space-y-5 lg:space-y-7`
-- Stars row: add `mt-4` only on mobile to give breathing room from image edge
-
-#### 3. Benefits Grid — Redesign for mobile
-Currently: 2-col card grid (cramped). 
-New mobile design: single column with horizontal icon rows (icon circle + title + desc in one line)
-- On mobile (`grid-cols-1`): each item is a horizontal row: `flex items-start gap-3 py-3 border-b border-border/40`
-  - Icon on left (same `w-8 h-8 bg-accent/40 rounded-full`)
-  - Title `font-semibold text-sm` + desc `text-xs text-foreground/55` on right
-  - No card border/background — cleaner list style
-- On desktop (`sm:grid-cols-2`): keep current card style with border + bg
-- Implementation: use `hidden sm:grid` for desktop cards, `sm:hidden` for mobile list
-
-#### 4. "Así se usa" Section — Horizontal carousel on mobile
-Currently: `grid-cols-1 sm:grid-cols-3` — 3 stacked cards.
-New mobile: Embla carousel (already installed) — horizontal swipe, peek next card.
-- Mobile: wrap steps in a `Carousel` with `CarouselContent` + `CarouselItem basis-[80%]` (peek effect)
-- Desktop: keep `grid grid-cols-3`
-- Use `hidden sm:grid` for desktop grid, `sm:hidden` for mobile carousel
-- Reduce image ratio on cards to `aspect-[3/2]` for better proportion
-
-#### 5. Editorial Lifestyle Strip — Responsive height + font
-- Height: `h-[260px] lg:h-[400px]` (was fixed 400px)
-- Quote text: `text-2xl lg:text-5xl` (was `text-3xl lg:text-5xl`)
-- Padding: `px-6 lg:px-20` (was `px-8 lg:px-20`)
-
-### Files to Modify
-- `src/pages/ui/ProductPageUI.tsx` — all changes above
 
 ---
 

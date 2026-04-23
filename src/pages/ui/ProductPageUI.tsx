@@ -228,17 +228,17 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
   if (!logic.product) return null
 
   return (
-    <EcommerceTemplate hideFloatingCartOnMobile>
+    <EcommerceTemplate hideFloatingCartOnMobile layout="full-width">
 
       {/* ════════════════════════════════════════════
           HERO SECTION — Gallery + Product Info
       ════════════════════════════════════════════ */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-4">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-0 lg:pt-8 pb-4">
         {/* Back */}
         <button
           type="button"
           onClick={logic.handleNavigateBack}
-          className="inline-flex items-center gap-1.5 font-body text-sm text-foreground/40 hover:text-foreground transition-colors mb-4"
+          className="hidden lg:inline-flex items-center gap-1.5 font-body text-sm text-foreground/40 hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
           Volver
@@ -260,12 +260,20 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
 
             {/* Mobile carousel — edge-to-edge (no side padding) */}
             {logic.displayImages && logic.displayImages.length > 1 ? (
-              <div className="md:hidden -mx-6">
+              <div className="md:hidden -mx-6 relative">
+                <button
+                  type="button"
+                  onClick={logic.handleNavigateBack}
+                  className="absolute top-3 left-3 z-10 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-sm"
+                  aria-label="Volver"
+                >
+                  <ArrowLeft className="h-4 w-4 text-foreground" aria-hidden="true" />
+                </button>
                 <Carousel className="w-full">
                   <CarouselContent>
                     {logic.displayImages.map((img: string, idx: number) => (
                       <CarouselItem key={idx}>
-                        <div className="aspect-square overflow-hidden bg-secondary">
+                        <div className="aspect-[4/5] overflow-hidden bg-secondary">
                           <img src={img} alt={`${logic.product.title} ${idx + 1}`} loading="lazy" className="w-full h-full object-cover" />
                         </div>
                       </CarouselItem>
@@ -276,8 +284,18 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 </Carousel>
               </div>
             ) : (
-              <div className="md:hidden -mx-6 aspect-square overflow-hidden bg-secondary">
-                <img src={displayImage} alt={logic.product.title} className="w-full h-full object-cover" />
+              <div className="md:hidden -mx-6 relative">
+                <button
+                  type="button"
+                  onClick={logic.handleNavigateBack}
+                  className="absolute top-3 left-3 z-10 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-sm"
+                  aria-label="Volver"
+                >
+                  <ArrowLeft className="h-4 w-4 text-foreground" aria-hidden="true" />
+                </button>
+                <div className="aspect-[4/5] overflow-hidden bg-secondary">
+                  <img src={displayImage} alt={logic.product.title} className="w-full h-full object-cover" />
+                </div>
               </div>
             )}
 
@@ -305,18 +323,18 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
           </div>
 
           {/* ── PRODUCT INFO ── */}
-          <div className="space-y-7">
+          <div className="space-y-5 lg:space-y-7">
 
             {/* Stars + eyebrow */}
             <div>
-              <div className="flex items-center gap-2.5 mb-3">
+              <div className="flex items-center gap-2.5 mb-3 mt-5 lg:mt-0">
                 <StarRow count={5} />
                 <span className="font-body text-xs text-foreground/55">4.9 · Primeras mamás que lo probaron</span>
               </div>
               <p className="font-body text-[10px] tracking-[0.22em] uppercase text-foreground/45 mb-3">
                 Ritual de Baño · Premium · Para Bebé
               </p>
-              <h1 className="font-display text-4xl lg:text-5xl font-light text-foreground leading-tight mb-3">
+              <h1 className="font-display text-[28px] lg:text-5xl font-light text-foreground leading-tight mb-3">
                 Ritual de Baño Lechoso para Bebé
               </h1>
               <p className="font-body text-sm text-foreground/65 leading-relaxed">
@@ -485,7 +503,27 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
               <p className="font-body text-[10px] font-semibold tracking-[0.18em] uppercase text-foreground/45 mb-4">
                 Por qué te va a encantar
               </p>
-              <div className="grid grid-cols-2 gap-3">
+
+              {/* Mobile: clean horizontal list */}
+              <div className="sm:hidden divide-y divide-border/40">
+                {pdpBenefits.map((b, i) => {
+                  const Icon = b.icon
+                  return (
+                    <div key={i} className="flex items-center gap-3 py-3.5">
+                      <div className="w-9 h-9 rounded-full bg-accent/40 flex items-center justify-center flex-shrink-0">
+                        <Icon className="h-4 w-4 text-foreground/60" aria-hidden="true" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-body text-sm font-semibold text-foreground/85 leading-snug">{b.title}</p>
+                        <p className="font-body text-xs text-foreground/50 leading-snug mt-0.5">{b.desc}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+
+              {/* Desktop: 2-col card grid */}
+              <div className="hidden sm:grid grid-cols-2 gap-3">
                 {pdpBenefits.map((b, i) => {
                   const Icon = b.icon
                   return (
@@ -521,7 +559,34 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-10">
+          {/* Mobile: horizontal swipe carousel */}
+          <div className="sm:hidden">
+            <Carousel opts={{ align: 'start' }}>
+              <CarouselContent>
+                {pdpSteps.map((step) => (
+                  <CarouselItem key={step.num} className="basis-[82%]">
+                    <div className="flex flex-col overflow-hidden rounded-md bg-background shadow-sm border border-border/50">
+                      <div className="aspect-[3/2] overflow-hidden">
+                        <img src={step.img} alt={step.title} loading="lazy" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="p-4 flex gap-3 items-start">
+                        <span className="font-display text-3xl font-light text-foreground/10 leading-none flex-shrink-0 select-none">
+                          {step.num}
+                        </span>
+                        <div>
+                          <h3 className="font-display text-base font-medium text-foreground mb-1">{step.title}</h3>
+                          <p className="font-body text-sm text-foreground/55 leading-relaxed">{step.desc}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
+
+          {/* Desktop: 3-col grid */}
+          <div className="hidden sm:grid grid-cols-3 gap-6 lg:gap-10">
             {pdpSteps.map((step) => (
               <div key={step.num} className="flex flex-col gap-0 overflow-hidden rounded-md bg-background shadow-sm border border-border/50">
                 <div className="aspect-[4/3] overflow-hidden">
@@ -550,7 +615,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
       {/* ════════════════════════════════════════════
           EDITORIAL LIFESTYLE STRIP
       ════════════════════════════════════════════ */}
-      <div className="relative overflow-hidden" style={{ height: '400px' }}>
+      <div className="relative overflow-hidden h-[240px] lg:h-[400px]">
         <img
           src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath.webp"
           alt="Mamá disfrutando el ritual de baño con su bebé — Lunita"
@@ -561,9 +626,9 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
           className="absolute inset-0"
           style={{ background: 'linear-gradient(to right, rgba(25,20,15,0.80) 0%, rgba(25,20,15,0.05) 100%)' }}
         />
-        <div className="absolute inset-0 flex items-center px-8 lg:px-20">
-          <blockquote className="max-w-lg">
-            <p className="font-display text-3xl lg:text-5xl font-light text-white leading-tight mb-4">
+        <div className="absolute inset-0 flex items-center px-6 lg:px-20">
+          <blockquote className="max-w-xs lg:max-w-lg">
+            <p className="font-display text-xl lg:text-5xl font-light text-white leading-tight mb-3">
               "El momento favorito del día — el de los dos."
             </p>
             <cite className="font-body text-sm text-white/55 not-italic">
