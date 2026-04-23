@@ -91,7 +91,7 @@ const pdpSteps = [
     num: '01',
     title: 'Abre el sobre',
     desc: 'Un solo sobre por baño. Fácil de abrir mientras preparas la tina.',
-    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box.webp',
+    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box-v2.webp',
   },
   {
     num: '02',
@@ -662,7 +662,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
       ════════════════════════════════════════════ */}
       <div className="relative overflow-hidden h-[240px] lg:h-[400px]">
         <img
-          src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath.webp"
+          src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-lifestyle-hero.webp"
           alt="Mamá disfrutando el ritual de baño con su bebé — Lunita"
           className="w-full h-full object-cover"
           loading="lazy"
@@ -736,7 +736,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
           {/* Image */}
           <div className="aspect-[4/3] lg:aspect-auto overflow-hidden">
             <img
-              src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box.webp"
+              src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box-v2.webp"
               alt="Empaque premium Lunita — listo para regalar en baby shower"
               className="w-full h-full object-cover"
               loading="lazy"

@@ -17,7 +17,8 @@ export const HeroSection = () => {
           fetchPriority="high"
           loading="eager"
           decoding="sync"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover"
+          style={{ objectPosition: 'center 40%' }}
         />
         {/* Dark gradient overlay — strong on left where text is, fades right */}
         <div

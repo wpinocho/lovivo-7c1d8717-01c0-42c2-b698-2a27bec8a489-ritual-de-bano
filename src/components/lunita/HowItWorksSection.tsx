@@ -4,7 +4,7 @@ const steps = [
     icon: '✦',
     title: 'Abre el sobre',
     description: 'Cada caja incluye 6 sobres monodosis. Abre uno mientras preparas la tina del bebé.',
-    image: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-ritual.webp',
+    image: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box-v2.webp',
   },
   {
     number: '02',
