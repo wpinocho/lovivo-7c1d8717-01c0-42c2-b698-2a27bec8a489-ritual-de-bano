@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { supabase, type Product as ProductType, type SellingPlan } from '@/lib/supabase'
 import { STORE_ID } from '@/lib/config'
 import { useCart } from '@/contexts/CartContext'
@@ -35,6 +35,7 @@ export const useProductLogic = () => {
   const [selected, setSelected] = useState<Record<string, string>>({})
   const [quantity, setQuantity] = useState(1)
   const [selectedPlan, setSelectedPlan] = useState<SellingPlan | null>(null)
+  const [searchParams] = useSearchParams()
   
   const { addItem, getTotalItems, clearCart } = useCart()
   const { openCart } = useCartUI()
@@ -90,7 +91,9 @@ export const useProductLogic = () => {
     }
   }
 
-  // Auto-select first available value for each option
+  // Auto-select default value for each option
+  // Supports ?p=1|2|3 URL param to pre-select a specific variant by position (1-based)
+  // Default: selects the 2nd option (index 1) when available, otherwise the 1st
   useEffect(() => {
     if (!product) return
     
@@ -103,12 +106,24 @@ export const useProductLogic = () => {
     const newSelected = { ...selected }
     let hasChanges = false
     
+    // Read ?p= URL param (1-based index into option values)
+    const pParam = searchParams.get('p')
+    const paramIndex = pParam ? parseInt(pParam, 10) - 1 : null
+    
     for (const opt of options) {
       if (!selected[opt.name]) {
         const availableValues = opt.values.filter((val: string) => isOptionValueAvailable(opt.name, val))
         
         if (availableValues.length > 0) {
-          newSelected[opt.name] = availableValues[0]
+          // If URL param is valid, use it; otherwise default to 2nd option (index 1) if available
+          let defaultValue: string
+          if (paramIndex !== null && availableValues[paramIndex] !== undefined) {
+            defaultValue = availableValues[paramIndex]
+          } else {
+            // Default to 2nd option if exists (better AOV), else 1st
+            defaultValue = availableValues[1] ?? availableValues[0]
+          }
+          newSelected[opt.name] = defaultValue
           hasChanges = true
         }
       }
@@ -117,7 +132,7 @@ export const useProductLogic = () => {
     if (hasChanges) {
       setSelected(newSelected)
     }
-  }, [product, selected])
+  }, [product, selected, searchParams])
 
   const isOptionValueAvailable = (optName: string, value: string) => {
     if (!product) return false
