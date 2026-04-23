@@ -1,8 +1,8 @@
 const benefits = [
   {
     icon: '◯',
-    title: 'Agua lechosa y suave',
-    description: 'El agua se transforma en una textura suave y sedosa. Una experiencia visual y táctil diferente desde el primer uso.',
+    title: 'Piel más suave, desde el primer baño',
+    description: 'El agua se transforma en una textura sedosa que envuelve la piel del bebé. Hidratación suave, visible desde la primera vez.',
   },
   {
     icon: '◯',
@@ -12,12 +12,12 @@ const benefits = [
   {
     icon: '◯',
     title: 'Rutina nocturna más bonita',
-    description: 'Integra el Ritual Lunita en la rutina de tu bebé y convierte el bath time en el momento favorito del día.',
+    description: 'Integra el Ritual Lunita y convierte el bath time en el momento favorito — de los dos.',
   },
   {
     icon: '◯',
-    title: 'Formulado para la piel del bebé',
-    description: 'Una fórmula suave, sin colorantes agresivos, diseñada para sentirse bien en la piel sensible del bebé.',
+    title: 'Suave para la piel más delicada',
+    description: 'Sin parabenos, sin sulfatos, sin colorantes. Pensado para la piel sensible del bebé, desde recién nacido.',
   },
   {
     icon: '◯',
@@ -26,7 +26,7 @@ const benefits = [
   },
   {
     icon: '◯',
-    title: 'Diseño premium para regalar',
+    title: 'El regalo perfecto para baby shower',
     description: 'La caja y los sobres están pensados para ser un regalo bonito. Perfecto para baby shower o como detalle especial.',
   },
 ]

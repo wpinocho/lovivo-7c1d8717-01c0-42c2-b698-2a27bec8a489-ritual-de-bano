@@ -62,7 +62,7 @@ const paqueteDetails: Record<string, {
     shipping: '+ envío',
     badge: null,
     featured: false,
-    usp: 'Perfecta para empezar el ritual.',
+    usp: 'Para descubrir si el ritual es lo tuyo. Pruébalo sin compromiso.',
   },
   '2 Cajas': {
     price: 699,
@@ -70,7 +70,7 @@ const paqueteDetails: Record<string, {
     shipping: '+ envío',
     badge: 'Más elegida',
     featured: true,
-    usp: 'Cubre todo un mes de ritual nocturno.',
+    usp: 'Un mes completo de ritual nocturno. La opción preferida de las familias.',
   },
   '3 Cajas': {
     price: 899,
@@ -78,17 +78,17 @@ const paqueteDetails: Record<string, {
     shipping: 'Envío gratis',
     badge: 'Mejor valor',
     featured: false,
-    usp: 'Para tener siempre a la mano. Con envío gratis.',
+    usp: 'Siempre a la mano, sin quedarte sin. Incluye envío sin costo.',
   },
 }
 
 const pdpBenefits = [
-  { icon: '◯', text: 'Agua lechosa suave y reconfortante' },
-  { icon: '◯', text: 'Ritual nocturno especial para tu bebé' },
-  { icon: '◯', text: 'Sin colorantes artificiales' },
-  { icon: '◯', text: 'Sobre monodosis — dosis exacta cada vez' },
-  { icon: '◯', text: 'Fragancia suave y delicada' },
-  { icon: '◯', text: 'Diseñado para la piel del bebé' },
+  { icon: '◯', text: 'Piel más suave e hidratada — desde la primera vez' },
+  { icon: '◯', text: 'Un cierre de día especial para el bebé y para ti' },
+  { icon: '◯', text: 'Sin irritantes — seguro hasta para recién nacidos' },
+  { icon: '◯', text: 'Sin medir, sin derramar — dosis perfecta en cada sobre' },
+  { icon: '◯', text: 'Fragancia suave que invita a la calma, sin ser invasiva' },
+  { icon: '◯', text: 'Sin parabenos, sin sulfatos, sin colorantes artificiales' },
 ]
 
 const pdpSteps = [
@@ -265,8 +265,8 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
               <h1 className="font-display text-4xl lg:text-5xl font-light text-foreground leading-tight mb-3">
                 Ritual de Baño Lechoso para Bebé
               </h1>
-              <p className="font-body text-sm text-foreground/55 leading-relaxed">
-                Un ritual nocturno suave y premium para la rutina del bebé.
+              <p className="font-body text-sm text-foreground/60 leading-relaxed">
+                Transforma el baño de cada noche en un momento de pura conexión. Piel más suave, rutina más bella — para bebé y para ti.
               </p>
             </div>
 
@@ -438,6 +438,20 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
               </span>
             </div>
 
+            {/* Satisfaction guarantee */}
+            <p className="font-body text-xs text-foreground/55 text-center py-2 border-t border-border">
+              ✦ Si no te encanta en tu primer uso, te lo resolvemos — sin complicaciones.
+            </p>
+
+            {/* Ingredient trust pills */}
+            <div className="flex flex-wrap gap-2">
+              {['Sin parabenos', 'Sin sulfatos', 'Sin colorantes', 'Suave desde el día 1', 'pH neutro'].map((pill) => (
+                <span key={pill} className="bg-accent/30 text-foreground/70 text-[11px] font-body px-3 py-1 rounded-full">
+                  {pill}
+                </span>
+              ))}
+            </div>
+
             {/* Benefits list */}
             <div className="border-t border-border pt-8">
               <p className="font-body text-xs font-semibold tracking-[0.15em] uppercase text-foreground/40 mb-5">
@@ -475,6 +489,30 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* ── EDITORIAL LIFESTYLE STRIP ── */}
+        <div className="mt-16 lg:mt-20 -mx-6 lg:-mx-12 relative overflow-hidden" style={{ height: '420px' }}>
+          <img
+            src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath.webp"
+            alt="Mamá disfrutando el ritual de baño con su bebé — Lunita"
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: 'linear-gradient(to right, rgba(30,25,20,0.72) 0%, rgba(30,25,20,0.04) 100%)' }}
+          />
+          <div className="absolute inset-0 flex items-center px-10 lg:px-20">
+            <blockquote className="max-w-md">
+              <p className="font-display text-3xl lg:text-4xl font-light text-white leading-tight mb-4">
+                "El momento favorito del día — el de los dos."
+              </p>
+              <cite className="font-body text-sm text-white/60 not-italic">
+                — Lunita, Ritual de Baño Lechoso
+              </cite>
+            </blockquote>
           </div>
         </div>
 
