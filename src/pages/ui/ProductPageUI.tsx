@@ -443,7 +443,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
             <div className="flex items-center gap-2 py-2.5 px-3.5 bg-accent/25 border border-accent/50 rounded-md">
               <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0 animate-pulse" aria-hidden="true" />
               <p className="font-body text-xs text-foreground/70 leading-snug">
-                <span className="font-semibold text-foreground/85">Stock disponible</span> · Pedidos antes de las 2 pm salen el mismo día
+                <span className="font-semibold text-foreground/85">Stock disponible</span> · Envío en 1–3 días hábiles a todo México
               </p>
             </div>
 
