@@ -211,4 +211,13 @@ html {
   .animate-marquee {
     animation: marquee 35s linear infinite;
   }
+
+  /* Hide scrollbar for carousel — keep scroll functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

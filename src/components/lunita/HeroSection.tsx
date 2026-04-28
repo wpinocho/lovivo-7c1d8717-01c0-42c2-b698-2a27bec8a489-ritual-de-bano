@@ -36,23 +36,31 @@ export const HeroSection = () => {
               'linear-gradient(to top, rgba(30,25,20,0.35) 0%, transparent 100%)',
           }}
         />
+        {/* Extra bottom-fade for mobile legibility */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-48 lg:hidden"
+          style={{
+            background:
+              'linear-gradient(to top, rgba(30,25,20,0.55) 0%, transparent 100%)',
+          }}
+        />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-16 py-28 lg:py-40">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-16 py-20 lg:py-40">
         <div className="max-w-[560px]">
           {/* Eyebrow */}
-          <p className="text-xs font-body font-medium tracking-[0.22em] uppercase text-white/65 mb-8">
+          <p className="text-xs font-body font-medium tracking-[0.22em] uppercase text-white/65 mb-5">
             Ritual de Baño · Premium · Para Bebé
           </p>
 
           {/* Headline */}
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-[5.5rem] font-light text-white leading-[1.05] mb-7 text-balance drop-shadow-sm">
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-[5.5rem] font-light text-white leading-[1.05] mb-5 text-balance drop-shadow-sm">
             Convierte el baño del bebé en un ritual nocturno.
           </h1>
 
           {/* Subheadline */}
-          <p className="font-body text-base lg:text-lg text-white/80 leading-relaxed mb-10 max-w-[420px]">
+          <p className="font-body text-base lg:text-lg text-white/80 leading-relaxed mb-8 max-w-[420px]">
             Un baño lechoso suave y reconfortante para hacer del cierre del día un momento más especial.
           </p>
 
@@ -76,7 +84,7 @@ export const HeroSection = () => {
           </div>
 
           {/* Trust micro-signals */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-10 font-body text-xs text-white/55 tracking-wide">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-7 font-body text-xs text-white/55 tracking-wide">
             <span>✦ 6 sobres por caja</span>
             <span>✦ Suave para la piel del bebé</span>
             <span>✦ Envío a toda la República</span>

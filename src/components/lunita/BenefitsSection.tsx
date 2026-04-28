@@ -33,10 +33,10 @@ const benefits = [
 
 export const BenefitsSection = () => {
   return (
-    <section id="beneficios" className="bg-background py-24 lg:py-32" aria-labelledby="benefits-title">
+    <section id="beneficios" className="bg-background py-16 lg:py-32" aria-labelledby="benefits-title">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 lg:mb-16">
           <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/60 mb-4">
             Por qué vas a amarlo
           </p>
@@ -46,16 +46,16 @@ export const BenefitsSection = () => {
         </div>
 
         {/* Benefits grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-10">
           {benefits.map((benefit, i) => (
             <div
               key={i}
-              className="group p-8 lg:p-10 bg-card border border-border hover:border-foreground/20 transition-all duration-300 rounded-sm"
+              className="group p-5 lg:p-10 bg-card border border-border hover:border-foreground/20 transition-all duration-300 rounded-sm"
             >
-              <div className="w-10 h-10 rounded-full bg-accent/40 flex items-center justify-center mb-6">
+              <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-accent/40 flex items-center justify-center mb-4">
                 <span className="text-foreground/50 text-xs">✦</span>
               </div>
-              <h3 className="font-display text-xl font-medium text-foreground mb-3">
+              <h3 className="font-display text-base lg:text-xl font-medium text-foreground mb-2 lg:mb-3">
                 {benefit.title}
               </h3>
               <p className="font-body text-sm text-foreground/70 leading-relaxed">

@@ -16,10 +16,10 @@ const after = [
 
 export const WhyDifferentSection = () => {
   return (
-    <section className="bg-secondary/40 py-24 lg:py-32" aria-labelledby="diff-title">
+    <section className="bg-secondary/40 py-16 lg:py-32" aria-labelledby="diff-title">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 lg:mb-16">
           <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/60 mb-4">
             La diferencia
           </p>
@@ -31,7 +31,7 @@ export const WhyDifferentSection = () => {
         {/* Comparison table */}
         <div className="max-w-3xl mx-auto">
           {/* Column headers */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
+          <div className="grid grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-6">
             <div className="text-center">
               <span className="font-body text-xs tracking-[0.15em] uppercase text-foreground/55 font-medium">
                 Baño normal
@@ -45,18 +45,18 @@ export const WhyDifferentSection = () => {
           </div>
 
           {/* Rows */}
-          <div className="space-y-3">
+          <div className="space-y-2 md:space-y-3">
             {before.map((item, i) => (
-              <div key={i} className="grid grid-cols-2 gap-4">
+              <div key={i} className="grid grid-cols-2 gap-2 md:gap-4">
                 {/* Before */}
-                <div className="bg-card/60 border border-border px-5 py-4 rounded-sm flex items-center gap-3">
+                <div className="bg-card/60 border border-border px-3 py-3 md:px-5 md:py-4 rounded-sm flex items-center gap-2 md:gap-3">
                   <span className="text-foreground/25 text-lg leading-none flex-shrink-0">—</span>
-                  <p className="font-body text-sm text-foreground/60 leading-snug">{item}</p>
+                  <p className="font-body text-xs md:text-sm text-foreground/60 leading-snug">{item}</p>
                 </div>
                 {/* After */}
-                <div className="bg-foreground px-5 py-4 rounded-sm flex items-center gap-3">
+                <div className="bg-foreground px-3 py-3 md:px-5 md:py-4 rounded-sm flex items-center gap-2 md:gap-3">
                   <span className="text-background/60 text-sm leading-none flex-shrink-0">✦</span>
-                  <p className="font-body text-sm text-background/85 leading-snug">{after[i]}</p>
+                  <p className="font-body text-xs md:text-sm text-background/85 leading-snug">{after[i]}</p>
                 </div>
               </div>
             ))}

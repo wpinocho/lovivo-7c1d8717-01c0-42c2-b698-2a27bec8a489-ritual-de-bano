@@ -8,6 +8,7 @@ import { IngredientsSection } from '@/components/lunita/IngredientsSection'
 import { SocialProofSection } from '@/components/lunita/SocialProofSection'
 import { FAQSection } from '@/components/lunita/FAQSection'
 import { ClosingCTASection } from '@/components/lunita/ClosingCTASection'
+import { TrustTickerSection } from '@/components/lunita/TrustTickerSection'
 import type { UseIndexLogicReturn } from '@/components/headless/HeadlessIndex'
 
 /**
@@ -26,6 +27,9 @@ export const IndexUI = ({ logic }: IndexUIProps) => {
     <EcommerceTemplate showCart={true} layout="full-width" className="!py-0">
       {/* 1. Hero */}
       <HeroSection />
+
+      {/* 1b. Trust ticker */}
+      <TrustTickerSection />
 
       {/* 2. Cómo funciona */}
       <HowItWorksSection />

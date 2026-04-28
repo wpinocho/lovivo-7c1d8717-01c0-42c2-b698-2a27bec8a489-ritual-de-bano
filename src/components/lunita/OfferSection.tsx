@@ -44,10 +44,10 @@ const offers = [
 
 export const OfferSection = () => {
   return (
-    <section id="paquetes" className="bg-card py-24 lg:py-32" aria-labelledby="offer-title">
+    <section id="paquetes" className="bg-card py-16 lg:py-32" aria-labelledby="offer-title">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 lg:mb-16">
           <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/40 mb-4">
             Elige tu paquete
           </p>
@@ -60,13 +60,13 @@ export const OfferSection = () => {
         </div>
 
         {/* Offer cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-4xl mx-auto">
           {offers.map((offer) => (
             <article
               key={offer.id}
               className={`relative flex flex-col rounded-sm transition-all duration-300 ${
                 offer.featured
-                  ? 'bg-foreground text-background border-2 border-foreground shadow-xl scale-[1.03] z-10'
+                  ? 'bg-foreground text-background border-2 border-foreground md:shadow-xl md:scale-[1.03] z-10'
                   : 'bg-background border border-border hover:border-foreground/30'
               }`}
               style={{ borderRadius: '4px' }}
@@ -84,7 +84,7 @@ export const OfferSection = () => {
                 </div>
               )}
 
-              <div className="p-8 flex flex-col h-full">
+              <div className="p-6 lg:p-8 flex flex-col h-full">
                 {/* Label + sachets */}
                 <div className="mb-6">
                   <h3

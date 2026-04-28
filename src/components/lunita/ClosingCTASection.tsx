@@ -5,7 +5,7 @@ const PRODUCT_SLUG = 'ritual-de-bao-lechoso-para-beb'
 
 export const ClosingCTASection = () => {
   return (
-    <section className="relative overflow-hidden bg-foreground py-28 lg:py-40" aria-label="Cierre y llamada a la acción">
+    <section className="relative overflow-hidden bg-foreground py-20 lg:py-40" aria-label="Cierre y llamada a la acción">
       {/* Subtle background texture */}
       <div className="absolute inset-0 opacity-5">
         <img

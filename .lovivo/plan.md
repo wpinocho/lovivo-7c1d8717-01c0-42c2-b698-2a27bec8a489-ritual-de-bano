@@ -36,229 +36,56 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 
 ### New Image Set
 
-| File | Description | Quality | Used In |
-|------|-------------|---------|---------|
-| `lunita-lifestyle-hero.webp` | 🤩 Close-up baby face in cream muslin, mother's hands, warm candle bokeh background. Portrait. | NEW & BEAUTIFUL | PDP gallery [0], PDP editorial strip |
-| `lunita-box-v2.webp` | 🤩 Flat lay: cream box with **LUNITA** serif branding + "RITUAL DE BAÑO NOCTURNO", sachets, chamomile, lavender, oats on linen. | NEW & BEST IMAGE | PDP gallery [1], PDP Step 01, PDP gift section, Homepage HowItWorks Step 01, Homepage IngredientsSection |
-| `lunita-milky-water.webp` | ✅ Aerial view milky water swirls in white ceramic tub, higher quality than before | UPDATED (3x better quality) | PDP gallery [2], PDP Step 02, Homepage HowItWorks Step 02, Closing CTA bg texture (5% opacity) |
-| `lunita-baby-bath.webp` | 🤩 Baby in cream hooded towel in small white round tub, parent leaning over, warm golden backlight, candles. | NEW & BEAUTIFUL | PDP gallery [3], PDP Step 03, Homepage hero (HeroSection), Homepage HowItWorks Step 03 |
-| `lunita-ritual.webp` | ⚠️ Hands over milky water (cloth sachet format — not ideal). | Same as before | PDP gallery [4] only (de-prioritized) |
-
-### Image Assignment Map (all pages)
-
-#### Homepage (IndexUI.tsx + lunita components)
-| Slot | Image | Component |
-|------|-------|-----------|
-| Full-bleed hero background | lunita-baby-bath.webp | HeroSection.tsx (object-position: center 40%) |
-| How it works - Step 01 | lunita-box-v2.webp | HowItWorksSection.tsx |
-| How it works - Step 02 | lunita-milky-water.webp | HowItWorksSection.tsx |
-| How it works - Step 03 | lunita-baby-bath.webp | HowItWorksSection.tsx |
-| Ingredients section image | lunita-box-v2.webp | IngredientsSection.tsx |
-| Closing CTA background | lunita-milky-water.webp (opacity 5%) | ClosingCTASection.tsx |
-
-#### PDP (ProductPageUI.tsx)
-| Slot | Image | Section |
-|------|-------|---------|
-| Gallery [0] (hero) | lunita-lifestyle-hero.webp | From product DB |
-| Gallery [1] | lunita-box-v2.webp | From product DB |
-| Gallery [2] | lunita-milky-water.webp | From product DB |
-| Gallery [3] | lunita-baby-bath.webp | From product DB |
-| Gallery [4] | lunita-ritual.webp | From product DB |
-| Step 01 card | lunita-box-v2.webp | pdpSteps hardcoded |
-| Step 02 card | lunita-milky-water.webp | pdpSteps hardcoded |
-| Step 03 card | lunita-baby-bath.webp | pdpSteps hardcoded |
-| Editorial lifestyle strip | lunita-lifestyle-hero.webp | Hardcoded line ~665 |
-| Gift section image | lunita-box-v2.webp | Hardcoded line ~739 |
-| Closing CTA texture | lunita-milky-water.webp | Hardcoded line ~851 |
-
-### Remaining Image Issue
-- `lunita-ritual.webp` still shows a cloth sachet (wrong product format) — now only appears as gallery slot [4], low visibility. Low priority to fix.
-- `hero-bath.webp` (adult marble tub with sachet) — saved to Supabase but NOT referenced in any code. Can be overwritten next image session.
+| File | Description | Used In |
+|------|-------------|---------|
+| `lunita-lifestyle-hero.webp` | Close-up baby face in cream muslin, mother's hands, warm candle bokeh | PDP gallery [0], PDP editorial strip |
+| `lunita-box-v2.webp` | Flat lay: cream box LUNITA branding + sachets, chamomile, lavender, oats | PDP gallery [1], Steps 01, Gift section, Homepage HowItWorks Step 01, IngredientsSection |
+| `lunita-milky-water.webp` | Aerial view milky water swirls in white ceramic tub | PDP gallery [2], Step 02, Homepage HowItWorks Step 02, Closing CTA bg |
+| `lunita-baby-bath.webp` | Baby in cream hooded towel in small white round tub, parent, golden backlight | PDP gallery [3], Step 03, Homepage hero, HowItWorks Step 03 |
+| `lunita-ritual.webp` | Hands over milky water (cloth sachet) — de-prioritized | PDP gallery [4] only |
 
 ## FILES BUILT
 ### Design System
-- `src/index.css` — brand design tokens, Cormorant Garamond + Inter fonts, marquee animation
-- `tailwind.config.ts` — brand color palette + font-display/font-body tokens
+- `src/index.css` — brand design tokens, Cormorant Garamond + Inter fonts, marquee + scrollbar-hide utilities
+- `tailwind.config.ts` — brand color palette + font-display/font-body + marquee keyframe/animation
 - `index.html` — SEO meta tags, structured data, font imports
 
 ### Components
 - `src/components/BrandLogoLeft.tsx` — Lunita moon logo
-- `src/templates/EcommerceTemplate.tsx` — premium header with mobile menu + editorial footer (tagline updated ✅)
+- `src/templates/EcommerceTemplate.tsx` — premium header with mobile menu + editorial footer
 - `src/templates/PageTemplate.tsx` — full-width layout fix
-- `src/pages/ui/IndexUI.tsx` — pure landing page (no catalog grid)
-- `src/pages/ui/ProductPageUI.tsx` — **FULLY REBUILT** premium PDP
+- `src/pages/ui/IndexUI.tsx` — landing page (now includes TrustTickerSection after hero)
+- `src/pages/ui/ProductPageUI.tsx` — premium PDP
 
 ### Lunita Section Components (src/components/lunita/)
-- `HeroSection.tsx` — full-bleed hero (image covers 100% + dark gradient left→right + white text)
-- `HowItWorksSection.tsx` — 3 steps with images
-- `WhyDifferentSection.tsx` — before/after comparison rows
-- `BenefitsSection.tsx` — 6 benefit cards grid
-- `OfferSection.tsx` — 3 pricing cards
-- `IngredientsSection.tsx` — split image + trust attributes
-- `SocialProofSection.tsx` — Garantía + Confianza section
-- `FAQSection.tsx` — accordion FAQ (8 questions) ✅ updated
-- `ClosingCTASection.tsx` — dark closing CTA section
+- `HeroSection.tsx` — full-bleed hero; reduced py-28→py-20 mobile, extra bottom gradient mobile
+- `TrustTickerSection.tsx` — ✅ NEW — dark strip with 8 trust items, marquee animation
+- `HowItWorksSection.tsx` — ✅ UPDATED — desktop 3-col grid + mobile horizontal snap carousel (78vw cards) + dot indicators; padding py-16 mobile
+- `WhyDifferentSection.tsx` — ✅ UPDATED — smaller gap/padding on mobile (gap-2, px-3 py-3, text-xs)
+- `BenefitsSection.tsx` — ✅ UPDATED — grid-cols-2 on mobile, p-5 mobile, text-base mobile; py-16 mobile
+- `OfferSection.tsx` — ✅ UPDATED — scale-[1.03] only on md+, p-6 mobile; py-16 mobile
+- `IngredientsSection.tsx` — ✅ UPDATED — image first on mobile (no order classes), gap-8 mobile; py-16 mobile
+- `SocialProofSection.tsx` — ✅ UPDATED — p-6 mobile, py-16 mobile
+- `FAQSection.tsx` — ✅ UPDATED — py-16 mobile, mb-10 header mobile
+- `ClosingCTASection.tsx` — ✅ UPDATED — py-20 mobile
 
-## ProductPageUI.tsx — Current State (Copy Audit v3 ✅)
-
-### Architecture
-- Uses `<EcommerceTemplate layout="full-width">` — removes PageTemplate py-8 wrapper
-- Mobile: image starts IMMEDIATELY below header (zero gap)
-
+## ProductPageUI.tsx — Current State
 ### Section Order
 1. Hero (Gallery + Product Info)
-2. Trust Ticker — infinite scroll dark strip with 10 trust badges
+2. Trust Ticker — infinite scroll dark strip
 3. How To Use (3 steps carousel)
-4. Editorial Lifestyle Strip (full-width image + quote)
+4. Editorial Lifestyle Strip
 5. Reviews (4 cards)
-6. Gift Section — baby shower gifting / lunita-box-v2.webp split layout
+6. Gift Section
 7. Upsell (3 Cajas dark block)
 8. FAQ (6 questions accordion)
-9. Closing CTA — dark finale section
+9. Closing CTA
 10. Sticky Add-to-Cart bar
-
-### Copy — Current State ✅
-**Variant USP copy** (paqueteDetails):
-- `1 Caja`: "Para descubrir si el ritual es para ti."
-- `2 Cajas`: "El favorito de las mamás primerizas." ← pre-selected
-- `3 Cajas`: "Siempre lista para la noche. Sin quedarte sin — incluye envío sin costo."
 
 ## URL Param Convention (PDP)
 - `?p=1` → preselect 1 Caja
 - `?p=2` or no param → preselect 2 Cajas (default)
 - `?p=3` → preselect 3 Cajas
-
----
-
-## 🔧 NEXT BUILD TASK: Homepage Mobile Optimization
-
-### Diagnóstico — Por qué se ve peor que el PDP
-
-1. **Padding excesivo en todas las secciones** — Cada sección usa `py-24 lg:py-32` (96px arriba y abajo en móvil). En teléfono esto crea enormes espacios blancos. El PDP usa `py-16` o menos en móvil.
-
-2. **HowItWorksSection — 3 imágenes 4:3 apiladas** — Cada imagen es ~290px de alto. Tres apiladas = ~900px solo de imágenes. Necesita carousel horizontal en móvil (como el PDP).
-
-3. **WhyDifferentSection — tabla 2 columnas en móvil** — Con px-6 en ambos lados, cada columna tiene ~150px de ancho. Texto extremadamente apretado. Necesita rediseño total para móvil — probablemente cards alternadas o layout vertical.
-
-4. **BenefitsSection — 6 tarjetas altas apiladas** — Cada tarjeta tiene `p-8`. Seis apiladas con padding masivo = scroll interminable. Cambiar a `grid-cols-2` en móvil con padding reducido.
-
-5. **OfferSection — `scale-[1.03]` en móvil** — Cuando las 3 tarjetas están apiladas, el scale se ve raro y puede causar overflow. Quitar en móvil, sustituir con border más grueso.
-
-6. **No hay trust ticker** — El PDP tiene un strip oscuro animado después del hero que crea un break visual y refuerza confianza. El homepage va directo de hero a una sección larga sin nada.
-
-7. **No hay sticky CTA** — El homepage no tiene una barra "Comprar" persistente. El usuario tiene que hacer scroll muy largo para encontrar dónde comprar.
-
-8. **IngredientsSection — imagen va al fondo** — En móvil la imagen tiene `order-2` así que aparece DESPUÉS del texto. El usuario ve una pared de texto antes de la imagen bonita. Y el gap es `gap-16` en móvil.
-
-9. **Section headers con `mb-16`** — 64px debajo de cada título de sección es demasiado en móvil.
-
-10. **HeroSection gradient** — El gradiente es left-to-right, perfecto para desktop, pero en móvil el texto flota sobre toda la imagen. Agregar un gradiente bottom-to-top en móvil para asegurar legibilidad. También `py-28` en móvil (112px) es mucho — reducir a `py-20`.
-
-### Implementation Plan
-
-#### 1. HeroSection.tsx — Ajustes móvil
-- Cambiar `py-28 lg:py-40` → `py-20 lg:py-40`
-- Agregar gradiente adicional para móvil: `bg-gradient-to-b from-transparent via-transparent to-black/30` en la capa overlay
-- El gradient actual `linear-gradient(to right, ...)` funciona bien, NO cambiar
-- Reducir `mb-8` del eyebrow a `mb-5` en móvil
-- Reducir `mb-7` del headline a `mb-5` en móvil
-- Reducir `mb-10` del subheadline a `mb-8` en móvil
-- Trust signals: reducir `mt-10` a `mt-7`
-
-#### 2. IndexUI.tsx — Agregar Trust Ticker después del Hero
-- Importar o crear un `TrustTickerSection` inline (strip oscuro con scroll animado)
-- Mismo pattern que el PDP: `bg-foreground`, marquee animation, iconos de confianza
-- Usar la animación `marquee` que ya está en `index.css`
-- Items: "✦ Suave desde recién nacido · ✦ Sin parabenos ni sulfatos · ✦ Monodosis práctico · ✦ Envío a toda la República · ✦ Satisfacción garantizada · ✦ Empaque premium · ✦ Fórmula para piel delicada · ✦ 6 sobres por caja"
-
-#### 3. HowItWorksSection.tsx — Carousel en móvil
-- En desktop: mantener el grid de 3 columnas actual
-- En móvil: convertir a scroll horizontal snap
-  - Wrap los steps en un `overflow-x-auto snap-x snap-mandatory` div
-  - Cada step: `snap-center min-w-[80vw]` (o 85vw) para que sea visible el siguiente
-  - Agregar indicadores de puntos (dots) abajo en móvil
-- Reducir padding: `py-24 lg:py-32` → `py-16 lg:py-32`
-- Reducir header `mb-16 lg:mb-20` → `mb-10 lg:mb-20`
-- En el card del step: imagen aspect-[3/2] en móvil (menos alta)
-
-#### 4. WhyDifferentSection.tsx — Rediseño móvil total
-- **Opción elegida: lista vertical alternada** — En lugar de 2 columnas, mostrar cada beneficio como una comparación vertical
-- En móvil: para cada item, mostrar tarjeta oscura (Lunita) con ✦ abajo de la tarjeta clara (Baño normal)
-- Los headers de columna se convierten en etiquetas pequeñas dentro de cada tarjeta
-- En desktop: mantener el grid 2-columnas actual
-- Reducir padding: `py-24 lg:py-32` → `py-16 lg:py-32`
-- Reducir header `mb-16` → `mb-10 lg:mb-16`
-
-Alternativa más simple: mantener el grid 2 columnas pero reducir el font a `text-xs`, padding interno a `px-3 py-3` en móvil, y el gap entre columnas a `gap-2`.
-
-**Usar la alternativa simple** (menos código, mismo efecto):
-- `gap-4` → `gap-2 md:gap-4`
-- Card padding: `px-5 py-4` → `px-3 py-3 md:px-5 md:py-4`
-- Text size: ya es `text-sm`, agregar `text-xs md:text-sm`
-
-#### 5. BenefitsSection.tsx — 2 columnas en móvil
-- Cambiar `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` → `grid-cols-2 lg:grid-cols-3`
-- Cambiar padding card: `p-8 lg:p-10` → `p-5 lg:p-10`
-- Cambiar título: `text-xl` → `text-base lg:text-xl`
-- Reducir `mb-6` del icono a `mb-4`
-- Reducir `py-24 lg:py-32` → `py-16 lg:py-32`
-- Reducir header `mb-16` → `mb-10 lg:mb-16`
-
-#### 6. OfferSection.tsx — Fix escala y espaciado móvil
-- Quitar `scale-[1.03]` completamente (o solo en md+): agregar `md:scale-[1.03]`
-- Quitar `shadow-xl` en mobile: `md:shadow-xl`
-- Cambiar featured card: en móvil usar `border-2 border-foreground` para destacar (sin scale)
-- Reducir `py-24 lg:py-32` → `py-16 lg:py-32`
-- Reducir header `mb-16` → `mb-10 lg:mb-16`
-- Card padding: `p-8` → `p-6 lg:p-8`
-- Gap entre cards: `gap-5` → `gap-4 md:gap-5`
-
-#### 7. IngredientsSection.tsx — Imagen primero en móvil
-- Cambiar `order-2 lg:order-1` → quitar el order (imagen va primero naturalmente)
-- Cambiar `order-1 lg:order-2` → quitar el order (contenido va segundo)
-- Cambiar `gap-16 lg:gap-24` → `gap-8 lg:gap-24`
-- Reducir `py-24 lg:py-32` → `py-16 lg:py-32`
-- Reducir `mb-10` antes de los atributos → `mb-6 lg:mb-10`
-
-#### 8. SocialProofSection.tsx — Reducir espaciado
-- Reducir `py-24 lg:py-32` → `py-16 lg:py-32`
-- Reducir header `mb-16` → `mb-10 lg:mb-16`
-- Card padding: `p-8 lg:p-10` → `p-6 lg:p-10`
-
-#### 9. FAQSection.tsx — Reducir espaciado
-- Reducir `py-24 lg:py-32` → `py-16 lg:py-32`
-- Reducir header `mb-14` → `mb-10 lg:mb-14`
-
-#### 10. ClosingCTASection.tsx — Reducir espaciado
-- Reducir `py-28 lg:py-40` → `py-20 lg:py-40`
-
-#### 11. IndexUI.tsx — Sticky CTA móvil (BONUS, si hay tiempo)
-- Agregar un `<StickyHomeCTA>` — barra oscura fija en el bottom que aparece después de scrollear past el hero
-- Solo visible en móvil
-- Copy: "Comprar 2 cajas — $699" con flecha
-- Behavior: usa `useEffect` + `IntersectionObserver` en el hero para mostrar/ocultar
-
-### Files to Modify
-1. `src/components/lunita/HeroSection.tsx` — reducir padding, ajustes móvil
-2. `src/components/lunita/HowItWorksSection.tsx` — carousel horizontal en móvil + reducir padding
-3. `src/components/lunita/WhyDifferentSection.tsx` — reducir gap/padding en móvil para que la tabla funcione
-4. `src/components/lunita/BenefitsSection.tsx` — 2 col grid en móvil + reducir padding
-5. `src/components/lunita/OfferSection.tsx` — quitar scale en móvil + reducir padding
-6. `src/components/lunita/IngredientsSection.tsx` — imagen primero en móvil + reducir gap
-7. `src/components/lunita/SocialProofSection.tsx` — reducir padding
-8. `src/components/lunita/FAQSection.tsx` — reducir padding
-9. `src/components/lunita/ClosingCTASection.tsx` — reducir padding
-10. `src/pages/ui/IndexUI.tsx` — agregar TrustTicker después del hero
-
-### Priority Order (highest impact first)
-1. Trust Ticker en IndexUI.tsx (visual anchor, credibilidad)
-2. HowItWorksSection carousel (reduce scroll enorme)
-3. Global padding reduction en todas las secciones (quick wins)
-4. BenefitsSection 2-col grid
-5. OfferSection fix scale + padding
-6. IngredientsSection imagen primero
-7. WhyDifferentSection table fix móvil
-8. Sticky CTA (bonus)
 
 ---
 
@@ -271,11 +98,12 @@ Alternativa más simple: mantener el grid 2 columnas pero reducir el font a `tex
 ## Pending / Future Sessions
 1. **Brand name finalization** — replace "Lunita" everywhere once name is confirmed
 2. **Real product photography** — replace AI images with actual product photos when available
-3. **Real reviews + photo reviews** — integrate once orders start coming in (3-5 real reviews minimum)
-4. **lunita-ritual.webp replacement** — currently shows wrong sachet format, only in gallery slot [4]. Low priority.
+3. **Real reviews + photo reviews** — integrate once orders start coming in
+4. **lunita-ritual.webp replacement** — currently shows wrong sachet format, only in gallery slot [4]
 5. **Email capture / Newsletter** — configure for lead capture
 6. **Blog** — optional: add content strategy around baby routines/rituals
 7. **Analytics** — review conversion funnel once traffic starts
 8. **Checkout confirmation** — configure thank you page for Lunita branding
 9. **Pixel/Meta Ads** — connect Meta Pixel once paid traffic begins
 10. **UGC photo strip** — once real customer photos arrive (Instagram-style strip, 4-6 images)
+11. **Homepage sticky CTA (móvil)** — barra fija "Comprar 2 cajas — $699" que aparece al hacer scroll más allá del hero. Solo visible en móvil. Pendiente por presupuesto de iteraciones.

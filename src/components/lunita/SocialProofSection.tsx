@@ -20,11 +20,11 @@ const trustCards = [
 
 export const SocialProofSection = () => {
   return (
-    <section id="garantia" className="bg-secondary/30 py-24 lg:py-32" aria-labelledby="trust-title">
+    <section id="garantia" className="bg-secondary/30 py-16 lg:py-32" aria-labelledby="trust-title">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
         {/* Header */}
-        <div className="text-center mb-16 max-w-2xl mx-auto">
+        <div className="text-center mb-10 lg:mb-16 max-w-2xl mx-auto">
           <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/60 mb-4">
             Nuestro compromiso
           </p>
@@ -43,7 +43,7 @@ export const SocialProofSection = () => {
             return (
               <div
                 key={i}
-                className="bg-background border border-border rounded-sm p-8 lg:p-10 flex flex-col gap-5"
+                className="bg-background border border-border rounded-sm p-6 lg:p-10 flex flex-col gap-4 lg:gap-5"
               >
                 <div className="w-11 h-11 rounded-full bg-accent/40 flex items-center justify-center flex-shrink-0">
                   <Icon className="h-5 w-5 text-foreground/60" aria-hidden="true" />

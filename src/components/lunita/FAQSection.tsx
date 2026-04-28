@@ -37,10 +37,10 @@ const faqs = [
 
 export const FAQSection = () => {
   return (
-    <section id="faq" className="bg-secondary/30 py-24 lg:py-32 scroll-mt-20" aria-labelledby="faq-title">
+    <section id="faq" className="bg-secondary/30 py-16 lg:py-32 scroll-mt-20" aria-labelledby="faq-title">
       <div className="max-w-3xl mx-auto px-6 lg:px-12">
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-10 lg:mb-14">
           <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/60 mb-4">
             Preguntas frecuentes
           </p>
