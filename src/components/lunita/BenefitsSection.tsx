@@ -1,64 +1,82 @@
 const benefits = [
   {
-    icon: '◯',
+    number: '01',
     title: 'Piel más suave, desde el primer baño',
     description: 'El agua se transforma en una textura sedosa que envuelve la piel del bebé. Hidratación suave, visible desde la primera vez.',
   },
   {
-    icon: '◯',
-    title: 'Un momento especial',
-    description: 'Más que un baño, es un ritual de conexión. Un momento para estar presente con tu bebé al final del día.',
+    number: '02',
+    title: 'Un momento de conexión real',
+    description: 'Más que un baño, es un ritual. Un momento para estar presente con tu bebé al final del día.',
   },
   {
-    icon: '◯',
+    number: '03',
     title: 'Rutina nocturna más bonita',
     description: 'Integra el Ritual Lunita y convierte el bath time en el momento favorito — de los dos.',
   },
   {
-    icon: '◯',
+    number: '04',
     title: 'Suave para la piel más delicada',
-    description: 'Sin parabenos, sin sulfatos, sin colorantes. Pensado para la piel sensible del bebé, desde recién nacido.',
+    description: 'Sin parabenos, sin sulfatos, sin colorantes. Pensado para piel sensible desde recién nacido.',
   },
   {
-    icon: '◯',
-    title: 'Sobres monodosis prácticos',
-    description: 'Sin derrames, sin medir. Cada sobre es la dosis exacta para una tina. Fácil de llevar a casa de abuela o de viaje.',
+    number: '05',
+    title: 'Sobres monodosis, sin complicaciones',
+    description: 'Sin derrames, sin medir. Cada sobre es la dosis exacta para una tina. Ideal para viajes o casa de la abuela.',
   },
   {
-    icon: '◯',
+    number: '06',
     title: 'El regalo perfecto para baby shower',
-    description: 'La caja y los sobres están pensados para ser un regalo bonito. Perfecto para baby shower o como detalle especial.',
+    description: 'La caja y los sobres están pensados para lucir bonitos. Perfecto para regalar en cualquier ocasión especial.',
   },
 ]
 
 export const BenefitsSection = () => {
   return (
     <section id="beneficios" className="bg-background py-16 lg:py-32" aria-labelledby="benefits-title">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-5xl mx-auto px-6 lg:px-12">
+
         {/* Header */}
-        <div className="text-center mb-10 lg:mb-16">
-          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/60 mb-4">
+        <div className="mb-10 lg:mb-16 lg:text-center">
+          <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-foreground/45 mb-4">
             Por qué vas a amarlo
           </p>
-          <h2 id="benefits-title" className="font-display text-4xl lg:text-5xl font-light text-foreground">
+          <h2 id="benefits-title" className="font-display text-4xl lg:text-5xl font-light text-foreground max-w-lg lg:mx-auto">
             Cada detalle, pensado para ti.
           </h2>
         </div>
 
-        {/* Benefits grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-10">
+        {/* Benefits — editorial list on mobile, 2-col on desktop */}
+        <div className="lg:hidden divide-y divide-border/60">
           {benefits.map((benefit, i) => (
-            <div
-              key={i}
-              className="group p-5 lg:p-10 bg-card border border-border hover:border-foreground/20 transition-all duration-300 rounded-sm"
-            >
-              <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-accent/40 flex items-center justify-center mb-4">
-                <span className="text-foreground/50 text-xs">✦</span>
+            <div key={i} className="flex items-start gap-5 py-6">
+              <span className="font-display text-3xl font-light text-foreground/15 leading-none shrink-0 w-9 pt-0.5">
+                {benefit.number}
+              </span>
+              <div>
+                <h3 className="font-display text-lg font-medium text-foreground mb-1.5 leading-snug">
+                  {benefit.title}
+                </h3>
+                <p className="font-body text-sm text-foreground/65 leading-relaxed">
+                  {benefit.description}
+                </p>
               </div>
-              <h3 className="font-display text-base lg:text-xl font-medium text-foreground mb-2 lg:mb-3">
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop 2x3 grid */}
+        <div className="hidden lg:grid grid-cols-3 gap-8">
+          {benefits.map((benefit, i) => (
+            <div key={i} className="group">
+              <span className="font-display text-4xl font-light text-foreground/15 block mb-4">
+                {benefit.number}
+              </span>
+              <div className="w-8 h-px bg-foreground/20 mb-5" />
+              <h3 className="font-display text-xl font-medium text-foreground mb-3 leading-snug">
                 {benefit.title}
               </h3>
-              <p className="font-body text-sm text-foreground/70 leading-relaxed">
+              <p className="font-body text-sm text-foreground/65 leading-relaxed">
                 {benefit.description}
               </p>
             </div>
@@ -66,7 +84,7 @@ export const BenefitsSection = () => {
         </div>
 
         {/* Visual divider */}
-        <div className="section-divider mt-20" />
+        <div className="section-divider mt-16 lg:mt-20" />
       </div>
     </section>
   )

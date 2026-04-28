@@ -62,7 +62,7 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 - `TrustTickerSection.tsx` — ✅ NEW — dark strip with 8 trust items, marquee animation
 - `HowItWorksSection.tsx` — ✅ UPDATED — desktop 3-col grid + mobile horizontal snap carousel (78vw cards) + dot indicators; padding py-16 mobile
 - `WhyDifferentSection.tsx` — ✅ UPDATED — smaller gap/padding on mobile (gap-2, px-3 py-3, text-xs)
-- `BenefitsSection.tsx` — ✅ UPDATED — grid-cols-2 on mobile, p-5 mobile, text-base mobile; py-16 mobile
+- `BenefitsSection.tsx` — ✅ REDESIGNED — mobile: editorial numbered list (01–06) with dividers; desktop: 3-col grid with typographic numbers
 - `OfferSection.tsx` — ✅ UPDATED — scale-[1.03] only on md+, p-6 mobile; py-16 mobile
 - `IngredientsSection.tsx` — ✅ UPDATED — image first on mobile (no order classes), gap-8 mobile; py-16 mobile
 - `SocialProofSection.tsx` — ✅ UPDATED — p-6 mobile, py-16 mobile
@@ -106,4 +106,4 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 8. **Checkout confirmation** — configure thank you page for Lunita branding
 9. **Pixel/Meta Ads** — connect Meta Pixel once paid traffic begins
 10. **UGC photo strip** — once real customer photos arrive (Instagram-style strip, 4-6 images)
-11. **Homepage sticky CTA (móvil)** — barra fija "Comprar 2 cajas — $699" que aparece al hacer scroll más allá del hero. Solo visible en móvil. Pendiente por presupuesto de iteraciones.
+11. **Homepage sticky CTA (móvil)** — barra fija "Comprar 2 cajas — $699" que aparece al hacer scroll más allá del hero. Solo visible en móvil. Pendiente.
