@@ -128,6 +128,140 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 - `?p=2` or no param → preselect 2 Cajas (default)
 - `?p=3` → preselect 3 Cajas
 
+---
+
+## 🔧 NEXT BUILD TASK: Homepage Mobile Optimization
+
+### Diagnóstico — Por qué se ve peor que el PDP
+
+1. **Padding excesivo en todas las secciones** — Cada sección usa `py-24 lg:py-32` (96px arriba y abajo en móvil). En teléfono esto crea enormes espacios blancos. El PDP usa `py-16` o menos en móvil.
+
+2. **HowItWorksSection — 3 imágenes 4:3 apiladas** — Cada imagen es ~290px de alto. Tres apiladas = ~900px solo de imágenes. Necesita carousel horizontal en móvil (como el PDP).
+
+3. **WhyDifferentSection — tabla 2 columnas en móvil** — Con px-6 en ambos lados, cada columna tiene ~150px de ancho. Texto extremadamente apretado. Necesita rediseño total para móvil — probablemente cards alternadas o layout vertical.
+
+4. **BenefitsSection — 6 tarjetas altas apiladas** — Cada tarjeta tiene `p-8`. Seis apiladas con padding masivo = scroll interminable. Cambiar a `grid-cols-2` en móvil con padding reducido.
+
+5. **OfferSection — `scale-[1.03]` en móvil** — Cuando las 3 tarjetas están apiladas, el scale se ve raro y puede causar overflow. Quitar en móvil, sustituir con border más grueso.
+
+6. **No hay trust ticker** — El PDP tiene un strip oscuro animado después del hero que crea un break visual y refuerza confianza. El homepage va directo de hero a una sección larga sin nada.
+
+7. **No hay sticky CTA** — El homepage no tiene una barra "Comprar" persistente. El usuario tiene que hacer scroll muy largo para encontrar dónde comprar.
+
+8. **IngredientsSection — imagen va al fondo** — En móvil la imagen tiene `order-2` así que aparece DESPUÉS del texto. El usuario ve una pared de texto antes de la imagen bonita. Y el gap es `gap-16` en móvil.
+
+9. **Section headers con `mb-16`** — 64px debajo de cada título de sección es demasiado en móvil.
+
+10. **HeroSection gradient** — El gradiente es left-to-right, perfecto para desktop, pero en móvil el texto flota sobre toda la imagen. Agregar un gradiente bottom-to-top en móvil para asegurar legibilidad. También `py-28` en móvil (112px) es mucho — reducir a `py-20`.
+
+### Implementation Plan
+
+#### 1. HeroSection.tsx — Ajustes móvil
+- Cambiar `py-28 lg:py-40` → `py-20 lg:py-40`
+- Agregar gradiente adicional para móvil: `bg-gradient-to-b from-transparent via-transparent to-black/30` en la capa overlay
+- El gradient actual `linear-gradient(to right, ...)` funciona bien, NO cambiar
+- Reducir `mb-8` del eyebrow a `mb-5` en móvil
+- Reducir `mb-7` del headline a `mb-5` en móvil
+- Reducir `mb-10` del subheadline a `mb-8` en móvil
+- Trust signals: reducir `mt-10` a `mt-7`
+
+#### 2. IndexUI.tsx — Agregar Trust Ticker después del Hero
+- Importar o crear un `TrustTickerSection` inline (strip oscuro con scroll animado)
+- Mismo pattern que el PDP: `bg-foreground`, marquee animation, iconos de confianza
+- Usar la animación `marquee` que ya está en `index.css`
+- Items: "✦ Suave desde recién nacido · ✦ Sin parabenos ni sulfatos · ✦ Monodosis práctico · ✦ Envío a toda la República · ✦ Satisfacción garantizada · ✦ Empaque premium · ✦ Fórmula para piel delicada · ✦ 6 sobres por caja"
+
+#### 3. HowItWorksSection.tsx — Carousel en móvil
+- En desktop: mantener el grid de 3 columnas actual
+- En móvil: convertir a scroll horizontal snap
+  - Wrap los steps en un `overflow-x-auto snap-x snap-mandatory` div
+  - Cada step: `snap-center min-w-[80vw]` (o 85vw) para que sea visible el siguiente
+  - Agregar indicadores de puntos (dots) abajo en móvil
+- Reducir padding: `py-24 lg:py-32` → `py-16 lg:py-32`
+- Reducir header `mb-16 lg:mb-20` → `mb-10 lg:mb-20`
+- En el card del step: imagen aspect-[3/2] en móvil (menos alta)
+
+#### 4. WhyDifferentSection.tsx — Rediseño móvil total
+- **Opción elegida: lista vertical alternada** — En lugar de 2 columnas, mostrar cada beneficio como una comparación vertical
+- En móvil: para cada item, mostrar tarjeta oscura (Lunita) con ✦ abajo de la tarjeta clara (Baño normal)
+- Los headers de columna se convierten en etiquetas pequeñas dentro de cada tarjeta
+- En desktop: mantener el grid 2-columnas actual
+- Reducir padding: `py-24 lg:py-32` → `py-16 lg:py-32`
+- Reducir header `mb-16` → `mb-10 lg:mb-16`
+
+Alternativa más simple: mantener el grid 2 columnas pero reducir el font a `text-xs`, padding interno a `px-3 py-3` en móvil, y el gap entre columnas a `gap-2`.
+
+**Usar la alternativa simple** (menos código, mismo efecto):
+- `gap-4` → `gap-2 md:gap-4`
+- Card padding: `px-5 py-4` → `px-3 py-3 md:px-5 md:py-4`
+- Text size: ya es `text-sm`, agregar `text-xs md:text-sm`
+
+#### 5. BenefitsSection.tsx — 2 columnas en móvil
+- Cambiar `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` → `grid-cols-2 lg:grid-cols-3`
+- Cambiar padding card: `p-8 lg:p-10` → `p-5 lg:p-10`
+- Cambiar título: `text-xl` → `text-base lg:text-xl`
+- Reducir `mb-6` del icono a `mb-4`
+- Reducir `py-24 lg:py-32` → `py-16 lg:py-32`
+- Reducir header `mb-16` → `mb-10 lg:mb-16`
+
+#### 6. OfferSection.tsx — Fix escala y espaciado móvil
+- Quitar `scale-[1.03]` completamente (o solo en md+): agregar `md:scale-[1.03]`
+- Quitar `shadow-xl` en mobile: `md:shadow-xl`
+- Cambiar featured card: en móvil usar `border-2 border-foreground` para destacar (sin scale)
+- Reducir `py-24 lg:py-32` → `py-16 lg:py-32`
+- Reducir header `mb-16` → `mb-10 lg:mb-16`
+- Card padding: `p-8` → `p-6 lg:p-8`
+- Gap entre cards: `gap-5` → `gap-4 md:gap-5`
+
+#### 7. IngredientsSection.tsx — Imagen primero en móvil
+- Cambiar `order-2 lg:order-1` → quitar el order (imagen va primero naturalmente)
+- Cambiar `order-1 lg:order-2` → quitar el order (contenido va segundo)
+- Cambiar `gap-16 lg:gap-24` → `gap-8 lg:gap-24`
+- Reducir `py-24 lg:py-32` → `py-16 lg:py-32`
+- Reducir `mb-10` antes de los atributos → `mb-6 lg:mb-10`
+
+#### 8. SocialProofSection.tsx — Reducir espaciado
+- Reducir `py-24 lg:py-32` → `py-16 lg:py-32`
+- Reducir header `mb-16` → `mb-10 lg:mb-16`
+- Card padding: `p-8 lg:p-10` → `p-6 lg:p-10`
+
+#### 9. FAQSection.tsx — Reducir espaciado
+- Reducir `py-24 lg:py-32` → `py-16 lg:py-32`
+- Reducir header `mb-14` → `mb-10 lg:mb-14`
+
+#### 10. ClosingCTASection.tsx — Reducir espaciado
+- Reducir `py-28 lg:py-40` → `py-20 lg:py-40`
+
+#### 11. IndexUI.tsx — Sticky CTA móvil (BONUS, si hay tiempo)
+- Agregar un `<StickyHomeCTA>` — barra oscura fija en el bottom que aparece después de scrollear past el hero
+- Solo visible en móvil
+- Copy: "Comprar 2 cajas — $699" con flecha
+- Behavior: usa `useEffect` + `IntersectionObserver` en el hero para mostrar/ocultar
+
+### Files to Modify
+1. `src/components/lunita/HeroSection.tsx` — reducir padding, ajustes móvil
+2. `src/components/lunita/HowItWorksSection.tsx` — carousel horizontal en móvil + reducir padding
+3. `src/components/lunita/WhyDifferentSection.tsx` — reducir gap/padding en móvil para que la tabla funcione
+4. `src/components/lunita/BenefitsSection.tsx` — 2 col grid en móvil + reducir padding
+5. `src/components/lunita/OfferSection.tsx` — quitar scale en móvil + reducir padding
+6. `src/components/lunita/IngredientsSection.tsx` — imagen primero en móvil + reducir gap
+7. `src/components/lunita/SocialProofSection.tsx` — reducir padding
+8. `src/components/lunita/FAQSection.tsx` — reducir padding
+9. `src/components/lunita/ClosingCTASection.tsx` — reducir padding
+10. `src/pages/ui/IndexUI.tsx` — agregar TrustTicker después del hero
+
+### Priority Order (highest impact first)
+1. Trust Ticker en IndexUI.tsx (visual anchor, credibilidad)
+2. HowItWorksSection carousel (reduce scroll enorme)
+3. Global padding reduction en todas las secciones (quick wins)
+4. BenefitsSection 2-col grid
+5. OfferSection fix scale + padding
+6. IngredientsSection imagen primero
+7. WhyDifferentSection table fix móvil
+8. Sticky CTA (bonus)
+
+---
+
 ## Known Issues / Notes
 - Product slug was auto-generated as `ritual-de-bao-lechoso-para-beb` (special chars stripped)
 - All internal CTAs reference this slug
