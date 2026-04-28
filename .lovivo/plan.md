@@ -72,6 +72,8 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 ## ProductPageUI.tsx — Current State
 ### Section Order
 1. Hero (Gallery + Product Info)
+   - Urgency bar: "🟢 Stock disponible · Pedidos antes de las 2 pm salen el mismo día"
+   - Payment badges: Visa, Mastercard, OXXO, AMEX (below micro trust signals)
 2. Trust Ticker — infinite scroll dark strip
 3. How To Use (3 steps carousel)
 4. Editorial Lifestyle Strip
@@ -79,8 +81,9 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 6. Gift Section
 7. Upsell (3 Cajas dark block)
 8. FAQ (6 questions accordion)
-9. Closing CTA
-10. Sticky Add-to-Cart bar
+9. WhatsApp text link — "¿Tienes alguna duda? Escríbenos por WhatsApp →" (+52 55 3121 5386)
+10. Closing CTA
+11. Sticky Add-to-Cart bar
 
 ## URL Param Convention (PDP)
 - `?p=1` → preselect 1 Caja
@@ -107,3 +110,4 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 9. **Pixel/Meta Ads** — connect Meta Pixel once paid traffic begins
 10. **UGC photo strip** — once real customer photos arrive (Instagram-style strip, 4-6 images)
 11. **Homepage sticky CTA (móvil)** — barra fija "Comprar 2 cajas — $699" que aparece al hacer scroll más allá del hero. Solo visible en móvil. Pendiente.
+12. **Reviews con foto** — agregar avatares/fotos reales cuando el cliente las proporcione

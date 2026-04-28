@@ -439,6 +439,14 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
               </div>
             )}
 
+            {/* ── URGENCY SIGNAL ── */}
+            <div className="flex items-center gap-2 py-2.5 px-3.5 bg-accent/25 border border-accent/50 rounded-md">
+              <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0 animate-pulse" aria-hidden="true" />
+              <p className="font-body text-xs text-foreground/70 leading-snug">
+                <span className="font-semibold text-foreground/85">Stock disponible</span> · Pedidos antes de las 2 pm salen el mismo día
+              </p>
+            </div>
+
             {/* ── ADD TO CART ── */}
             <div ref={ctaRef} className="space-y-3">
               {logic.inStock && !logic.selectedPlan && (
@@ -492,6 +500,34 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
               <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-foreground/40" aria-hidden="true" />Pago 100% seguro</span>
               <span className="flex items-center gap-1.5"><Package className="h-3.5 w-3.5 text-foreground/40" aria-hidden="true" />Empaque premium</span>
               <span className="flex items-center gap-1.5"><Truck className="h-3.5 w-3.5 text-foreground/40" aria-hidden="true" />Envío a toda la República</span>
+            </div>
+
+            {/* Payment methods */}
+            <div>
+              <p className="font-body text-[10px] tracking-[0.15em] uppercase text-foreground/35 mb-2">Métodos de pago aceptados</p>
+              <div className="flex flex-wrap items-center gap-2">
+                {/* Visa */}
+                <span className="inline-flex items-center justify-center h-7 px-3 rounded border border-border/60 bg-background">
+                  <svg viewBox="0 0 48 16" className="h-3.5 w-auto" aria-label="Visa" role="img">
+                    <text x="0" y="13" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="14" fill="#1A1F71" letterSpacing="-0.5">VISA</text>
+                  </svg>
+                </span>
+                {/* Mastercard */}
+                <span className="inline-flex items-center justify-center h-7 px-2.5 rounded border border-border/60 bg-background gap-1" aria-label="Mastercard">
+                  <span className="w-4 h-4 rounded-full bg-red-500 opacity-90" />
+                  <span className="w-4 h-4 rounded-full bg-amber-400 opacity-90 -ml-2" />
+                </span>
+                {/* OXXO */}
+                <span className="inline-flex items-center justify-center h-7 px-3 rounded border border-border/60 bg-background">
+                  <span className="font-body text-[11px] font-bold tracking-widest text-foreground/70">OXXO</span>
+                </span>
+                {/* American Express */}
+                <span className="inline-flex items-center justify-center h-7 px-3 rounded border border-border/60 bg-background">
+                  <svg viewBox="0 0 52 16" className="h-3 w-auto" aria-label="American Express" role="img">
+                    <text x="0" y="12" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="10" fill="#007BC1" letterSpacing="0.3">AMEX</text>
+                  </svg>
+                </span>
+              </div>
             </div>
 
             {/* Guarantee */}
@@ -839,6 +875,23 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
           </Accordion>
         </div>
       </section>
+
+      {/* ════════════════════════════════════════════
+          WHATSAPP — Soporte por texto
+      ════════════════════════════════════════════ */}
+      <div className="max-w-3xl mx-auto px-6 lg:px-12 pb-10 text-center">
+        <p className="font-body text-sm text-foreground/50">
+          ¿Tienes alguna duda antes de comprar?{" "}
+          <a
+            href="https://wa.me/525531215386"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-foreground/70 underline underline-offset-2 hover:text-foreground transition-colors"
+          >
+            Escríbenos por WhatsApp →
+          </a>
+        </p>
+      </div>
 
       {/* ════════════════════════════════════════════
           CLOSING CTA — Dark finale
