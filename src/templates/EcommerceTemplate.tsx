@@ -114,7 +114,7 @@ export const EcommerceTemplate = ({
               </ScrollLink>
             ))}
             <Link
-              to="/productos/ritual-de-bao-lechoso-para-beb"
+              to="/productos/ritual-de-bao-para-beb"
               className="block font-body text-sm font-semibold text-foreground py-3 px-2 mt-2 border-t border-border"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -156,7 +156,7 @@ export const EcommerceTemplate = ({
               <Link to="/" className="block font-body text-sm text-background/60 hover:text-background transition-colors">
                 Inicio
               </Link>
-              <Link to="/productos/ritual-de-bao-lechoso-para-beb" className="block font-body text-sm text-background/60 hover:text-background transition-colors">
+              <Link to="/productos/ritual-de-bao-para-beb" className="block font-body text-sm text-background/60 hover:text-background transition-colors">
                 El Producto
               </Link>
               <a href="/#faq" className="block font-body text-sm text-background/60 hover:text-background transition-colors">

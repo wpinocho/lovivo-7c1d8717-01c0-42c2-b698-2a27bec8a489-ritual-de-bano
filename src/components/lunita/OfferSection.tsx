@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Package, Truck } from 'lucide-react'
 
-const PRODUCT_SLUG = 'ritual-de-bao-lechoso-para-beb'
+const PRODUCT_SLUG = 'ritual-de-bao-para-beb'
 
 const offers = [
   {
