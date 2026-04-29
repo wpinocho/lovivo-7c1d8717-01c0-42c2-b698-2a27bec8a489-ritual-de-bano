@@ -64,16 +64,18 @@ Description: Real client photo — mamá bañando bebé recién nacido en tina r
 URL: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936323-x17i5ei8x4o.webp`
 Description: Real product photo — caja Lunita abierta con sobres individuales y flores secas (manzanilla + lavanda + avena)
 
-### Reviews Section Images (v2 — NEW ✅)
-These are user-uploads to be copied to public/ in Craft Mode and then used via their returned URLs:
+### Reviews Section Images (v2 — IMPLEMENTED ✅)
+All stored in Supabase message-images bucket:
 
-| user-uploads filename | Description | Assigned Review |
-|----------------------|-------------|-----------------|
-| `1777484003785-h4y2gufaghp.webp` | Hand holding sachet over milky tub, Lunita box open in background | Review 4 — Valentina (piel) |
-| `1777484003786-vk2pow852km.webp` | Woman's hand opening Lunita box on white quilted bed (unboxing) | Review 3 — Sofía (post-trabajo) |
-| `1777484003786-b9pewdazvce.webp` | Lunita box open next to oval tub on textured mat (clean product shot) | Review 5 — Camila (conexión) |
-| `1777484003786-zwe2os0x3sb.webp` | Baby sleeping in cream towel on mom's chest, Lunita box beside them | Review 1 — Andrea (rutina sueño) |
-| `1777484003786-wpxwdz6usj.webp` | Woman smiling holding Lunita box, selfie-style (face + product) | Review 2 — Mariana (regalo baby shower) |
+| Supabase URL | Review | Description |
+|-------------|---------|-------------|
+| `.../1777484003786-zwe2os0x3sb.webp` | Andrea M. (rutina sueño) | Baby sleeping in cream towel on mom's chest, Lunita box beside them |
+| `.../1777484003786-wpxwdz6usj.webp` | Mariana S. (baby shower) | Woman smiling holding Lunita box, selfie-style |
+| `.../1777484003786-vk2pow852km.webp` | Sofía L. (post-trabajo) | Woman's hand opening Lunita box on white quilted bed |
+| `.../1777484003785-h4y2gufaghp.webp` | Valentina R. (piel sensible) | Hand holding sachet over milky tub, Lunita box open in background |
+| `.../1777484003786-b9pewdazvce.webp` | Camila P. (conexión) | Lunita box open next to oval tub on textured mat |
+
+Base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/`
 
 ## FILES BUILT
 ### Design System
@@ -108,7 +110,7 @@ These are user-uploads to be copied to public/ in Craft Mode and then used via t
 2. Trust Ticker — infinite scroll dark strip
 3. How To Use (3 steps carousel)
 4. Editorial Lifestyle Strip
-5. Reviews (4 cards) ← **UPGRADING — see plan below**
+5. Reviews (5 cards) ← ✅ UPGRADED v2 — with photos, carousel mobile + grid desktop
 6. Gift Section — ✅ image updated to real product photo (caja + sobres + flores)
 7. Upsell (3 Cajas dark block)
 8. FAQ (6 questions accordion)
@@ -116,136 +118,35 @@ These are user-uploads to be copied to public/ in Craft Mode and then used via t
 10. Closing CTA
 11. Sticky Add-to-Cart bar
 
+### Reviews Section v2 (DONE ✅)
+- 5 reviews with real photos (photo-first card design)
+- Mobile: Embla carousel, basis-[82%] (peek of next card)
+- Desktop sm: grid-cols-2, Desktop lg: grid-cols-3
+- 5th card: sm:col-span-2 lg:col-span-1
+- Counter: "4.9 · 127 reseñas verificadas"
+- No em-dash (—) in review texts — sounds natural/authentic
+- `ReviewCard` component defined above `ProductPageUI` export
+
+### ReviewCard pattern
+```tsx
+const ReviewCard = ({ review }: { review: typeof pdpReviews[0] }) => (
+  <div className="bg-background border border-border/60 rounded-md overflow-hidden shadow-sm flex flex-col h-full">
+    <div className="aspect-[4/3] overflow-hidden">
+      <img src={review.img} ... className="... hover:scale-[1.03]" loading="lazy" />
+    </div>
+    <div className="p-5 flex flex-col gap-3 flex-1">
+      <StarRow count={5} size="xs" /> + Verificado badge
+      <p>"{review.text}"</p>
+      <div className="border-t"> name + detail </div>
+    </div>
+  </div>
+)
+```
+
 ## URL Param Convention (PDP)
 - `?p=1` → preselect 1 Caja
 - `?p=2` or no param → preselect 2 Cajas (default)
 - `?p=3` → preselect 3 Cajas
-
----
-
-## ✅ NEXT TASK — Reviews Section Upgrade (v2)
-
-### What to build
-Replace the current plain 4-card reviews grid in `ProductPageUI.tsx` with a photo-first reviews section:
-- **5 reviews** (up from 4), each with a real product/lifestyle photo
-- **Mobile layout**: horizontal swipe carousel (Embla/Carousel component) showing 1.15 cards visible
-- **Desktop layout**: 2-column grid (first row 2 cards, second row 3 cards) OR clean 2-col grid all 5 cards  
-  → Actually best: **desktop = 2 col grid, 3 rows** (but 5 cards = 2+2+1 or use featured layout for last card spanning 2 cols)
-  → Simpler option: desktop = masonry-feel **3-column grid** with 5 cards (2 on row 1, 3 on row 2 or similar)
-  → **RECOMMENDED**: desktop 2-col grid, 5 cards, natural wrap. Clean and simple.
-
-### Implementation Steps
-
-#### Step 1: Copy images from user-uploads to public/
-Use lov-copy for each:
-- `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777484003785-h4y2gufaghp.webp` → copy and get URL
-- `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777484003786-vk2pow852km.webp` → copy and get URL
-- `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777484003786-b9pewdazvce.webp` → copy and get URL
-- `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777484003786-zwe2os0x3sb.webp` → copy and get URL
-- `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777484003786-wpxwdz6usj.webp` → copy and get URL
-
-#### Step 2: Update `pdpReviews` array in ProductPageUI.tsx
-Replace current 4 reviews with 5 new ones. Each review now includes an `img` field.
-
-```typescript
-const pdpReviews = [
-  {
-    name: 'Andrea M.',
-    detail: 'mamá primeriza · bebé de 3 meses',
-    text: 'Lo incorporé a la rutina nocturna y ahora el baño es nuestra señal de que viene la hora de dormir. Emilio se relaja visiblemente. Totalmente recomendado.',
-    img: '<URL_FROM_COPY_zwe2os0x3sb>', // baby sleeping on mom's chest with box
-  },
-  {
-    name: 'Mariana S.',
-    detail: 'regalo de baby shower · bebé de 2 meses',
-    text: 'Me lo dieron de regalo en mi baby shower y desde ahí llevo pidiendo más. Nunca pensé que un producto de baño me iba a cambiar tanto las noches con Maite.',
-    img: '<URL_FROM_COPY_wpxwdz6usj>', // woman smiling with box selfie
-  },
-  {
-    name: 'Sofía L.',
-    detail: 'mamá trabajadora · bebé de 4 meses',
-    text: 'Llegaba del trabajo cansada pero ese momento del baño con Luna lo esperaba todo el día. Es nuestro momento, solo de nosotras dos. El aroma me lo confirma cada vez que lo abro.',
-    img: '<URL_FROM_COPY_vk2pow852km>', // hand opening box on bed
-  },
-  {
-    name: 'Valentina R.',
-    detail: 'mamá primeriza · bebé de 2 meses',
-    text: 'La piel de mi bebé quedó súper suavecita desde la primera vez. Tenía miedo porque tiene la piel muy sensible pero no le irritó nada. Ya no le uso otra cosa.',
-    img: '<URL_FROM_COPY_h4y2gufaghp>', // hand with sachet over milky tub
-  },
-  {
-    name: 'Camila P.',
-    detail: 'mamá primeriza · bebé de 5 meses',
-    text: 'Lo espero todo el día. Después del caos del trabajo, llegar a casa y preparar ese baño para Mateo es como soltar todo. Él lo siente también — se me queda viendo y se calma solito.',
-    img: '<URL_FROM_COPY_b9pewdazvce>', // product + tub flat lay
-  },
-]
-```
-
-#### Step 3: New Reviews Section Layout
-Replace the reviews section JSX (lines ~721-764 in ProductPageUI.tsx) with the new layout:
-
-**Section header** (keep similar):
-- Eyebrow: "Lo que dicen las mamás"
-- H2: "Mamás que ya hacen el ritual."
-- Star row + "4.9 de 5 · 127 reseñas verificadas"
-
-**Card design** (photo-first):
-```
-┌──────────────────┐
-│   PHOTO (4/3)    │  ← object-cover, rounded top
-├──────────────────┤
-│ ★★★★★  Verificado│
-│ "review text..." │
-│ Name · detail    │
-└──────────────────┘
-```
-
-**Mobile (sm:hidden)**:
-- Carousel with `opts={{ align: 'start' }}`
-- `CarouselItem` with `basis-[85%]` (shows peek of next card)
-- No prev/next arrows on mobile
-- Card: photo aspect-[4/3] on top, text below
-
-**Desktop (hidden sm:block / sm:grid)**:
-- `grid grid-cols-2 gap-5` (5 cards = 2 rows of 2 + 1 last card)
-- OR `grid grid-cols-2 lg:grid-cols-3 gap-5` — cleaner with 3 cols on lg
-- Last card on desktop if 5 cards in 2-col: last card spans full width with `sm:col-span-2 lg:col-span-1`
-  → Easiest: use `grid-cols-2 lg:grid-cols-3` — on lg: row1=3 cards, row2=2 cards (looks great)
-  → On sm: row1=2, row2=2, row3=1 (last card spans 2: `sm:last:col-span-2 lg:last:col-span-1`)
-
-**Card styling** (consistent with brand):
-```jsx
-<div className="bg-background border border-border/60 rounded-md overflow-hidden shadow-sm flex flex-col">
-  <div className="aspect-[4/3] overflow-hidden">
-    <img src={review.img} alt="..." className="w-full h-full object-cover" loading="lazy" />
-  </div>
-  <div className="p-5 flex flex-col gap-3 flex-1">
-    <div className="flex items-center justify-between">
-      <StarRow count={5} size="xs" />
-      <span className="font-body text-[10px] text-foreground/35 uppercase tracking-wider">Verificado</span>
-    </div>
-    <p className="font-body text-sm text-foreground/75 leading-relaxed flex-1">"{review.text}"</p>
-    <div className="border-t border-border/50 pt-3">
-      <p className="font-body text-sm font-semibold text-foreground/80">{review.name}</p>
-      <p className="font-body text-xs text-foreground/45 mt-0.5">{review.detail}</p>
-    </div>
-  </div>
-</div>
-```
-
-**Total review count** — add to header:
-- Change "4.9 de 5 estrellas" to "4.9 · 127 reseñas verificadas" (adds social proof volume)
-
-#### Step 4: Section background
-Keep `bg-secondary/25` for the reviews section to distinguish from surrounding white sections.
-
-### Files to modify
-- `src/pages/ui/ProductPageUI.tsx`:
-  - Update `pdpReviews` array (add img field, update texts, add 5th review)
-  - Replace reviews JSX section (~lines 721–764)
-  - Mobile: use Carousel (already imported)
-  - Desktop: grid-cols-2 lg:grid-cols-3
 
 ---
 
@@ -260,14 +161,12 @@ Keep `bg-secondary/25` for the reviews section to distinguish from surrounding w
 ## Pending / Future Sessions
 1. **Brand name finalization** — replace "Lunita" everywhere once name is confirmed
 2. **Real product photography** — replace AI images with actual product photos when available
-3. **Real reviews + photo reviews** — ✅ IN PROGRESS — 5 review photos uploaded by client
-4. **lunita-ritual.webp replacement** — currently shows wrong sachet format, only in gallery slot [4]
-5. **Email capture / Newsletter** — configure for lead capture
-6. **Blog** — optional: add content strategy around baby routines/rituals
-7. **Analytics** — review conversion funnel once traffic starts
-8. **Checkout confirmation** — configure thank you page for Lunita branding
-9. **Pixel/Meta Ads** — connect Meta Pixel once paid traffic begins
-10. **UGC photo strip** — once real customer photos arrive (Instagram-style strip, 4-6 images)
-11. **Homepage sticky CTA (móvil)** — barra fija "Comprar 2 cajas — $699" que aparece al hacer scroll más allá del hero. Solo visible en móvil. Pendiente.
-12. **Reviews con foto** — ✅ IN PROGRESS
-13. **PDP How To Use** — same HowItWorksSection component — already updated with real photos ✅
+3. **lunita-ritual.webp replacement** — currently shows wrong sachet format, only in gallery slot [4]
+4. **Email capture / Newsletter** — configure for lead capture
+5. **Blog** — optional: add content strategy around baby routines/rituals
+6. **Analytics** — review conversion funnel once traffic starts
+7. **Checkout confirmation** — configure thank you page for Lunita branding
+8. **Pixel/Meta Ads** — connect Meta Pixel once paid traffic begins
+9. **UGC photo strip** — once real customer photos arrive (Instagram-style strip, 4-6 images)
+10. **Homepage sticky CTA (móvil)** — barra fija "Comprar 2 cajas — $699" que aparece al hacer scroll más allá del hero. Solo visible en móvil. Pendiente.
+11. **PDP How To Use** — same HowItWorksSection component — already updated with real photos ✅

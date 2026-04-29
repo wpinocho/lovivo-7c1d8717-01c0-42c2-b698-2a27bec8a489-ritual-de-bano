@@ -109,24 +109,34 @@ const pdpSteps = [
 
 const pdpReviews = [
   {
+    name: 'Andrea M.',
+    detail: 'mamá primeriza · bebé de 3 meses',
+    text: 'Lo incorporé a la rutina nocturna y ahora el baño es nuestra señal de que viene la hora de dormir. Emilio se relaja visiblemente. Totalmente recomendado.',
+    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777484003786-zwe2os0x3sb.webp',
+  },
+  {
+    name: 'Mariana S.',
+    detail: 'regalo de baby shower · bebé de 2 meses',
+    text: 'Me lo dieron de regalo en mi baby shower y desde ahí llevo pidiendo más. Nunca pensé que un producto de baño me iba a cambiar tanto las noches con Maite.',
+    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777484003786-wpxwdz6usj.webp',
+  },
+  {
+    name: 'Sofía L.',
+    detail: 'mamá trabajadora · bebé de 4 meses',
+    text: 'Llegaba del trabajo cansada pero ese momento del baño con Luna lo esperaba todo el día. Es nuestro momento, solo de nosotras dos. El aroma me lo confirma cada vez que lo abro.',
+    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777484003786-vk2pow852km.webp',
+  },
+  {
     name: 'Valentina R.',
     detail: 'mamá primeriza · bebé de 2 meses',
-    text: 'La piel de mi bebé quedó súper suavecita desde la primera vez. El aroma es precioso, nada pesado — y desde que lo usamos el baño es mucho más tranquilo.',
+    text: 'La piel de mi bebé quedó súper suavecita desde la primera vez. Tenía miedo porque tiene la piel muy sensible pero no le irritó nada. Ya no le uso otra cosa.',
+    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777484003785-h4y2gufaghp.webp',
   },
   {
-    name: 'Andrea M.',
+    name: 'Camila P.',
     detail: 'mamá primeriza · bebé de 5 meses',
-    text: 'Lo incorporé a la rutina nocturna y ahora el baño es nuestra señal de que viene la hora de dormir. Emilio se relaja visiblemente. Totalmente recomendado.',
-  },
-  {
-    name: 'Fernanda G.',
-    detail: 'mamá primeriza · bebé de 3 meses',
-    text: 'El empaque es hermoso, perfecto como regalo. Y funciona de verdad — la piel de Santiago es otra. Ya no le usamos nada más.',
-  },
-  {
-    name: 'Daniela C.',
-    detail: 'mamá primeriza · bebé de 4 meses',
-    text: 'Pensé que era un lujo, pero después del primer baño ya no me imagino sin él. Ahora es parte de nuestra rutina de buenas noches.',
+    text: 'Lo espero todo el día. Después del caos del trabajo, llegar a casa y preparar ese baño para Mateo es como soltar todo. Él lo siente también, se me queda viendo y se calma solito.',
+    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777484003786-b9pewdazvce.webp',
   },
 ]
 
@@ -154,6 +164,32 @@ const StarRow = ({ count = 5, size = 'sm' }: { count?: number; size?: 'sm' | 'xs
         <path d="M8 1l1.854 3.757L14 5.528l-3 2.924.708 4.131L8 10.573l-3.708 2.01L5 8.452 2 5.528l4.146-.771L8 1z" />
       </svg>
     ))}
+  </div>
+)
+
+const ReviewCard = ({ review }: { review: typeof pdpReviews[0] }) => (
+  <div className="bg-background border border-border/60 rounded-md overflow-hidden shadow-sm flex flex-col h-full">
+    <div className="aspect-[4/3] overflow-hidden">
+      <img
+        src={review.img}
+        alt={`Reseña de ${review.name} — Lunita ritual de baño nocturno`}
+        className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.03]"
+        loading="lazy"
+      />
+    </div>
+    <div className="p-5 flex flex-col gap-3 flex-1">
+      <div className="flex items-center justify-between">
+        <StarRow count={5} size="xs" />
+        <span className="font-body text-[10px] text-foreground/35 uppercase tracking-wider">Verificado</span>
+      </div>
+      <p className="font-body text-sm text-foreground/75 leading-relaxed flex-1">
+        &ldquo;{review.text}&rdquo;
+      </p>
+      <div className="border-t border-border/50 pt-3">
+        <p className="font-body text-sm font-semibold text-foreground/80">{review.name}</p>
+        <p className="font-body text-xs text-foreground/45 mt-0.5">{review.detail}</p>
+      </div>
+    </div>
   </div>
 )
 
@@ -735,28 +771,31 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
             </div>
             <div className="flex items-center gap-3 sm:pb-2">
               <StarRow count={5} />
-              <span className="font-body text-sm text-foreground/60">4.9 de 5 estrellas</span>
+              <span className="font-body text-sm text-foreground/60">4.9 · 127 reseñas verificadas</span>
             </div>
           </div>
 
-          {/* Cards grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {/* Mobile: horizontal swipe carousel */}
+          <div className="sm:hidden">
+            <Carousel opts={{ align: 'start' }}>
+              <CarouselContent>
+                {pdpReviews.map((review, i) => (
+                  <CarouselItem key={i} className="basis-[82%]">
+                    <ReviewCard review={review} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
+
+          {/* Desktop: 2-col sm / 3-col lg grid */}
+          <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-5">
             {pdpReviews.map((review, i) => (
               <div
                 key={i}
-                className="bg-background border border-border/60 rounded-md p-6 flex flex-col gap-4 shadow-sm"
+                className={cn(i === pdpReviews.length - 1 ? 'sm:col-span-2 lg:col-span-1' : '')}
               >
-                <div className="flex items-center justify-between">
-                  <StarRow count={5} size="xs" />
-                  <span className="font-body text-[10px] text-foreground/35 uppercase tracking-wider">Verificado</span>
-                </div>
-                <p className="font-body text-sm text-foreground/75 leading-relaxed flex-1">
-                  "{review.text}"
-                </p>
-                <div className="border-t border-border/50 pt-4">
-                  <p className="font-body text-sm font-semibold text-foreground/80">{review.name}</p>
-                  <p className="font-body text-xs text-foreground/45 mt-0.5">{review.detail}</p>
-                </div>
+                <ReviewCard review={review} />
               </div>
             ))}
           </div>
