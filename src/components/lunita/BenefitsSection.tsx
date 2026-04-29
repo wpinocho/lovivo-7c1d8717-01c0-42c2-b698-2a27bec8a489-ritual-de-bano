@@ -12,7 +12,7 @@ const benefits = [
   {
     number: '03',
     title: 'Rutina nocturna más bonita',
-    description: 'Integra el Ritual Lunita y convierte el bath time en el momento favorito — de los dos.',
+    description: 'Integra el Ritual Lunita y convierte el bath time en el momento favorito de los dos.',
   },
   {
     number: '04',

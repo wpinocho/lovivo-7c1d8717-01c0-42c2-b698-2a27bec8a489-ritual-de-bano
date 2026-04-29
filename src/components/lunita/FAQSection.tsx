@@ -3,7 +3,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 const faqs = [
   {
     q: '¿Qué es el Ritual de Baño para una Noche en Paz?',
-    a: 'Es un sobre monodosis que transforma el agua del baño de tu bebé en un baño suave, lechoso y especial. Cada caja contiene 6 sobres — uno por baño — pensados para convertir el bath time en un ritual nocturno premium.',
+    a: 'Es un sobre monodosis que transforma el agua del baño de tu bebé en un baño suave, lechoso y especial. Cada caja contiene 6 sobres, uno por baño, pensados para convertir el bath time en un ritual nocturno premium.',
   },
   {
     q: '¿Cómo se usa?',
@@ -15,11 +15,11 @@ const faqs = [
   },
   {
     q: '¿Cada cuánto se puede usar?',
-    a: 'Los pediatras recomiendan bañar a los recién nacidos 2-3 veces por semana — es lo ideal para su piel delicada. Con el tiempo, muchas familias aumentan la frecuencia porque el baño se convierte en la señal perfecta de que es hora de dormir. Lunita puede usarse en cada baño, sin importar la frecuencia que funcione mejor para tu familia.',
+    a: 'Los pediatras recomiendan bañar a los recién nacidos 2-3 veces por semana, es lo ideal para su piel delicada. Con el tiempo, muchas familias aumentan la frecuencia porque el baño se convierte en la señal perfecta de que es hora de dormir. Lunita puede usarse en cada baño, sin importar la frecuencia que funcione mejor para tu familia.',
   },
   {
     q: '¿El producto tiene aroma?',
-    a: 'Sí, tiene una fragancia suave y delicada — no invasiva. Está pensada para acompañar el ritual sin ser la protagonista.',
+    a: 'Sí, tiene una fragancia suave y delicada, no invasiva. Está pensada para acompañar el ritual sin ser la protagonista.',
   },
   {
     q: '¿Cuánto tarda en llegar mi pedido?',

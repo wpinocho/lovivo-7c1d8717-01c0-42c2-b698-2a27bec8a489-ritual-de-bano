@@ -28,7 +28,7 @@ export const ClosingCTASection = () => {
           Un momento más especial. Cada noche.
         </h2>
         <p className="font-body text-base text-background/55 leading-relaxed mb-12 max-w-md mx-auto">
-          Empieza hoy el ritual de baño más lindo del día. Tu bebé — y tú — lo van a disfrutar.
+          Empieza hoy el ritual de baño más lindo del día. Tu bebé y tú lo van a disfrutar.
         </p>
 
         {/* CTAs */}
@@ -38,7 +38,7 @@ export const ClosingCTASection = () => {
             className="inline-flex items-center justify-center gap-2 bg-background text-foreground px-10 py-4 text-sm font-body font-semibold tracking-wide hover:bg-background/90 transition-colors duration-200"
             style={{ borderRadius: '2px' }}
           >
-            Comprar 2 cajas — $699
+            Comprar 2 cajas · $699
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           <Link
@@ -46,7 +46,7 @@ export const ClosingCTASection = () => {
             className="inline-flex items-center justify-center gap-2 border border-background/30 text-background px-10 py-4 text-sm font-body font-medium hover:border-background/60 hover:bg-background/5 transition-all duration-200"
             style={{ borderRadius: '2px' }}
           >
-            3 cajas con envío gratis — $899
+            3 cajas con envío gratis · $899
           </Link>
         </div>
 

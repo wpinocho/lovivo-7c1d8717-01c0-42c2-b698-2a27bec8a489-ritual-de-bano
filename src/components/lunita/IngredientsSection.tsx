@@ -44,7 +44,7 @@ export const IngredientsSection = () => {
               Suave por diseño,<br />especial por intención.
             </h2>
             <p className="font-body text-sm text-foreground/72 leading-relaxed mb-6 lg:mb-10 max-w-md">
-              El Ritual de Baño Lechoso Lunita está diseñado para sentirse bien en la piel del bebé y transformar el baño en una experiencia premium y especial — sin exageraciones.
+              El Ritual de Baño Lechoso Lunita está diseñado para sentirse bien en la piel del bebé y transformar el baño en una experiencia premium y especial, sin exageraciones.
             </p>
 
             <div className="space-y-5">

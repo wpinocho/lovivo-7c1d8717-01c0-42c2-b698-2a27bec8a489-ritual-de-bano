@@ -74,16 +74,16 @@ const paqueteDetails: Record<string, {
     shipping: 'Envío gratis',
     badge: 'Mejor valor',
     featured: false,
-    usp: 'Siempre lista para la noche. Sin quedarte sin — incluye envío sin costo.',
+    usp: 'Siempre lista para la noche. Sin quedarte sin stock. Incluye envío sin costo.',
   },
 }
 
 const pdpBenefits = [
-  { icon: Droplets,  title: 'Piel más suave desde el día 1',  desc: 'Hidratación visible desde el primer baño — sin esfuerzo.' },
+  { icon: Droplets,  title: 'Piel más suave desde el día 1',  desc: 'Hidratación visible desde el primer baño, sin esfuerzo.' },
   { icon: Moon,      title: 'Ritual que invita al sueño',     desc: 'Crea la señal perfecta para que tu bebé descanse tranquilo.' },
   { icon: Shield,    title: 'Seguro para recién nacidos',     desc: 'Sin irritantes, sin sulfatos, pH neutro. Para piel recién llegada.' },
   { icon: Sparkles,  title: 'Sin medir, sin adivinar',        desc: 'Un sobre = un baño perfecto. Cero desperdicio, cero estrés.' },
-  { icon: Heart,     title: 'Momento de conexión real',       desc: 'El baño se convierte en el momento favorito del día — para los dos.' },
+  { icon: Heart,     title: 'Momento de conexión real',       desc: 'El baño se convierte en el momento favorito del día, para los dos.' },
   { icon: Leaf,      title: 'Fórmula limpia certificada',     desc: 'Sin parabenos ni colorantes artificiales. Lo que tu bebé merece.' },
 ]
 
@@ -144,10 +144,10 @@ const pdpReviews = [
 const pdpFaqs = [
   { q: '¿Para qué edad está pensado?', a: 'Para bebés desde recién nacidos. Te recomendamos observar la piel de tu bebé las primeras veces, como con cualquier producto nuevo.' },
   { q: '¿Ayuda al bebé a dormir?', a: 'No es un medicamento, pero sí un aliado poderoso para crear una rutina. Muchas mamás nos cuentan que desde que lo usan, el baño se convierte en la señal perfecta para que el bebé entienda que viene la hora de dormir. La constancia del ritual es lo que transforma las noches.' },
-  { q: '¿Cada cuánto se puede usar?', a: 'Los pediatras recomiendan bañar a los recién nacidos 2-3 veces por semana — es lo ideal para su piel delicada. Con el tiempo, muchas familias lo hacen más seguido porque el baño se convierte en la señal perfecta de que es hora de dormir. Lunita puede usarse en cada baño, sin importar la frecuencia que funcione mejor para tu familia.' },
+  { q: '¿Cada cuánto se puede usar?', a: 'Los pediatras recomiendan bañar a los recién nacidos 2-3 veces por semana, es lo ideal para su piel delicada. Con el tiempo, muchas familias lo hacen más seguido porque el baño se convierte en la señal perfecta de que es hora de dormir. Lunita puede usarse en cada baño, sin importar la frecuencia que funcione mejor para tu familia.' },
   { q: '¿Cuánto tiempo tarda en llegar?', a: 'Los pedidos se procesan en 1-2 días hábiles. Entrega en 3-7 días hábiles a toda la República Mexicana.' },
-  { q: '¿Tiene aroma?', a: 'Sí, una fragancia muy suave y delicada — no invasiva. Pensada para acompañar el ritual sin ser la protagonista.' },
-  { q: '¿Es seguro para piel sensible?', a: 'Absolutamente. Fue formulado específicamente para la piel sensible del bebé — sin sulfatos, sin parabenos, sin colorantes artificiales y con pH neutro.' },
+  { q: '¿Tiene aroma?', a: 'Sí, una fragancia muy suave y delicada, no invasiva. Pensada para acompañar el ritual sin ser la protagonista.' },
+  { q: '¿Es seguro para piel sensible?', a: 'Absolutamente. Fue formulado específicamente para la piel sensible del bebé: sin sulfatos, sin parabenos, sin colorantes artificiales y con pH neutro.' },
 ]
 
 const StarRow = ({ count = 5, size = 'sm' }: { count?: number; size?: 'sm' | 'xs' }) => (
@@ -173,7 +173,7 @@ const ReviewCard = ({ review }: { review: typeof pdpReviews[0] }) => (
     <div className="aspect-[4/3] overflow-hidden">
       <img
         src={review.img}
-        alt={`Reseña de ${review.name} — Lunita ritual de baño nocturno`}
+        alt={`Reseña de ${review.name}. Lunita ritual de baño nocturno`}
         className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.03]"
         loading="lazy"
       />
@@ -368,7 +368,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 El Ritual de Baño para una Noche en Paz
               </h1>
               <p className="font-body text-sm text-foreground/65 leading-relaxed mb-4">
-                Transforma el baño de cada noche en un momento de pura conexión — para bebé y para ti.
+                Un momento de calma y conexión para bebé y para ti.
               </p>
 
               {/* 3 benefit bullets */}
@@ -376,7 +376,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 {[
                   { icon: Droplets, label: 'Piel más suave', desc: 'Desde el primer baño, visible.' },
                   { icon: Moon,     label: 'Invita a la calma', desc: 'El ritual que le dice al bebé que es hora de descansar.' },
-                  { icon: Heart,    label: 'Conexión real', desc: 'El momento favorito del día — para los dos.' },
+                  { icon: Heart,    label: 'Conexión real', desc: 'El momento favorito del día, para los dos.' },
                 ].map(({ icon: Icon, label, desc }) => (
                   <div key={label} className="flex items-center gap-3">
                     <div className="w-7 h-7 rounded-full bg-accent/40 flex items-center justify-center flex-shrink-0">
@@ -570,7 +570,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
             <div className="bg-accent/20 border border-accent/40 rounded-md px-4 py-3 flex items-center gap-3">
               <Shield className="h-5 w-5 text-foreground/50 flex-shrink-0" aria-hidden="true" />
               <p className="font-body text-xs text-foreground/65 leading-snug">
-                <span className="font-semibold text-foreground/80">Garantía Lunita:</span> Si no te encanta en tu primer uso, te lo resolvemos — sin complicaciones.
+                <span className="font-semibold text-foreground/80">Garantía Lunita:</span> Si no te encanta en tu primer uso, te lo resolvemos sin complicaciones.
               </p>
             </div>
 
@@ -735,7 +735,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
       <div className="relative overflow-hidden h-[240px] lg:h-[400px]">
         <img
           src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-lifestyle-hero.webp"
-          alt="Mamá disfrutando el ritual de baño con su bebé — Lunita"
+          alt="Mamá disfrutando el ritual de baño con su bebé, Lunita"
           className="w-full h-full object-cover"
           loading="lazy"
         />
@@ -749,7 +749,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
               "El baño que se convierte en el ritual de buenas noches."
             </p>
             <cite className="font-body text-sm text-white/55 not-italic">
-              — Lunita, Ritual Nocturno para Bebé
+              Lunita, Ritual Nocturno para Bebé
             </cite>
           </blockquote>
         </div>

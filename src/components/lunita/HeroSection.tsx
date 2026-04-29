@@ -13,7 +13,7 @@ export const HeroSection = () => {
       <div className="absolute inset-0">
         <img
           src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777481497971-27f5uiaptzdi.webp"
-          alt="Mamá bañando a su bebé recién nacido en tina redonda — Ritual de Baño Lunita"
+          alt="Mamá bañando a su bebé recién nacido en tina redonda. Ritual de Baño Lunita"
           fetchPriority="high"
           loading="eager"
           decoding="sync"
@@ -71,7 +71,7 @@ export const HeroSection = () => {
               className="inline-flex items-center justify-center gap-2 bg-white text-foreground px-8 py-4 text-sm font-body font-semibold tracking-wide hover:bg-white/90 transition-colors duration-200"
               style={{ borderRadius: '2px' }}
             >
-              Comprar 2 cajas — $699
+              Comprar 2 cajas · $699
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
             <a

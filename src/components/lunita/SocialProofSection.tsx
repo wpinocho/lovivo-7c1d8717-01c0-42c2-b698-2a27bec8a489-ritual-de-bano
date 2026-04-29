@@ -9,12 +9,12 @@ const trustCards = [
   {
     icon: Leaf,
     title: 'Formulado con cuidado',
-    description: 'Sin parabenos, sin sulfatos, sin colorantes. Suave desde el día 1 — pensado para la piel más delicada.',
+    description: 'Sin parabenos, sin sulfatos, sin colorantes. Suave desde el día 1, pensado para la piel más delicada.',
   },
   {
     icon: Package,
     title: 'Empaque premium',
-    description: 'Diseñado para regalar o atesorar. Llega protegido y listo para abrir — el detalle está en los detalles.',
+    description: 'Diseñado para regalar o atesorar. Llega protegido y listo para abrir. El detalle está en los detalles.',
   },
 ]
 
@@ -32,7 +32,7 @@ export const SocialProofSection = () => {
             Hecho con intención. Respaldado con garantía.
           </h2>
           <p className="font-body text-sm text-foreground/65 leading-relaxed">
-            Lunita está diseñado para que lo ames desde la primera vez. Si no es para ti, te lo resolvemos — sin complicaciones.
+            Lunita está diseñado para que lo ames desde la primera vez. Si no es para ti, te lo resolvemos sin complicaciones.
           </p>
         </div>
 
@@ -63,7 +63,7 @@ export const SocialProofSection = () => {
 
         {/* Bottom guarantee line */}
         <p className="text-center font-body text-xs text-foreground/50 mt-12 tracking-wide">
-          ✦ Lunita — Ritual de Baño Lechoso · Hecho en México · Fórmula certificada
+          ✦ Lunita · Ritual de Baño Lechoso · Hecho en México · Fórmula certificada
         </p>
 
       </div>

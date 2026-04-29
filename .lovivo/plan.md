@@ -21,6 +21,9 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
 - Small detail text: `text-foreground/55` minimum
 - On dark (featured) cards: `text-background/60` min, `text-background/80` for body
 
+## Copy Convention
+- **NEVER use "—" (em dash)** anywhere in copy. Replace with: coma, punto, "·", or rephrase.
+
 ## Product
 - Product ID: 101a5e33-0397-4283-8050-ea72235d00fd
 - Slug: `ritual-de-bao-para-beb` ← UPDATED (was `ritual-de-bao-lechoso-para-beb`)
@@ -106,7 +109,7 @@ Base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/me
 - `SocialProofSection.tsx` — p-6 mobile
 - `FAQSection.tsx` — removed duplicate FAQ question
 - `ClosingCTASection.tsx` — py-20 mobile
-- `PDPIngredientsSection.tsx` — ✅ NEW — PDP ingredient list with flat-lay photo, elegant list + chips
+- `PDPIngredientsSection.tsx` — ✅ UPDATED v2 — padding reducido, sin em dashes
 
 ## ProductPageUI.tsx — Current State
 ### Section Order
@@ -117,7 +120,7 @@ Base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/me
 3. How To Use (3 steps carousel)
 4. Editorial Lifestyle Strip
 5. Reviews (5 cards) ← ✅ UPGRADED v2 — with photos, carousel mobile + grid desktop
-6. **PDP Ingredients Section** ← ✅ IMPLEMENTED (before Gift Section)
+6. **PDP Ingredients Section** ← ✅ IMPLEMENTED + padding reducido v2
 7. Gift Section — ✅ image updated to real product photo (caja + sobres + flores)
 8. Upsell (3 Cajas dark block)
 9. FAQ (6 questions accordion)

@@ -30,7 +30,7 @@ export function PDPIngredientsSection() {
   return (
     <section
       aria-label="Ingredientes del ritual de baño Lunita"
-      className="bg-secondary/30 py-16 lg:py-24"
+      className="bg-secondary/30 py-10 lg:py-16"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
@@ -53,10 +53,10 @@ export function PDPIngredientsSection() {
             </p>
 
             {/* Heading */}
-            <h2 className="font-display text-3xl lg:text-4xl font-light text-foreground leading-tight mb-2">
+            <h2 className="font-display text-3xl lg:text-4xl font-light text-foreground leading-tight mb-1.5">
               Ingredientes que cuidan a tu bebé.
             </h2>
-            <p className="font-body text-sm text-foreground/60 mb-8">
+            <p className="font-body text-sm text-foreground/60 mb-4">
               Una fórmula suave, sin artificios.
             </p>
 
@@ -65,7 +65,7 @@ export function PDPIngredientsSection() {
               {ingredients.map((ing) => (
                 <div
                   key={ing.name}
-                  className="py-4 border-b border-border/40 last:border-b-0"
+                  className="py-2.5 border-b border-border/40 last:border-b-0"
                 >
                   <p className="font-body text-sm font-semibold text-foreground mb-1">
                     {ing.name}
@@ -78,7 +78,7 @@ export function PDPIngredientsSection() {
             </div>
 
             {/* Chips */}
-            <div className="flex flex-wrap gap-2 mt-6">
+            <div className="flex flex-wrap gap-2 mt-4">
               {chips.map((chip) => (
                 <span
                   key={chip}

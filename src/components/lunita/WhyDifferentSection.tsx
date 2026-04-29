@@ -50,7 +50,7 @@ export const WhyDifferentSection = () => {
               <div key={i} className="grid grid-cols-2 gap-2 md:gap-4">
                 {/* Before */}
                 <div className="bg-card/60 border border-border px-3 py-3 md:px-5 md:py-4 rounded-sm flex items-center gap-2 md:gap-3">
-                  <span className="text-foreground/25 text-lg leading-none flex-shrink-0">—</span>
+                  <span className="text-foreground/25 text-lg leading-none flex-shrink-0">·</span>
                   <p className="font-body text-xs md:text-sm text-foreground/60 leading-snug">{item}</p>
                 </div>
                 {/* After */}

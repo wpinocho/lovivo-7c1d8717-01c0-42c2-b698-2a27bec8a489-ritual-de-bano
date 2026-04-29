@@ -26,7 +26,7 @@ const offers = [
     badge: 'Más elegida',
     featured: true,
     description: 'La opción preferida. Cubre todo un mes de ritual nocturno.',
-    ctaText: 'Comprar 2 cajas — $699',
+    ctaText: 'Comprar 2 cajas · $699',
   },
   {
     id: 3,
