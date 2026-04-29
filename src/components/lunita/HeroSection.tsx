@@ -12,7 +12,7 @@ export const HeroSection = () => {
       {/* Full-bleed background image */}
       <div className="absolute inset-0">
         <img
-          src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath.webp"
+          src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath-v3.webp"
           alt="Ritual de baño lechoso para bebé — agua suave y luminosa"
           fetchPriority="high"
           loading="eager"

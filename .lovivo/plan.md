@@ -30,18 +30,19 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
   - 3 Cajas → $899 MXN + envío gratis (variant id: 20b81493-8043-4cda-9d57-26cf5ca0b0d2)
 - 5 product images updated to new set (see below)
 
-## IMAGE INVENTORY v2 — CURRENT (post-regeneration session) ✅
+## IMAGE INVENTORY v3 — CURRENT ✅
 
 All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/`
 
-### New Image Set
+### Current Image Set
 
 | File | Description | Used In |
 |------|-------------|---------|
 | `lunita-lifestyle-hero.webp` | Close-up baby face in cream muslin, mother's hands, warm candle bokeh | PDP gallery [0], PDP editorial strip |
 | `lunita-box-v2.webp` | Flat lay: cream box LUNITA branding + sachets, chamomile, lavender, oats | PDP gallery [1], Steps 01, Gift section, Homepage HowItWorks Step 01, IngredientsSection |
 | `lunita-milky-water.webp` | Aerial view milky water swirls in white ceramic tub | PDP gallery [2], Step 02, Homepage HowItWorks Step 02, Closing CTA bg |
-| `lunita-baby-bath.webp` | Baby in cream hooded towel in small white round tub, parent, golden backlight | PDP gallery [3], Step 03, Homepage hero, HowItWorks Step 03 |
+| `lunita-baby-bath-v3.webp` | **NEW** Baby in cream waffle muslin in white round tub, parent's hands, lamp + dried flowers bg, NO candles | Homepage hero, HowItWorks Step 03 |
+| `lunita-baby-bath.webp` | Old hero image (has candles) — deprecated, do NOT use | — |
 | `lunita-ritual.webp` | Hands over milky water (cloth sachet) — de-prioritized | PDP gallery [4] only |
 
 ## FILES BUILT
@@ -58,7 +59,7 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 - `src/pages/ui/ProductPageUI.tsx` — premium PDP
 
 ### Lunita Section Components (src/components/lunita/)
-- `HeroSection.tsx` — full-bleed hero; reduced py-28→py-20 mobile, extra bottom gradient mobile
+- `HeroSection.tsx` — full-bleed hero; reduced py-28→py-20 mobile, extra bottom gradient mobile; now uses lunita-baby-bath-v3.webp (no candles)
 - `TrustTickerSection.tsx` — ✅ NEW — dark strip with 8 trust items, marquee animation
 - `HowItWorksSection.tsx` — ✅ UPDATED — desktop 3-col grid + mobile horizontal snap carousel (78vw cards) + dot indicators; padding py-16 mobile
 - `WhyDifferentSection.tsx` — ✅ UPDATED — smaller gap/padding on mobile (gap-2, px-3 py-3, text-xs)
@@ -66,13 +67,13 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 - `OfferSection.tsx` — ✅ UPDATED — scale-[1.03] only on md+, p-6 mobile; py-16 mobile
 - `IngredientsSection.tsx` — ✅ UPDATED — image first on mobile (no order classes), gap-8 mobile; py-16 mobile
 - `SocialProofSection.tsx` — ✅ UPDATED — p-6 mobile, py-16 mobile
-- `FAQSection.tsx` — ✅ UPDATED — py-16 mobile, mb-10 header mobile
+- `FAQSection.tsx` — ✅ UPDATED — removed duplicate FAQ question; py-16 mobile, mb-10 header mobile
 - `ClosingCTASection.tsx` — ✅ UPDATED — py-20 mobile
 
 ## ProductPageUI.tsx — Current State
 ### Section Order
 1. Hero (Gallery + Product Info)
-   - Urgency bar: "🟢 Stock disponible · Pedidos antes de las 2 pm salen el mismo día"
+   - Urgency bar: "🟢 Stock disponible · Envío en 1–3 días hábiles a todo México"
    - Payment badges: Visa, Mastercard, OXXO, AMEX (below micro trust signals)
 2. Trust Ticker — infinite scroll dark strip
 3. How To Use (3 steps carousel)
@@ -97,6 +98,7 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 - All internal CTAs reference this slug
 - Newsletter section removed from homepage — can be re-added later
 - PDP shows 404 in preview (backend not connected to preview env — works in production)
+- `lunita-baby-bath.webp` (old) is deprecated — has candles; replaced by `lunita-baby-bath-v3.webp`
 
 ## Pending / Future Sessions
 1. **Brand name finalization** — replace "Lunita" everywhere once name is confirmed
@@ -111,3 +113,4 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 10. **UGC photo strip** — once real customer photos arrive (Instagram-style strip, 4-6 images)
 11. **Homepage sticky CTA (móvil)** — barra fija "Comprar 2 cajas — $699" que aparece al hacer scroll más allá del hero. Solo visible en móvil. Pendiente.
 12. **Reviews con foto** — agregar avatares/fotos reales cuando el cliente las proporcione
+13. **HowItWorks Step 03** — still uses old lunita-baby-bath.webp (has candles) — update to lunita-baby-bath-v3.webp when confirmed hero looks good
