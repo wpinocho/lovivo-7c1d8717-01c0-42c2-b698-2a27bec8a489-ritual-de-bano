@@ -91,20 +91,19 @@ const pdpSteps = [
     num: '01',
     title: 'Abre el sobre',
     desc: 'Un solo sobre por baño. Fácil de abrir mientras preparas la tina.',
-    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box-v2.webp',
+    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936323-x17i5ei8x4o.webp',
   },
   {
     num: '02',
     title: 'Agrégalo al agua',
     desc: 'Viértelo mientras llenas la tina y observa cómo el agua se transforma.',
-    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-milky-water.webp',
+    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936324-qptx5gewg4f.webp',
   },
   {
     num: '03',
     title: 'Disfruta el ritual',
     desc: 'Baña a tu bebé con calma. Un momento suave para cerrar el día y preparar la noche.',
-    
-    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath.webp',
+    img: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936324-i93fuswsnsi.webp',
   },
 ]
 
