@@ -30,20 +30,27 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
   - 3 Cajas → $899 MXN + envío gratis (variant id: 20b81493-8043-4cda-9d57-26cf5ca0b0d2)
 - 5 product images updated to new set (see below)
 
-## IMAGE INVENTORY v3 — CURRENT ✅
+## IMAGE INVENTORY v4 — CURRENT ✅
 
-All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/`
+All product images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/`
 
 ### Current Image Set
 
 | File | Description | Used In |
 |------|-------------|---------|
 | `lunita-lifestyle-hero.webp` | Close-up baby face in cream muslin, mother's hands, warm candle bokeh | PDP gallery [0], PDP editorial strip |
-| `lunita-box-v2.webp` | Flat lay: cream box LUNITA branding + sachets, chamomile, lavender, oats | PDP gallery [1], Steps 01, Gift section, Homepage HowItWorks Step 01, IngredientsSection |
-| `lunita-milky-water.webp` | Aerial view milky water swirls in white ceramic tub | PDP gallery [2], Step 02, Homepage HowItWorks Step 02, Closing CTA bg |
-| `lunita-baby-bath-v3.webp` | **NEW** Baby in cream waffle muslin in white round tub, parent's hands, lamp + dried flowers bg, NO candles | Homepage hero, HowItWorks Step 03 |
+| `lunita-box-v2.webp` | Flat lay: cream box LUNITA branding + sachets, chamomile, lavender, oats | PDP gallery [1], Gift section, IngredientsSection |
+| `lunita-milky-water.webp` | Aerial view milky water swirls in white ceramic tub | PDP gallery [2], Closing CTA bg |
+| `lunita-baby-bath-v3.webp` | Baby in cream waffle muslin in white round tub, parent's hands, lamp + dried flowers bg, NO candles | Homepage hero |
 | `lunita-baby-bath.webp` | Old hero image (has candles) — deprecated, do NOT use | — |
 | `lunita-ritual.webp` | Hands over milky water (cloth sachet) — de-prioritized | PDP gallery [4] only |
+
+### HowItWorks Steps (real product photos — uploaded by client)
+| URL | Step | Description |
+|-----|------|-------------|
+| `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936323-x17i5ei8x4o.webp` | Step 01 — Abre el sobre | Real product: LUNITA box open with sachets, chamomile, lavender, oats |
+| `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936324-qptx5gewg4f.webp` | Step 02 — Agrégalo al agua | Hand pouring sachet into milky oval tub |
+| `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936324-i93fuswsnsi.webp` | Step 03 — Disfruta el ritual | Mother bathing newborn in round tub (real lifestyle photo) |
 
 ## FILES BUILT
 ### Design System
@@ -59,16 +66,16 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 - `src/pages/ui/ProductPageUI.tsx` — premium PDP
 
 ### Lunita Section Components (src/components/lunita/)
-- `HeroSection.tsx` — full-bleed hero; reduced py-28→py-20 mobile, extra bottom gradient mobile; now uses lunita-baby-bath-v3.webp (no candles)
-- `TrustTickerSection.tsx` — ✅ NEW — dark strip with 8 trust items, marquee animation
-- `HowItWorksSection.tsx` — ✅ UPDATED — desktop 3-col grid + mobile horizontal snap carousel (78vw cards) + dot indicators; padding py-16 mobile
-- `WhyDifferentSection.tsx` — ✅ UPDATED — smaller gap/padding on mobile (gap-2, px-3 py-3, text-xs)
-- `BenefitsSection.tsx` — ✅ REDESIGNED — mobile: editorial numbered list (01–06) with dividers; desktop: 3-col grid with typographic numbers
-- `OfferSection.tsx` — ✅ UPDATED — scale-[1.03] only on md+, p-6 mobile; py-16 mobile
-- `IngredientsSection.tsx` — ✅ UPDATED — image first on mobile (no order classes), gap-8 mobile; py-16 mobile
-- `SocialProofSection.tsx` — ✅ UPDATED — p-6 mobile, py-16 mobile
-- `FAQSection.tsx` — ✅ UPDATED — removed duplicate FAQ question; py-16 mobile, mb-10 header mobile
-- `ClosingCTASection.tsx` — ✅ UPDATED — py-20 mobile
+- `HeroSection.tsx` — full-bleed hero; uses lunita-baby-bath-v3.webp (no candles)
+- `TrustTickerSection.tsx` — dark strip with 8 trust items, marquee animation
+- `HowItWorksSection.tsx` — ✅ UPDATED v3 — real client photos for all 3 steps
+- `WhyDifferentSection.tsx` — smaller gap/padding on mobile
+- `BenefitsSection.tsx` — mobile: editorial numbered list (01–06) with dividers; desktop: 3-col grid
+- `OfferSection.tsx` — scale-[1.03] only on md+
+- `IngredientsSection.tsx` — image first on mobile
+- `SocialProofSection.tsx` — p-6 mobile
+- `FAQSection.tsx` — removed duplicate FAQ question
+- `ClosingCTASection.tsx` — py-20 mobile
 
 ## ProductPageUI.tsx — Current State
 ### Section Order
@@ -113,4 +120,4 @@ All images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/ob
 10. **UGC photo strip** — once real customer photos arrive (Instagram-style strip, 4-6 images)
 11. **Homepage sticky CTA (móvil)** — barra fija "Comprar 2 cajas — $699" que aparece al hacer scroll más allá del hero. Solo visible en móvil. Pendiente.
 12. **Reviews con foto** — agregar avatares/fotos reales cuando el cliente las proporcione
-13. **HowItWorks Step 03** — still uses old lunita-baby-bath.webp (has candles) — update to lunita-baby-bath-v3.webp when confirmed hero looks good
+13. **PDP How To Use** — same HowItWorksSection component — already updated with real photos ✅

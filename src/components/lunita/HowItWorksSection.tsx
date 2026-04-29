@@ -3,19 +3,19 @@ const steps = [
     number: '01',
     title: 'Abre el sobre',
     description: 'Cada caja incluye 6 sobres monodosis. Abre uno mientras preparas la tina del bebé.',
-    image: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box-v2.webp',
+    image: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936323-x17i5ei8x4o.webp',
   },
   {
     number: '02',
     title: 'Agrégalo al agua',
     description: 'Viértelo mientras la tina se llena. Observa cómo el agua se transforma en un baño suave y lechoso.',
-    image: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-milky-water.webp',
+    image: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936324-qptx5gewg4f.webp',
   },
   {
     number: '03',
     title: 'Disfruta el ritual',
     description: 'Baña a tu bebé con calma. Un baño suave y especial para cerrar el día de la mejor manera.',
-    image: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-baby-bath.webp',
+    image: 'https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936324-i93fuswsnsi.webp',
   },
 ]
 
