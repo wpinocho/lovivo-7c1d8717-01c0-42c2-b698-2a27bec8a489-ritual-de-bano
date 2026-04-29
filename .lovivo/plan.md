@@ -30,7 +30,7 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
   - 3 Cajas → $899 MXN + envío gratis (variant id: 20b81493-8043-4cda-9d57-26cf5ca0b0d2)
 - 5 product images updated to new set (see below)
 
-## IMAGE INVENTORY v4 — CURRENT ✅
+## IMAGE INVENTORY v5 — CURRENT ✅
 
 All product images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/`
 
@@ -41,9 +41,13 @@ All product images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/stora
 | `lunita-lifestyle-hero.webp` | Close-up baby face in cream muslin, mother's hands, warm candle bokeh | PDP gallery [0], PDP editorial strip |
 | `lunita-box-v2.webp` | Flat lay: cream box LUNITA branding + sachets, chamomile, lavender, oats | PDP gallery [1], Gift section, IngredientsSection |
 | `lunita-milky-water.webp` | Aerial view milky water swirls in white ceramic tub | PDP gallery [2], Closing CTA bg |
-| `lunita-baby-bath-v3.webp` | Baby in cream waffle muslin in white round tub, parent's hands, lamp + dried flowers bg, NO candles | Homepage hero |
+| `lunita-baby-bath-v3.webp` | Baby in cream waffle muslin in white round tub, parent's hands, lamp + dried flowers bg, NO candles — **DEPRECATED for hero** | — |
 | `lunita-baby-bath.webp` | Old hero image (has candles) — deprecated, do NOT use | — |
 | `lunita-ritual.webp` | Hands over milky water (cloth sachet) — de-prioritized | PDP gallery [4] only |
+
+### Homepage Hero (v4 — current)
+URL: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777481497971-27f5uiaptzdi.webp`
+Description: Real client photo — mamá bañando bebé recién nacido en tina redonda, baño claro con canasta y cortinas
 
 ### HowItWorks Steps (real product photos — uploaded by client)
 | URL | Step | Description |
@@ -66,7 +70,7 @@ All product images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/stora
 - `src/pages/ui/ProductPageUI.tsx` — premium PDP
 
 ### Lunita Section Components (src/components/lunita/)
-- `HeroSection.tsx` — full-bleed hero; uses lunita-baby-bath-v3.webp (no candles)
+- `HeroSection.tsx` — full-bleed hero; ✅ v4 uses real client photo (mamá + bebé en tina)
 - `TrustTickerSection.tsx` — dark strip with 8 trust items, marquee animation
 - `HowItWorksSection.tsx` — ✅ UPDATED v3 — real client photos for all 3 steps
 - `WhyDifferentSection.tsx` — smaller gap/padding on mobile
@@ -105,7 +109,8 @@ All product images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/stora
 - All internal CTAs reference this slug
 - Newsletter section removed from homepage — can be re-added later
 - PDP shows 404 in preview (backend not connected to preview env — works in production)
-- `lunita-baby-bath.webp` (old) is deprecated — has candles; replaced by `lunita-baby-bath-v3.webp`
+- `lunita-baby-bath.webp` (old) is deprecated — has candles; replaced by real client photo v4
+- `lunita-baby-bath-v3.webp` — AI-generated, no longer used for hero
 
 ## Pending / Future Sessions
 1. **Brand name finalization** — replace "Lunita" everywhere once name is confirmed
