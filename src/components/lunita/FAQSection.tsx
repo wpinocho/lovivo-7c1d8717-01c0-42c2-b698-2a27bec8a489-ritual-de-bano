@@ -18,10 +18,6 @@ const faqs = [
     a: 'Los pediatras recomiendan bañar a los recién nacidos 2-3 veces por semana — es lo ideal para su piel delicada. Con el tiempo, muchas familias aumentan la frecuencia porque el baño se convierte en la señal perfecta de que es hora de dormir. Lunita puede usarse en cada baño, sin importar la frecuencia que funcione mejor para tu familia.',
   },
   {
-    q: '¿Con qué frecuencia debo bañar a mi bebé recién nacido?',
-    a: 'Los pediatras recomiendan bañar a los recién nacidos 2 o 3 veces por semana — su piel es tan delicada que no necesita más. Con el tiempo, muchas familias aumentan la frecuencia porque el baño se convierte en la señal perfecta de que llegó la hora de dormir. Lo más importante no es cuántas veces, sino que sea un momento consistente, calmado y especial. Eso es exactamente lo que el Ritual de Baño de Lunita está diseñado para hacer.',
-  },
-  {
     q: '¿El producto tiene aroma?',
     a: 'Sí, tiene una fragancia suave y delicada — no invasiva. Está pensada para acompañar el ritual sin ser la protagonista.',
   },
