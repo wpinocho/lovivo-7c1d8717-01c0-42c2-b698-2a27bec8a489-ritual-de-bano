@@ -39,7 +39,7 @@ All product images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/stora
 | File | Description | Used In |
 |------|-------------|---------|
 | `lunita-lifestyle-hero.webp` | Close-up baby face in cream muslin, mother's hands, warm candle bokeh | PDP gallery [0], PDP editorial strip |
-| `lunita-box-v2.webp` | Flat lay: cream box LUNITA branding + sachets, chamomile, lavender, oats | PDP gallery [1], Gift section |
+| `lunita-box-v2.webp` | Flat lay: cream box LUNITA branding + sachets, chamomile, lavender, oats | PDP gallery [1] |
 | `lunita-milky-water.webp` | Aerial view milky water swirls in white ceramic tub | PDP gallery [2], Closing CTA bg |
 | `lunita-baby-bath-v3.webp` | Baby in cream waffle muslin in white round tub — **DEPRECATED for hero** | — |
 | `lunita-baby-bath.webp` | Old hero image (has candles) — deprecated, do NOT use | — |
@@ -59,6 +59,10 @@ Description: Real client photo — mamá bañando bebé recién nacido en tina r
 | `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936323-x17i5ei8x4o.webp` | Step 01 — Abre el sobre | Real product: LUNITA box open with sachets, chamomile, lavender, oats |
 | `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936324-qptx5gewg4f.webp` | Step 02 — Agrégalo al agua | Hand pouring sachet into milky oval tub |
 | `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936324-i93fuswsnsi.webp` | Step 03 — Disfruta el ritual | Mother bathing newborn in round tub (real lifestyle photo) |
+
+### PDP Gift Section image (v2 — current)
+URL: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936323-x17i5ei8x4o.webp`
+Description: Real product photo — caja Lunita abierta con sobres individuales y flores secas (manzanilla + lavanda + avena)
 
 ## FILES BUILT
 ### Design System
@@ -94,7 +98,7 @@ Description: Real client photo — mamá bañando bebé recién nacido en tina r
 3. How To Use (3 steps carousel)
 4. Editorial Lifestyle Strip
 5. Reviews (4 cards)
-6. Gift Section
+6. Gift Section — ✅ image updated to real product photo (caja + sobres + flores)
 7. Upsell (3 Cajas dark block)
 8. FAQ (6 questions accordion)
 9. WhatsApp text link — "¿Tienes alguna duda? Escríbenos por WhatsApp →" (+52 55 3121 5386)

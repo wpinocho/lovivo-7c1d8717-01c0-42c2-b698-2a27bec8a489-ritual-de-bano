@@ -771,8 +771,8 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
           {/* Image */}
           <div className="aspect-[4/3] lg:aspect-auto overflow-hidden">
             <img
-              src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box-v2.webp"
-              alt="Empaque premium Lunita — listo para regalar en baby shower"
+              src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777480936323-x17i5ei8x4o.webp"
+              alt="Caja Lunita abierta con sobres de baño, manzanilla y lavanda"
               className="w-full h-full object-cover"
               loading="lazy"
             />
