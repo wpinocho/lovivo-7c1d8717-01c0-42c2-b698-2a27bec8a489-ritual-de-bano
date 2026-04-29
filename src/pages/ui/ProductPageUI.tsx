@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/carousel"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import ProductExpressCheckout from "@/components/ProductExpressCheckout"
+import { PDPIngredientsSection } from "@/components/lunita/PDPIngredientsSection"
 
 interface ProductPageUIProps {
   logic: {
@@ -801,6 +802,11 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
           </div>
         </div>
       </section>
+
+      {/* ════════════════════════════════════════════
+          INGREDIENTS SECTION
+      ════════════════════════════════════════════ */}
+      <PDPIngredientsSection />
 
       {/* ════════════════════════════════════════════
           GIFT SECTION — Baby shower gifting

@@ -49,10 +49,10 @@ All product images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/stora
 URL: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/products/cd592c56uik.webp`
 Description: Real client photo — caja Lunita abierta con sobres de baño y flores secas (manzanilla + lavanda)
 
-### PDP Ingredients Section image (NEW — v1)
-Source: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777491311119-6jvrb5wsgao.webp`
+### PDP Ingredients Section image (v1 — IMPLEMENTED ✅)
+URL: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777491311119-6jvrb5wsgao.webp`
 Description: AI-generated flat lay — caja LUNITA cerrada + sobres de tela + avena + almidón en cuenco + manzanilla + lavanda + extracto de lechuga + frasco de extracto botánico. Fondo tela cream texturada. MUY premium.
-→ **In Craft Mode: copy with lov-copy('https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777491311119-6jvrb5wsgao.webp', 'public/lunita-ingredients-flatlay.webp') and use returned URL**
+Component: `src/components/lunita/PDPIngredientsSection.tsx`
 
 ### Homepage Hero (v4 — current)
 URL: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777481497971-27f5uiaptzdi.webp`
@@ -106,6 +106,7 @@ Base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/me
 - `SocialProofSection.tsx` — p-6 mobile
 - `FAQSection.tsx` — removed duplicate FAQ question
 - `ClosingCTASection.tsx` — py-20 mobile
+- `PDPIngredientsSection.tsx` — ✅ NEW — PDP ingredient list with flat-lay photo, elegant list + chips
 
 ## ProductPageUI.tsx — Current State
 ### Section Order
@@ -116,7 +117,7 @@ Base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/me
 3. How To Use (3 steps carousel)
 4. Editorial Lifestyle Strip
 5. Reviews (5 cards) ← ✅ UPGRADED v2 — with photos, carousel mobile + grid desktop
-6. **[NEW] PDP Ingredients Section** ← INSERT HERE (before Gift Section)
+6. **PDP Ingredients Section** ← ✅ IMPLEMENTED (before Gift Section)
 7. Gift Section — ✅ image updated to real product photo (caja + sobres + flores)
 8. Upsell (3 Cajas dark block)
 9. FAQ (6 questions accordion)
@@ -125,116 +126,6 @@ Base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/me
 12. Sticky Add-to-Cart bar
 
 ---
-
-## NEXT TASK: PDP Ingredients Section (PENDING — ready to build in Craft Mode)
-
-### What the user wants
-A new section in the PDP, positioned BEFORE the Gift Section ("Listo para regalar"), showing:
-- The new AI-generated flat-lay photo (box + sachets + ingredients spread on cream fabric)
-- An elegant ingredient list (NOT a table) — bold name + brief description per ingredient
-- Small chips/tags at the bottom: "Sobres individuales", "Aroma suave", "Rutina nocturna"
-
-### Implementation Steps
-
-**Step 1: Copy the image**
-```
-lov-copy('https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777491311119-6jvrb5wsgao.webp', 'public/lunita-ingredients-flatlay.webp')
-```
-Use the returned URL for the `src` attribute.
-
-**Step 2: Create `src/components/lunita/PDPIngredientsSection.tsx`**
-
-Design spec:
-- Section background: `bg-secondary/30` (warm oat) for contrast with surrounding white sections
-- Padding: `py-16 lg:py-24`
-- Max width container: `max-w-7xl mx-auto px-6 lg:px-12`
-- Layout:
-  - **Mobile**: stacked — image on top (aspect-[4/3], rounded-sm), content below
-  - **Desktop (lg+)**: 2-column grid `grid-cols-2 gap-12 lg:gap-20 items-center` — IMAGE on LEFT, text on RIGHT
-
-**Image treatment:**
-- `aspect-[4/3]` on mobile, `lg:aspect-auto lg:h-full` with `min-h-[500px]` on desktop
-- `rounded-sm overflow-hidden`
-- `object-cover` fill
-- Subtle scale on hover: `hover:scale-[1.02] transition-transform duration-700`
-
-**Text side layout:**
-```
-Eyebrow: "Lo que hay adentro" — font-body text-[10px] tracking-[0.22em] uppercase text-foreground/45 mb-4
-H2: "Ingredientes que cuidan a tu bebé." — font-display text-3xl lg:text-4xl font-light text-foreground mb-2 leading-tight
-Subtext: "Una fórmula suave, sin artificios." — font-body text-sm text-foreground/60 mb-8
-```
-
-**Ingredient list** — elegant vertical list with subtle dividers:
-```tsx
-const ingredients = [
-  {
-    name: 'Avena coloidal',
-    desc: 'Aporta una sensación suave y lechosa al agua, ideal para un baño delicado que ayuda a la piel.',
-  },
-  {
-    name: 'Almidón de arroz / tapioca',
-    desc: 'Ayuda a crear una textura sedosa y ligera en la tina.',
-  },
-  {
-    name: 'Manzanilla',
-    desc: 'Un botánico clásico asociado con rutinas suaves y momentos de calma.',
-  },
-  {
-    name: 'Toque mínimo de lavanda cosmética',
-    desc: 'Aporta una nota aromática sutil para acompañar el ritual nocturno.',
-  },
-  {
-    name: 'Extracto botánico de lechuga',
-    desc: 'Inspirado en rituales tradicionales de baño.',
-  },
-]
-```
-
-Each item:
-```tsx
-<div className="py-4 border-b border-border/40 last:border-b-0">
-  <p className="font-body text-sm font-semibold text-foreground mb-1">{ing.name}</p>
-  <p className="font-body text-xs text-foreground/65 leading-relaxed">{ing.desc}</p>
-</div>
-```
-
-**Chips row** (below ingredient list, `mt-6`):
-```tsx
-const chips = ['Sobres individuales', 'Aroma suave', 'Rutina nocturna']
-```
-Style each chip: `inline-flex items-center px-3 py-1.5 rounded-full bg-accent/30 border border-accent/50 font-body text-[11px] text-foreground/65`
-Wrap in `flex flex-wrap gap-2`
-
-**Step 3: Import and insert in `src/pages/ui/ProductPageUI.tsx`**
-- Import `PDPIngredientsSection` at the top
-- Insert it BETWEEN the Reviews section (`</section>`) and the Gift Section block (`{/* GIFT SECTION */}`)
-- The insertion point is around line 803-808 in the current file
-
-### Reviews Section v2 (DONE ✅)
-- 5 reviews with real photos (photo-first card design)
-- Mobile: Embla carousel, basis-[82%] (peek of next card)
-- Desktop sm: grid-cols-2, Desktop lg: grid-cols-3
-- 5th card: sm:col-span-2 lg:col-span-1
-- Counter: "4.9 · 127 reseñas verificadas"
-- No em-dash (—) in review texts — sounds natural/authentic
-- `ReviewCard` component defined above `ProductPageUI` export
-
-### ReviewCard pattern
-```tsx
-const ReviewCard = ({ review }: { review: typeof pdpReviews[0] }) => (
-  <div className="bg-background border border-border/60 rounded-md overflow-hidden shadow-sm flex flex-col h-full">
-    <div className="aspect-[4/3] overflow-hidden">
-      <img src={review.img} ... className="... hover:scale-[1.03]" loading="lazy" />
-    </div>
-    <div className="p-5 flex flex-col gap-3 flex-1">
-      <StarRow count={5} size="xs" /> + Verificado badge
-      <p>"{review.text}"</p>
-      <div className="border-t"> name + detail </div>
-    </div>
-  </div>
-)
-```
 
 ## URL Param Convention (PDP)
 - `?p=1` → preselect 1 Caja
