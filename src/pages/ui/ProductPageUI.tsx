@@ -567,10 +567,10 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
             </div>
 
             {/* Guarantee */}
-            <div className="bg-accent/20 border border-accent/40 rounded-md px-4 py-3 flex items-center gap-3">
-              <Shield className="h-5 w-5 text-foreground/50 flex-shrink-0" aria-hidden="true" />
+            <div className="bg-accent/20 border border-accent/40 rounded-md px-4 py-3 flex items-start gap-3">
+              <Shield className="h-5 w-5 text-foreground/50 flex-shrink-0 mt-0.5" aria-hidden="true" />
               <p className="font-body text-xs text-foreground/65 leading-snug">
-                <span className="font-semibold text-foreground/80">Garantía Lunita:</span> Si no te encanta en tu primer uso, te lo resolvemos sin complicaciones.
+                <span className="font-semibold text-foreground/80">Garantía de satisfacción:</span> Si no te convence tu primer baño, te devolvemos tu dinero completo. Sin preguntas, sin trámites.
               </p>
             </div>
 

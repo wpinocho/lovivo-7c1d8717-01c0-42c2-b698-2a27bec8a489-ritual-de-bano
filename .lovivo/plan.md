@@ -116,6 +116,7 @@ Base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/me
 1. Hero (Gallery + Product Info)
    - Urgency bar: "🟢 Stock disponible · Envío en 1–3 días hábiles a todo México"
    - Payment badges: Visa, Mastercard, OXXO, AMEX (below micro trust signals)
+   - **Garantía:** "Garantía de satisfacción: Si no te convence tu primer baño, te devolvemos tu dinero completo. Sin preguntas, sin trámites." ✅ UPDATED
 2. Trust Ticker — infinite scroll dark strip
 3. How To Use (3 steps carousel)
 4. Editorial Lifestyle Strip
