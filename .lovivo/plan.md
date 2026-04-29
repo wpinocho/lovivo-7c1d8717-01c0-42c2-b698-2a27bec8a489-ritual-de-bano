@@ -30,7 +30,7 @@ Market: Mexico, NSE medio-alto, mamás y papás 25-40 años
   - 3 Cajas → $899 MXN + envío gratis (variant id: 20b81493-8043-4cda-9d57-26cf5ca0b0d2)
 - 5 product images updated to new set (see below)
 
-## IMAGE INVENTORY v5 — CURRENT ✅
+## IMAGE INVENTORY v6 — CURRENT ✅
 
 All product images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/`
 
@@ -39,11 +39,15 @@ All product images at base path: `https://ptgmltivisbtvmoxwnhd.supabase.co/stora
 | File | Description | Used In |
 |------|-------------|---------|
 | `lunita-lifestyle-hero.webp` | Close-up baby face in cream muslin, mother's hands, warm candle bokeh | PDP gallery [0], PDP editorial strip |
-| `lunita-box-v2.webp` | Flat lay: cream box LUNITA branding + sachets, chamomile, lavender, oats | PDP gallery [1], Gift section, IngredientsSection |
+| `lunita-box-v2.webp` | Flat lay: cream box LUNITA branding + sachets, chamomile, lavender, oats | PDP gallery [1], Gift section |
 | `lunita-milky-water.webp` | Aerial view milky water swirls in white ceramic tub | PDP gallery [2], Closing CTA bg |
-| `lunita-baby-bath-v3.webp` | Baby in cream waffle muslin in white round tub, parent's hands, lamp + dried flowers bg, NO candles — **DEPRECATED for hero** | — |
+| `lunita-baby-bath-v3.webp` | Baby in cream waffle muslin in white round tub — **DEPRECATED for hero** | — |
 | `lunita-baby-bath.webp` | Old hero image (has candles) — deprecated, do NOT use | — |
 | `lunita-ritual.webp` | Hands over milky water (cloth sachet) — de-prioritized | PDP gallery [4] only |
+
+### IngredientsSection image (v2 — current)
+URL: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/products/cd592c56uik.webp`
+Description: Real client photo — caja Lunita abierta con sobres de baño y flores secas (manzanilla + lavanda)
 
 ### Homepage Hero (v4 — current)
 URL: `https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/message-images/d8a936b6-cd11-4e84-9e9a-1520776f2b9d/1777481497971-27f5uiaptzdi.webp`
@@ -76,7 +80,7 @@ Description: Real client photo — mamá bañando bebé recién nacido en tina r
 - `WhyDifferentSection.tsx` — smaller gap/padding on mobile
 - `BenefitsSection.tsx` — mobile: editorial numbered list (01–06) with dividers; desktop: 3-col grid
 - `OfferSection.tsx` — scale-[1.03] only on md+
-- `IngredientsSection.tsx` — image first on mobile
+- `IngredientsSection.tsx` — ✅ v2: real client photo (caja abierta con sobres)
 - `SocialProofSection.tsx` — p-6 mobile
 - `FAQSection.tsx` — removed duplicate FAQ question
 - `ClosingCTASection.tsx` — py-20 mobile

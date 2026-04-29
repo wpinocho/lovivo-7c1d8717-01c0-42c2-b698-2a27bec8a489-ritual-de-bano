@@ -26,8 +26,8 @@ export const IngredientsSection = () => {
           <div>
             <div className="aspect-[4/3] rounded-sm overflow-hidden bg-secondary">
               <img
-                src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/7c1d8717-01c0-42c2-b698-2a27bec8a489/lunita-box-v2.webp"
-                alt="Empaque premium del Ritual de Baño Lechoso Lunita"
+                src="https://ptgmltivisbtvmoxwnhd.supabase.co/storage/v1/object/public/product-images/products/cd592c56uik.webp"
+                alt="Caja Lunita abierta con sobres de ritual de baño nocturno para bebé"
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover"
